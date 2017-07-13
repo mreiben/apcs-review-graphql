@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+
+//wrapped by requireAuth in index.js routes
+
 class Dashboard extends Component {
   render(){
     return(
