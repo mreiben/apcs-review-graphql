@@ -1,10 +1,10 @@
 {
   "name": "users",
   "version": "1.0.0",
-  "description": "Starter pack for an auth-included graphql project",
+  "description": "graphql project to review Java for APCS test",
   "repository": {
     "type": "git",
-    "url": "github.com/stephengrider"
+    "url": "github.com/mreiben"
   },
   "main": "index.js",
   "scripts": {
