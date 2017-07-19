@@ -12,3 +12,7 @@
 textarea:focus, input:focus{
   background-color: #F4F4F4;
 }
+
+input{
+  padding-left: 10px;
+}
