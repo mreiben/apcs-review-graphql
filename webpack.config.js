@@ -13,10 +13,20 @@ module.exports = {
         use: 'babel-loader',
         test: /\.js$/,
         exclude: /node_modules/
+      },
+      {
+        use: ['style-loader', 'css-loader'],
+        test: /\.css$/
       }
     ]
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.$': 'jquery',
+      'window.jQuery': 'jquery',
+    }),
     new HtmlWebpackPlugin({
       template: 'client/index.html'
     })

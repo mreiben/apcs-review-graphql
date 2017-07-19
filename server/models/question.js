@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('./user');
 
 const QuestionSchema = new Schema({
   prompt: String,
@@ -10,7 +11,12 @@ const QuestionSchema = new Schema({
   answer4: String,
   answer5: String,
   correct: String,
-  topics: [String]
+  topics: [String],
+  explanation: String,
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'user'
+  }
 });
 
 mongoose.model('question', QuestionSchema);

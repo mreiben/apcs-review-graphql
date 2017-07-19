@@ -1,4 +1,5 @@
 const graphql = require('graphql');
+const UserType = require('./user_type');
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -9,7 +10,7 @@ const {
 
 const QuestionType = new GraphQLObjectType({
   name: 'QuestionType',
-  fields: {
+  fields: () =>({
     id: { type: GraphQLID },
     prompt: { type: new GraphQLNonNull(GraphQLString) },
     code: { type: GraphQLString },
@@ -19,8 +20,10 @@ const QuestionType = new GraphQLObjectType({
     answer4: { type: new GraphQLNonNull(GraphQLString) },
     answer5: { type: new GraphQLNonNull(GraphQLString) },
     correct: { type: new GraphQLNonNull(GraphQLString) },
-    topics: { type: new GraphQLList(GraphQLString) }
-  }
+    topics: { type: new GraphQLList(GraphQLString) },
+    explanation: { type: new GraphQLNonNull(GraphQLString) },
+    author: { type: UserType }
+  })
 });
 
 module.exports = QuestionType;

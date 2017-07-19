@@ -13,6 +13,10 @@ export default gql`
     answer5
     correct
     topics
+    author{
+      email
+    }
+    explanation
   }
 }
 `;

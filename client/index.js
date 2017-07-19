@@ -9,6 +9,9 @@ import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
 import Dashboard from './components/Dashboard';
 import requireAuth from './components/requireAuth';
+import QuestionForm from './components/QuestionForm';
+import QuestionView from './components/QuestionView';
+import './styles/stylesheet.css';
 
 //allows cookies to be sent along with network requests
 const networkInterface = createNetworkInterface({
@@ -37,6 +40,8 @@ const Root = () => {
           <Route path="/signup" component={SignupForm} />
           //requireAuth is a HOC, redirects to login if not signed in
           <Route path="/dashboard" component={requireAuth(Dashboard)} />
+          <Route path="/create" component={requireAuth(QuestionForm)} />
+          <Route path="/questions" component={requireAuth(QuestionView)} />
         </Route>
       </Router>
     </ApolloProvider>
