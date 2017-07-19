@@ -11,7 +11,8 @@ import Dashboard from './components/Dashboard';
 import requireAuth from './components/requireAuth';
 import QuestionForm from './components/QuestionForm';
 import QuestionView from './components/QuestionView';
-import './styles/stylesheet.css';
+import './css/stylesheet.css';
+import 'react-select/dist/react-select.css';
 
 //allows cookies to be sent along with network requests
 const networkInterface = createNetworkInterface({

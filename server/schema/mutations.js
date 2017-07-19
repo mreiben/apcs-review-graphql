@@ -59,8 +59,9 @@ const mutation = new GraphQLObjectType({
         explanation: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }, req){
-        const author = req.user
-        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, author, explanation } ).save());
+        const author = req.user;
+        console.log("attempting to create question");
+        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, author, explanation, author } ).save());
       }
     }
   }

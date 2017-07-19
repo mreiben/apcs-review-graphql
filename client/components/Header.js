@@ -40,7 +40,7 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link to="/" className="brand-logo left">Home</Link>
+          <Link to="/dashboard" className="brand-logo center">APCS Mutlipe-Choice Review</Link>
           <ul className="right">
             {this.renderButtons()}
           </ul>

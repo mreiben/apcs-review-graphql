@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import mutation from '../mutations/CreateQuestion';
+import { graphql } from 'react-apollo';
+import { hashHistory } from 'react-router';
+import Select from 'react-select';
 
 class QuestionForm extends Component {
   constructor(props){
@@ -12,16 +16,26 @@ class QuestionForm extends Component {
       answer3: '',
       answer4: '',
       answer5: '',
+      correct: '',
       topics: [],
       explanation: '',
+      errors: []
     };
   }
 
-//DO THIS NEXT!
   onSubmit(event){
     event.preventDefault();
-    const { email, password } = this.state;
-    this.props.onSubmit({ email, password });
+    const { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation } = this.state;
+    console.log("creating question with topics: ", topics);
+    this.props.mutate({
+      variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }
+    });
+    // .catch(res => {
+    //   //make an array of errors
+    //   const errors = res.graphQLErrors.map(error => error.message);
+    //   this.setState({errors});
+    // // })
+    // .then(hashHistory.push('/dashboard'));
   }
 
   renderErrors(){
@@ -33,10 +47,37 @@ class QuestionForm extends Component {
     // </div>
   }
 
+  updateTopics(e){
+    const currentTopics = e.map((topic) => {
+      return topic.value;
+    });
+    console.log("current topics: ", currentTopics);
+    this.setState({topics: currentTopics });
+  }
+
   render(){
+    var questionTopics = [
+      { value: 'arithmetic', label: 'arithmetic' },
+      { value: 'data types', label: 'data types' },
+      { value: 'boolean logic', label: 'boolean logic' },
+      { value: 'nested boolean logic', label: 'nested boolean logic' },
+      { value: 'memory allocation', label: 'memory allocation' },
+      { value: 'arrays', label: 'arrays' },
+      { value: '2D arrays', label: '2D arrays' },
+      { value: 'ArrayLists', label: 'ArrayLists' },
+      { value: 'loops', label: 'loops' },
+      { value: 'nested loops', label: 'nested loops' },
+      { value: 'functions', label: 'functions' },
+      { value: 'string methods', label: 'string methods' },
+      { value: 'classes', label: 'classes' },
+      { value: 'inheritance', label: 'inheritance' },
+      { value: 'interfaces', label: 'interfaces' },
+      { value: 'recursive functions', label: 'recursive functions' },
+    ];
+
     return(
       <div className="row">
-        <h4>Create a Question:</h4>
+        <h4 className="view-top">Create a Question:</h4>
         <form
           className="col s8"
           onSubmit={this.onSubmit.bind(this)}
@@ -108,23 +149,13 @@ class QuestionForm extends Component {
               onChange={ e => this.setState({ answer5: e.target.value })}
             />
           </div>
-          <select multiple>
-            <option value="" disabled>Question topics...</option>
-            <option value="arithmetic">arithmetic</option>
-            <option value="boolean logic">boolean logic</option>
-            <option value="nested boolean logic">nested boolean logic</option>
-            <option value="memory allocation">memory allocation</option>
-            <option value="arrays">arrays</option>
-            <option value="ArrayLists">ArrayLists</option>
-            <option value="loops">loops</option>
-            <option value="nested loops">nested loops</option>
-            <option value="functions">functions</option>
-            <option value="string methods">string methods</option>
-            <option value="classes">classes</option>
-            <option value="inheritance">inheritance</option>
-            <option value="interfaces">interfaces</option>
-            <option value="recursive functions">recursive functions</option>
-          </select>
+          <Select
+            name="topics-select"
+            multi={true}
+            value={this.state.topics}
+            options={questionTopics}
+            onChange={this.updateTopics.bind(this)}
+          />
           <div className="input-field">
             <label>Explanation</label>
             <textarea
@@ -141,4 +172,4 @@ class QuestionForm extends Component {
   }
 }
 
-export default QuestionForm;
+export default graphql(mutation)(QuestionForm);
