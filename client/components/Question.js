@@ -28,10 +28,12 @@ class Question extends Component {
           <a href="#" className="collection-item">{this.props.answer4}</a>
           <a href="#" className="collection-item">{this.props.answer5}</a>
         </ul>
-        <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box z-depth-2" key={topic}>{topic}</span>})}</p>
-        <p>Explanation: </p>
-        <ReactMarkdown source={this.props.explanation} />
-        <p>Created by: {this.props.userEmail}</p>
+        <div className="section">
+          <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box z-depth-2" key={topic}>{topic}</span>})}</p>
+          <p>Explanation: </p>
+          <ReactMarkdown source={this.props.explanation} />
+          <p>Created by: {this.props.userEmail}</p>
+        </div>
       </div>
     );
   }

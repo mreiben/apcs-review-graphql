@@ -15,7 +15,6 @@ textarea:focus, input:focus{
 
 .topic-box{
   background-color: #26A698;
-  border: 1px solid #059C8C;
   border-radius: 3px;
   margin: 0 5px;
   padding: 10px;
@@ -24,4 +23,13 @@ textarea:focus, input:focus{
 
 .topic-box:hover{
   background-color: #45BAAE;
+}
+
+.dashboard-btn {
+    width: 33.3333333333%;
+    margin-top:10px;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+    text-align: center;
 }

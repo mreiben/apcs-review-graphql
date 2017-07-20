@@ -10,10 +10,15 @@ class Dashboard extends Component {
 
   render(){
     return(
-      <div>
-        <Link to="/create" className="btn">Create Question</Link>
-        <Link to="/questions" className="btn">Practice!</Link>
-        <QuestionView></QuestionView>
+      <div className="container">
+        <div>
+          <div className="container">
+            <Link to="/create" className="waves-effect waves-light btn dashboard-btn">Create Question</Link>
+            <Link to="/questions" className="waves-effect waves-light btn dashboard-btn">Practice!</Link>
+            <Link to="/profile" className="waves-effect waves-light btn dashboard-btn">My Profile</Link>
+          </div>
+          <QuestionView></QuestionView>
+        </div>
       </div>
     );
   }
