@@ -11,7 +11,25 @@ class Question extends Component {
     this.state = { questions: [] };
   }
 
+  mixArray(array) { //Fisher-Yates shuffle
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
   render(){
+
+    let answers = [this.props.answer1, this.props.answer2, this.props.answer3, this.props.answer4, this.props.answer5];
+    let mixedAnswers = this.mixArray(answers);
     return(
       <div>
         <h5>Question</h5>
@@ -22,11 +40,11 @@ class Question extends Component {
           )
         })}</blockquote>
         <ul className="collection">
-          <a href="#" className="collection-item">{this.props.answer1}</a>
-          <a href="#" className="collection-item">{this.props.answer2}</a>
-          <a href="#" className="collection-item">{this.props.answer3}</a>
-          <a href="#" className="collection-item">{this.props.answer4}</a>
-          <a href="#" className="collection-item">{this.props.answer5}</a>
+          <a href="#" className="collection-item">{mixedAnswers[0]}</a>
+          <a href="#" className="collection-item">{mixedAnswers[1]}</a>
+          <a href="#" className="collection-item">{mixedAnswers[2]}</a>
+          <a href="#" className="collection-item">{mixedAnswers[3]}</a>
+          <a href="#" className="collection-item">{mixedAnswers[4]}</a>
         </ul>
         <div className="section">
           <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box z-depth-2" key={topic}>{topic}</span>})}</p>
