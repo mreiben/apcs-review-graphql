@@ -11,6 +11,7 @@ import Dashboard from './components/Dashboard';
 import requireAuth from './components/requireAuth';
 import QuestionForm from './components/QuestionForm';
 import QuestionView from './components/QuestionView';
+import UserProfile from './components/UserProfile';
 import './css/stylesheet.css';
 import 'react-select/dist/react-select.css';
 
@@ -43,6 +44,7 @@ const Root = () => {
           <Route path="/dashboard" component={requireAuth(Dashboard)} />
           <Route path="/create" component={requireAuth(QuestionForm)} />
           <Route path="/questions" component={requireAuth(QuestionView)} />
+          <Route path="/profile" component={requireAuth(UserProfile)} />
         </Route>
       </Router>
     </ApolloProvider>

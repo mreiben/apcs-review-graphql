@@ -19,6 +19,12 @@ const UserType = new GraphQLObjectType({
       resolve: function(user){
         return user.id;
       }
+    },
+    name: {
+      type: GraphQLString,
+      resolve: function(user){
+        return user.name;
+      }
     }
   })
 });
