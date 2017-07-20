@@ -26,32 +26,34 @@ class QuestionForm extends Component {
   onSubmit(event){
     event.preventDefault();
     const { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation } = this.state;
-    console.log("creating question with topics: ", topics);
-    this.props.mutate({
-      variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }
-    });
-    // .catch(res => {
-    //   //make an array of errors
-    //   const errors = res.graphQLErrors.map(error => error.message);
-    //   this.setState({errors});
-    // // })
-    // .then(hashHistory.push('/dashboard'));
+    const inputValues = { "prompt": prompt, "answer 1": answer1, "answer 2": answer2, "answer 3": answer3, "answer 4": answer4, "answer 5": answer5, "correct answer": correct, "explanation": explanation }
+    let newErrors = [];
+    for(var prop in inputValues){
+      if(inputValues[prop]  == ''){
+        newErrors.push(`Question must have a(n) ${prop}`);
+      }
+    }
+    if(newErrors.length > 0){
+      this.setState({errors: newErrors});
+    }
+    else{
+      this.props.mutate({
+        variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }
+      })
+      .then(() => hashHistory.push('/dashboard'));
+    }
   }
 
   renderErrors(){
-    if(this.props.errors){
-      return(this.props.errors.map(error => <div key={error}>{error}</div>))
+    if(this.state.errors){
+      return(this.state.errors.map(error => <div className="errors" key={error}>{error}</div>))
     }
-    // <div className="errors">
-    //   {this.props.errors.map(error => <div key={error}>{error}</div>)}
-    // </div>
   }
 
   updateTopics(e){
     const currentTopics = e.map((topic) => {
       return topic.value;
     });
-    console.log("current topics: ", currentTopics);
     this.setState({topics: currentTopics });
   }
 
@@ -150,10 +152,12 @@ class QuestionForm extends Component {
             />
           </div>
           <Select
+            placeholder="Topics for this question..."
             name="topics-select"
             multi={true}
             value={this.state.topics}
             options={questionTopics}
+            allowCreate={true}
             onChange={this.updateTopics.bind(this)}
           />
           <div className="input-field">

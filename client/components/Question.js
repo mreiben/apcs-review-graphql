@@ -27,6 +27,7 @@ class Question extends Component {
           <a href="#!" className="collection-item">{this.props.answer4}</a>
           <a href="#!" className="collection-item">{this.props.answer5}</a>
         </ul>
+        <p>Topics: {this.props.topics}</p>
         <p>Explanation: {this.props.explanation}</p>
       </div>
     );
