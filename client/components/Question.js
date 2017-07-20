@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import query from '../queries/GetQuestions';
 import { hashHistory } from 'react-router';
+import ReactMarkdown from 'react-markdown';
 
 class Question extends Component {
   constructor(props){
@@ -14,7 +15,7 @@ class Question extends Component {
     return(
       <div>
         <h5>Question</h5>
-        <p>{this.props.prompt}</p>
+        <ReactMarkdown source={this.props.prompt} />
         <blockquote className="code">{this.props.code.split("\n").map(function(item){
           return(
             <span key={item}>{item}<br/></span>
@@ -28,7 +29,8 @@ class Question extends Component {
           <a href="#" className="collection-item">{this.props.answer5}</a>
         </ul>
         <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box z-depth-2" key={topic}>{topic}</span>})}</p>
-        <p>Explanation: {this.props.explanation}</p>
+        <p>Explanation: </p>
+        <ReactMarkdown source={this.props.explanation} />
         <p>Created by: {this.props.userEmail}</p>
       </div>
     );

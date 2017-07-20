@@ -87,7 +87,7 @@ class QuestionForm extends Component {
           onSubmit={this.onSubmit.bind(this)}
         >
           <div className="input-field">
-            <label>Prompt</label>
+            <label>Prompt - (markdown compatible)</label>
             <textarea
               className="materialize-textarea"
               value={this.state.prompt}
@@ -163,7 +163,7 @@ class QuestionForm extends Component {
             onChange={this.updateTopics.bind(this)}
           />
           <div className="input-field">
-            <label>Explanation</label>
+            <label>Explanation - (markdown compatible)</label>
             <textarea
               className="materialize-textarea"
               value={this.state.explanation}
