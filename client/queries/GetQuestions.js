@@ -13,10 +13,12 @@ export default gql`
     answer5
     correct
     topics
-    author{
+    user{
       email
+      id
     }
     explanation
+    userEmail
   }
 }
 `;

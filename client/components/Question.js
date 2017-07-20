@@ -21,14 +21,15 @@ class Question extends Component {
           )
         })}</blockquote>
         <ul className="collection">
-          <a href="#!" className="collection-item">{this.props.answer1}</a>
-          <a href="#!" className="collection-item">{this.props.answer2}</a>
-          <a href="#!" className="collection-item">{this.props.answer3}</a>
-          <a href="#!" className="collection-item">{this.props.answer4}</a>
-          <a href="#!" className="collection-item">{this.props.answer5}</a>
+          <a href="#" className="collection-item">{this.props.answer1}</a>
+          <a href="#" className="collection-item">{this.props.answer2}</a>
+          <a href="#" className="collection-item">{this.props.answer3}</a>
+          <a href="#" className="collection-item">{this.props.answer4}</a>
+          <a href="#" className="collection-item">{this.props.answer5}</a>
         </ul>
-        <p>Topics: {this.props.topics}</p>
+        <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box z-depth-2" key={topic}>{topic}</span>})}</p>
         <p>Explanation: {this.props.explanation}</p>
+        <p>Created by: {this.props.userEmail}</p>
       </div>
     );
   }

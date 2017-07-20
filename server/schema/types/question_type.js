@@ -5,7 +5,8 @@ const {
   GraphQLString,
   GraphQLID,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLInt
 } = graphql;
 
 const QuestionType = new GraphQLObjectType({
@@ -22,7 +23,10 @@ const QuestionType = new GraphQLObjectType({
     correct: { type: new GraphQLNonNull(GraphQLString) },
     topics: { type: new GraphQLList(GraphQLString) },
     explanation: { type: new GraphQLNonNull(GraphQLString) },
-    author: { type: UserType }
+    user: { type: UserType },
+    userEmail: { type: GraphQLString },
+    votes: { type: GraphQLInt },
+    upVotes: { type: GraphQLInt }
   })
 });
 

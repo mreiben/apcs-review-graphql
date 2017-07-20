@@ -8,8 +8,18 @@ const {
 const UserType = new GraphQLObjectType({
   name: 'UserType',
   fields: () => ({
-    email: { type: GraphQLString },
-    id: { type: GraphQLID }
+    email: {
+      type: GraphQLString,
+      resolve: function(user){
+        return user.email;
+      }
+    },
+    id: {
+      type: GraphQLID,
+      resolve: function(user){
+        return user.id;
+      }
+    }
   })
 });
 

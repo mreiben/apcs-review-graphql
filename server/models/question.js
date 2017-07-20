@@ -13,10 +13,13 @@ const QuestionSchema = new Schema({
   correct: String,
   topics: [String],
   explanation: String,
-  author: {
+  user: {
     type: Schema.Types.ObjectId,
     ref: 'user'
-  }
+  },
+  userEmail: String,
+  votes: Number,
+  upVotes: Number
 });
 
 mongoose.model('question', QuestionSchema);

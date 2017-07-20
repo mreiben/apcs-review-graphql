@@ -12,3 +12,16 @@
 textarea:focus, input:focus{
   background-color: #F4F4F4;
 }
+
+.topic-box{
+  background-color: #26A698;
+  border: 1px solid #059C8C;
+  border-radius: 3px;
+  margin: 0 5px;
+  padding: 10px;
+  color: white;
+}
+
+.topic-box:hover{
+  background-color: #45BAAE;
+}

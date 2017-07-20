@@ -3,6 +3,7 @@ import mutation from '../mutations/CreateQuestion';
 import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
 import Select from 'react-select';
+import getQuestions from '../queries/GetQuestions';
 
 class QuestionForm extends Component {
   constructor(props){
@@ -38,7 +39,8 @@ class QuestionForm extends Component {
     }
     else{
       this.props.mutate({
-        variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }
+        variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation },
+        refetchQueries: [{ query: getQuestions }]
       })
       .then(() => hashHistory.push('/dashboard'));
     }
@@ -176,4 +178,6 @@ class QuestionForm extends Component {
   }
 }
 
-export default graphql(mutation)(QuestionForm);
+export default graphql(getQuestions)(
+  graphql(mutation)(QuestionForm)
+);
