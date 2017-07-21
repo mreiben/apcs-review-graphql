@@ -6,6 +6,8 @@ const {
   GraphQLList
 } = graphql;
 const QuestionType = require('./question_type');
+const mongoose = require('mongoose');
+const User = mongoose.model('user');
 
 const UserType = new GraphQLObjectType({
   name: 'UserType',
@@ -30,8 +32,8 @@ const UserType = new GraphQLObjectType({
     },
     questions: {
       type: new GraphQLList(QuestionType),
-      resolve: function(user){
-        return user.questions;
+      resolve(parentValue){
+        return User.findQuestions(parentValue.id);
       }
     }
   })

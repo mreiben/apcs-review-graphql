@@ -5,6 +5,10 @@ export default gql`
   user {
     id
     email
+    name
+    questions{
+      id
+    }
   }
 }
 `;

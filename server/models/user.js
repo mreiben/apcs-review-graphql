@@ -25,6 +25,12 @@ UserSchema.statics.addQuestionToUser = function(user_id, question){
   );
 }
 
+UserSchema.statics.findQuestions = function(id) {
+  return this.findById(id)
+    .populate('questions')
+    .then(user => user.questions);
+}
+
 // The user's password is never saved in plain text.  Prior to saving the
 // user model, we 'salt' and 'hash' the users password.  This is a one way
 // procedure that modifies the password - the plain text password cannot be
