@@ -28,3 +28,10 @@ textarea:focus, input:focus{
 .dashboard-btn {
   margin-right: 15px;
 }
+
+.code{
+  display: block;
+  padding-left: 10px;
+  white-space: pre-wrap;
+  border-left: 8px solid #EE6E73;
+}

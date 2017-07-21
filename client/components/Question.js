@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import query from '../queries/GetQuestions';
 import { hashHistory } from 'react-router';
 import ReactMarkdown from 'react-markdown';
+const Marked = require('react-remarkable');
 
 class Question extends Component {
   constructor(props){
@@ -30,15 +31,13 @@ class Question extends Component {
 
     let answers = [this.props.answer1, this.props.answer2, this.props.answer3, this.props.answer4, this.props.answer5];
     let mixedAnswers = this.mixArray(answers);
+    let codeText = "{`"+this.props.code+"`}";
+
     return(
       <div>
         <h5>Question</h5>
         <ReactMarkdown source={this.props.prompt} />
-        <blockquote className="code">{this.props.code.split("\n").map(function(item){
-          return(
-            <span key={item}>{item}<br/></span>
-          )
-        })}</blockquote>
+        <code className="code">{this.props.code}</code>
         <ul className="collection">
           <a href="#" className="collection-item">{mixedAnswers[0]}</a>
           <a href="#" className="collection-item">{mixedAnswers[1]}</a>
