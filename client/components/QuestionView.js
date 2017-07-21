@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import query from '../queries/GetQuestions';
 import Question from './Question';
+import { Link } from 'react-router';
 
 class QuestionView extends Component {
 
@@ -29,6 +30,9 @@ class QuestionView extends Component {
   render(){
     return(
       <div>
+        <div className="section">
+          <Link to="/dashboard" className="waves-effect waves-light btn">Back</Link>
+        </div>
         <div>{this.fetchQuestions()}</div>
       </div>
     );

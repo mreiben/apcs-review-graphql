@@ -14,15 +14,18 @@ textarea:focus, input:focus{
 }
 
 .topic-box{
-  background-color: #26A698;
+  border: 1px solid #45BAAE;
   border-radius: 3px;
   margin: 0 5px;
   padding: 10px;
-  color: white;
+  color: #45BAAE;
+  font-weight: bold;
 }
 
 .topic-box:hover{
-  background-color: #45BAAE;
+  border-color: #26A698;
+  color: #26A698;
+  font-weight: bolder;
 }
 
 .dashboard-btn {

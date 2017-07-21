@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import query from '../queries/GetQuestions';
-import QuestionView from './QuestionView';
 import { Link } from 'react-router';
 
 //wrapped by requireAuth in index.js routes
@@ -18,7 +17,6 @@ class Dashboard extends Component {
         </div>
         <h3>Welcome to your dashboard!</h3>
         <p>Some stats will go here later...</p>
-        <QuestionView></QuestionView>
       </div>
     );
   }

@@ -46,7 +46,7 @@ class Question extends Component {
           <a href="#" className="collection-item">{mixedAnswers[4]}</a>
         </ul>
         <div className="section">
-          <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box z-depth-2" key={topic}>{topic}</span>})}</p>
+          <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
           <p>Explanation: </p>
           <ReactMarkdown source={this.props.explanation} />
           <p>Created by: {this.props.userName}</p>
