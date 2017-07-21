@@ -50,7 +50,7 @@ class Question extends Component {
           <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box z-depth-2" key={topic}>{topic}</span>})}</p>
           <p>Explanation: </p>
           <ReactMarkdown source={this.props.explanation} />
-          <p>Created by: {this.props.userEmail}</p>
+          <p>Created by: {this.props.userName}</p>
         </div>
       </div>
     );

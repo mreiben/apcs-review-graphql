@@ -2,8 +2,10 @@ const graphql = require('graphql');
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLID
+  GraphQLID,
+  GraphQLList
 } = graphql;
+const QuestionType = require('./question_type');
 
 const UserType = new GraphQLObjectType({
   name: 'UserType',
@@ -24,6 +26,12 @@ const UserType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: function(user){
         return user.name;
+      }
+    },
+    questions: {
+      type: new GraphQLList(QuestionType),
+      resolve: function(user){
+        return user.questions;
       }
     }
   })

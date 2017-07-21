@@ -7,7 +7,7 @@ class QuestionView extends Component {
 
   fetchQuestions(){
     if(this.props.data.loading){ return <div>loading</div> }
-    return ( this.props.data.questions.map(({id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, user, userEmail})=>{
+    return ( this.props.data.questions.map(({id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, user, userName})=>{
       return( <Question
           key={id}
           id={id}
@@ -21,7 +21,7 @@ class QuestionView extends Component {
           correct={correct}
           topics={topics}
           explanation={explanation}
-          userEmail={userEmail}
+          userName={userName}
         />);
     }))
   }

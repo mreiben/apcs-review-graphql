@@ -13,11 +13,7 @@ const QuestionSchema = new Schema({
   correct: String,
   topics: [String],
   explanation: String,
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'user'
-  },
-  userEmail: String,
+  userName: String,
   votes: Number,
   upVotes: Number
 });

@@ -13,12 +13,8 @@ export default gql`
     answer5
     correct
     topics
-    user{
-      email
-      id
-    }
     explanation
-    userEmail
+    userName
   }
 }
 `;

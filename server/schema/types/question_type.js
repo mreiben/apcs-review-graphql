@@ -1,5 +1,4 @@
 const graphql = require('graphql');
-const UserType = require('./user_type');
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -23,8 +22,7 @@ const QuestionType = new GraphQLObjectType({
     correct: { type: new GraphQLNonNull(GraphQLString) },
     topics: { type: new GraphQLList(GraphQLString) },
     explanation: { type: new GraphQLNonNull(GraphQLString) },
-    user: { type: UserType },
-    userEmail: { type: GraphQLString },
+    userName: { type: GraphQLString },
     votes: { type: GraphQLInt },
     upVotes: { type: GraphQLInt }
   })

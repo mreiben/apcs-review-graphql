@@ -60,11 +60,14 @@ const mutation = new GraphQLObjectType({
         explanation: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }, req){
-        const user = req.user;
-        const userEmail = req.user.email;
+        const userName = req.user.name;
         const votes = 0;
         const upVotes = 0;
-        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, user, explanation, user, userEmail, votes, upVotes } ).save());
+        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, userName, votes, upVotes } ).save()
+      .then((q) => {
+        User.addQuestionToUser(req.user.id, q);
+          })
+        );
       }
     }
   }

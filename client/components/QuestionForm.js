@@ -81,102 +81,102 @@ class QuestionForm extends Component {
     ];
 
     return(
-      <div className="container">
-        <div className="row section">
+      <div>
+        <div className="section">
           <Link to="/dashboard" className="waves-effect waves-light btn">Back</Link>
-          <h4 className="view-top">Create a Question:</h4>
-          <form
-            className="col s12"
-            onSubmit={this.onSubmit.bind(this)}
-          >
-            <div className="input-field">
-              <label>Prompt - (markdown compatible)</label>
-              <textarea
-                className="materialize-textarea"
-                value={this.state.prompt}
-                onChange={ e => this.setState({ prompt: e.target.value })}
-              />
-            </div>
-            <div className="input-field">
-              <label>Code snippet (optional)</label>
-              <textarea
-                className="materialize-textarea"
-                value={this.state.code}
-                onChange={ e => this.setState({ code: e.target.value })}
-              />
-            </div>
-            <p>Please provide one correct and four incorrect answer choices:</p>
-            <div className="input-field">
-              <label htmlFor="answer1">Correct Answer</label>
-              <input
-                id="answer1"
-                type="text"
-                className="validate"
-                value={this.state.answer1}
-                onChange={ e => this.setState({ answer1: e.target.value, correct: e.target.value })}
-              />
-            </div>
-            <div className="input-field">
-              <label htmlFor="answer2">Incorrect Answer</label>
-              <input
-                id="answer2"
-                type="text"
-                className="validate"
-                value={this.state.answer2}
-                onChange={ e => this.setState({ answer2: e.target.value })}
-              />
-            </div>
-            <div className="input-field">
-              <label htmlFor="answer3">Incorrect Answer</label>
-              <input
-                id="answer3"
-                type="text"
-                className="validate"
-                value={this.state.answer3}
-                onChange={ e => this.setState({ answer3: e.target.value })}
-              />
-            </div>
-            <div className="input-field">
-              <label htmlFor="answer4">Incorrect Answer</label>
-              <input
-                id="answer4"
-                type="text"
-                className="validate"
-                value={this.state.answer4}
-                onChange={ e => this.setState({ answer4: e.target.value })}
-              />
-            </div>
-            <div className="input-field">
-              <label htmlFor="answer5">Incorrect Answer</label>
-              <input
-                id="answer5"
-                type="text"
-                className="validate"
-                value={this.state.answer5}
-                onChange={ e => this.setState({ answer5: e.target.value })}
-              />
-            </div>
-            <Select
-              placeholder="Topics for this question..."
-              name="topics-select"
-              multi={true}
-              value={this.state.topics}
-              options={questionTopics}
-              allowCreate={true}
-              onChange={this.updateTopics.bind(this)}
-            />
-            <div className="input-field">
-              <label>Explanation - (markdown compatible)</label>
-              <textarea
-                className="materialize-textarea"
-                value={this.state.explanation}
-                onChange={ e => this.setState({ explanation: e.target.value })}
-              />
-            </div>
-            {this.renderErrors()}
-            <button className="btn">Submit</button>
-          </form>
         </div>
+        <h4 className="view-top">Create a Question:</h4>
+        <form
+          className="col s12"
+          onSubmit={this.onSubmit.bind(this)}
+        >
+          <div className="input-field">
+            <label>Prompt - (markdown compatible)</label>
+            <textarea
+              className="materialize-textarea"
+              value={this.state.prompt}
+              onChange={ e => this.setState({ prompt: e.target.value })}
+            />
+          </div>
+          <div className="input-field">
+            <label>Code snippet (optional)</label>
+            <textarea
+              className="materialize-textarea"
+              value={this.state.code}
+              onChange={ e => this.setState({ code: e.target.value })}
+            />
+          </div>
+          <p>Please provide one correct and four incorrect answer choices:</p>
+          <div className="input-field">
+            <label htmlFor="answer1">Correct Answer</label>
+            <input
+              id="answer1"
+              type="text"
+              className="validate"
+              value={this.state.answer1}
+              onChange={ e => this.setState({ answer1: e.target.value, correct: e.target.value })}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="answer2">Incorrect Answer</label>
+            <input
+              id="answer2"
+              type="text"
+              className="validate"
+              value={this.state.answer2}
+              onChange={ e => this.setState({ answer2: e.target.value })}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="answer3">Incorrect Answer</label>
+            <input
+              id="answer3"
+              type="text"
+              className="validate"
+              value={this.state.answer3}
+              onChange={ e => this.setState({ answer3: e.target.value })}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="answer4">Incorrect Answer</label>
+            <input
+              id="answer4"
+              type="text"
+              className="validate"
+              value={this.state.answer4}
+              onChange={ e => this.setState({ answer4: e.target.value })}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="answer5">Incorrect Answer</label>
+            <input
+              id="answer5"
+              type="text"
+              className="validate"
+              value={this.state.answer5}
+              onChange={ e => this.setState({ answer5: e.target.value })}
+            />
+          </div>
+          <Select
+            placeholder="Topics for this question..."
+            name="topics-select"
+            multi={true}
+            value={this.state.topics}
+            options={questionTopics}
+            allowCreate={true}
+            onChange={this.updateTopics.bind(this)}
+          />
+          <div className="input-field">
+            <label>Explanation - (markdown compatible)</label>
+            <textarea
+              className="materialize-textarea"
+              value={this.state.explanation}
+              onChange={ e => this.setState({ explanation: e.target.value })}
+            />
+          </div>
+          {this.renderErrors()}
+          <button className="btn">Submit</button>
+        </form>
       </div>
     );
   }

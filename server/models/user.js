@@ -8,8 +8,22 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   email: String,
   password: String,
-  name: String
+  name: String,
+  questions: [{
+    type: Schema.Types.ObjectId,
+    ref: 'question'
+  }]
 });
+
+UserSchema.statics.addQuestionToUser = function(user_id, question){
+  const Question = mongoose.model('question');
+  return (this.findById(user_id)
+    .then( (user) => {
+      user.questions.push(question)
+      return user.save();
+    })
+  );
+}
 
 // The user's password is never saved in plain text.  Prior to saving the
 // user model, we 'salt' and 'hash' the users password.  This is a one way
