@@ -16,31 +16,22 @@ class Header extends Component {
     const { loading, user } = this.props.data;
     if(loading){ return <div />; }
 
-    if(user){
-      return(
-        <li><a onClick={this.onLogoutClick.bind(this)}>Logout</a></li>
-      );
-    }
+    if(user){ return( <li><a onClick={this.onLogoutClick.bind(this)}>Logout</a></li>);}
     else {
       return(
         <div>
-          <li>
-            <Link to="/signup">Signup</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
+          <li><Link to="/signup">Signup</Link></li>
+          <li><Link to="/login">Login</Link></li>
         </div>
       );
     }
-
   }
 
   render() {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link to="/dashboard" className="brand-logo center">APCS Multiple-Choice Review</Link>
+          <Link to="/" className="brand-logo center">APCS Multiple-Choice Review</Link>
           <ul className="right">
             {this.renderButtons()}
           </ul>
