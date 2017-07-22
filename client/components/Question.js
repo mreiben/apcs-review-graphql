@@ -31,7 +31,6 @@ class Question extends Component {
 
     let answers = [this.props.answer1, this.props.answer2, this.props.answer3, this.props.answer4, this.props.answer5];
     let mixedAnswers = this.mixArray(answers);
-    let codeText = "{`"+this.props.code+"`}";
 
     return(
       <div>

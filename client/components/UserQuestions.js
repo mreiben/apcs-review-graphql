@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import QuestionInfo from './QuestionInfo';
+import { Collapsible } from 'react-materialize';
 
 
 class UserQuestions extends Component {
@@ -20,9 +21,9 @@ class UserQuestions extends Component {
             return(
               <div>
                 <div>User Questions</div>
-                <div className="collection">
+                <Collapsible>
                   {this.renderQuestions()}
-                </div>
+                </Collapsible>
               </div>
             )
           }

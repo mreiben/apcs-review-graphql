@@ -30,7 +30,7 @@ class Header extends Component {
   render() {
     return (
       <nav>
-        <div className="nav-wrapper">
+        <div className="nav-wrapper #1e88e5 blue darken-1">
           <Link to="/" className="brand-logo center">APCS Multiple-Choice Review</Link>
           <ul className="right">
             {this.renderButtons()}

@@ -13,6 +13,10 @@ textarea:focus, input:focus{
   background-color: #F4F4F4;
 }
 
+.topic-list{
+  margin: 0 5px;
+}
+
 .topic-box{
   border: 1px solid #45BAAE;
   border-radius: 3px;
@@ -36,5 +40,12 @@ textarea:focus, input:focus{
   display: block;
   padding-left: 10px;
   white-space: pre-wrap;
-  border-left: 8px solid #EE6E73;
+  border-left: 8px solid #1e88e5;
+}
+
+
+.collection-icon{
+  vertical-align: middle;
+  line-height: inherit;
+  padding-right: 10px;
 }
