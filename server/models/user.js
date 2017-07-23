@@ -25,6 +25,16 @@ UserSchema.statics.addQuestionToUser = function(user_id, question){
   );
 }
 
+UserSchema.statics.removeQuestionFromUser = function(user_id, question_id){
+  return (this.findById(user_id)
+    .then((user) => {
+      let qIndex = user.questions.map(function(item){ return item.id; }).indexOf(question_id);
+      user.questions.splice(qIndex, 1);
+      return user.save;
+    })
+  )
+}
+
 UserSchema.statics.findQuestions = function(id) {
   return this.findById(id)
     .populate('questions')

@@ -1,5 +1,5 @@
 .errors {
-  color: red;
+  color: #f44336;
   margin-bottom: 10px;
 }
 
@@ -18,17 +18,17 @@ textarea:focus, input:focus{
 }
 
 .topic-box{
-  border: 1px solid #45BAAE;
+  border: 1px solid #005cb2;
   border-radius: 3px;
   margin: 0 5px;
   padding: 10px;
-  color: #45BAAE;
+  color: #005cb2;
   font-weight: bold;
 }
 
 .topic-box:hover{
-  border-color: #26A698;
-  color: #26A698;
+  border-color: #1e88e5;
+  color: #1e88e5;
   font-weight: bolder;
 }
 
@@ -48,4 +48,42 @@ textarea:focus, input:focus{
   vertical-align: middle;
   line-height: inherit;
   padding-right: 10px;
+}
+
+.answer-choice{
+  color: #005cb2;
+}
+
+.answer-choice:hover{
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+
+.waves-effect.waves-blue .waves-ripple {
+     /* The alpha value allows the text and background color
+     of the button to still show through. */
+      background-color: #005cb2;
+    }
+
+.btn-special{
+  transition: background-color 0.4s ease;
+  background-color: #005cb2;
+}
+
+.btn-special:hover{
+  background-color: #1e88e5;
+}
+
+.btn-danger{
+  float: right;
+  transition: background-color 0.4s ease;
+  background-color: #f44336;
+}
+
+.btn-danger:hover{
+  background-color: #e57373;
+}
+
+.collapsible-body{
+  padding: 0 20px 20px 20px;
 }

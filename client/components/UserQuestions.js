@@ -13,20 +13,19 @@ class UserQuestions extends Component {
     return(
       this.props.questions.map((question)=>{
         return <QuestionInfo key={question.id} id={question.id} />
-          })
-          )
-        }
+      })
+    )
+  }
 
-          render(){
-            return(
-              <div>
-                <div>User Questions</div>
-                <Collapsible>
-                  {this.renderQuestions()}
-                </Collapsible>
-              </div>
-            )
-          }
-          }
+  render(){
+    return(
+      <div>
+        <Collapsible>
+          {this.renderQuestions()}
+        </Collapsible>
+      </div>
+    )
+  }
+}
 
 export default UserQuestions;

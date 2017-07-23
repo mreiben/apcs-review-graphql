@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo';
 import { hashHistory } from 'react-router';
 import Select from 'react-select';
 import getQuestions from '../queries/GetQuestions';
+import currentUser from '../queries/CurrentUser';
 import { Link } from 'react-router';
 
 class QuestionForm extends Component {
@@ -41,7 +42,7 @@ class QuestionForm extends Component {
     else{
       this.props.mutate({
         variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation },
-        refetchQueries: [{ query: getQuestions }]
+        refetchQueries: [{ query: getQuestions, query: currentUser }]
       })
       .then(() => hashHistory.push('/dashboard'));
     }
@@ -83,7 +84,7 @@ class QuestionForm extends Component {
     return(
       <div>
         <div className="section">
-          <Link to="/dashboard" className="waves-effect waves-light btn">Back</Link>
+          <Link to="/dashboard" className="btn dashboard-btn btn-special">Back</Link>
         </div>
         <h4 className="view-top">Create a Question:</h4>
         <form
@@ -175,13 +176,15 @@ class QuestionForm extends Component {
             />
           </div>
           {this.renderErrors()}
-          <button className="btn">Submit</button>
+          <button className="btn btn-special">Submit</button>
         </form>
       </div>
     );
   }
 }
 
+// export default graphql(currentUser)(
 export default graphql(getQuestions)(
-  graphql(mutation)(QuestionForm)
-);
+    graphql(mutation)(QuestionForm)
+  );
+// );

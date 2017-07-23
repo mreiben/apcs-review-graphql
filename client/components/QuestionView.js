@@ -8,21 +8,23 @@ class QuestionView extends Component {
 
   fetchQuestions(){
     if(this.props.data.loading){ return <div>loading</div> }
-    return ( this.props.data.questions.map(({id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, user, userName})=>{
+    return ( this.props.data.questions.map(({id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, user, userName, votes, upVotes})=>{
       return( <Question
-          key={id}
-          id={id}
-          prompt={prompt}
-          code={code}
-          answer1={answer1}
-          answer2={answer2}
-          answer3={answer3}
-          answer4={answer4}
-          answer5={answer5}
-          correct={correct}
-          topics={topics}
-          explanation={explanation}
-          userName={userName}
+        key={id}
+        id={id}
+        prompt={prompt}
+        code={code}
+        answer1={answer1}
+        answer2={answer2}
+        answer3={answer3}
+        answer4={answer4}
+        answer5={answer5}
+        correct={correct}
+        topics={topics}
+        explanation={explanation}
+        userName={userName}
+        votes={votes}
+        upVotes={upVotes}
         />);
     }))
   }
@@ -31,7 +33,7 @@ class QuestionView extends Component {
     return(
       <div>
         <div className="section">
-          <Link to="/dashboard" className="waves-effect waves-light btn">Back</Link>
+          <Link to="/dashboard" className="btn dashboard-btn  btn-special">Back</Link>
         </div>
         <div>{this.fetchQuestions()}</div>
       </div>

@@ -14,9 +14,9 @@ class Dashboard extends Component {
     if(user){ return(
       <div>
         <div className="section">
-          <Link to="/create" className="waves-effect waves-light btn dashboard-btn">Create Question</Link>
-          <Link to="/questions" className="waves-effect waves-light btn dashboard-btn">Practice!</Link>
-          <Link to="/profile" className="waves-effect waves-light btn dashboard-btn">My Profile</Link>
+          <Link to="/create" className="btn dashboard-btn  btn-special">Create Question</Link>
+          <Link to="/questions" className="btn dashboard-btn  btn-special">Practice!</Link>
+          <Link to="/profile" className="btn dashboard-btn  btn-special">My Profile</Link>
         </div>
         <h3>Welcome to your dashboard!</h3>
         <p>Some stats will go here later...</p>

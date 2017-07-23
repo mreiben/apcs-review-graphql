@@ -3,7 +3,8 @@ const {
   GraphQLString,
   GraphQLObjectType,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLID
 } = graphql;
 
 const UserType = require('./types/user_type');
@@ -68,6 +69,23 @@ const mutation = new GraphQLObjectType({
         User.addQuestionToUser(req.user.id, q);
           })
         );
+      }
+    },
+    deleteQuestion: {
+      type: UserType,
+      args: { id: { type: GraphQLID } },
+      resolve(parentValue, { id }, req) {
+        User.removeQuestionFromUser(req.user.id, id)
+          .then((u) => {
+            Question.remove({ _id: id })
+              .then((q) =>{
+                return req.user;
+              })
+          })
+        // return Question.remove({ _id: id })
+        // .then(q) => {
+        //   return User.removeQuestionFromUser(req.user.id, id);
+        // }
       }
     }
   }

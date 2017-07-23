@@ -14,7 +14,7 @@ class UserProfile extends Component {
     return(
       <div>
         <div className="section">
-          <Link to="/dashboard" className="waves-effect waves-light btn">Back</Link>
+          <Link to="/dashboard" className="btn btn-special">Back</Link>
         </div>
         <h3>User Profile: {this.props.data.user.name}</h3>
         <p>Email: {this.props.data.user.email}</p>
