@@ -9,6 +9,12 @@ class QuizSetup extends Component {
     this.state = { topics: [] };
   }
 
+  renderCheckBoxes(topics){
+    return topics.map((topic)=>{
+      return <Input key={topic.value} name='topics' type='checkbox' value={topic.value} label={topic.value} />
+    });
+  }
+
   render(){
 
     var questionTopics = [
@@ -39,10 +45,16 @@ class QuizSetup extends Component {
           <h4>Ready to practice?</h4>
           <p>Select the topics that you want to focus on and a number of questions below:</p>
           <Row>
-            <Input name='group1' type='checkbox' value='red' label='Red' />
-            <Input name='group1' type='checkbox' value='yellow' label='Yellow' defaultValue='checked' />
-            <Input name='group1' type='checkbox' value='green' label='Green' className='filled-in' defaultChecked='checked' />
-            <Input name='group1' type='checkbox' value='brown' label='Brown' disabled='disabled' />
+            {this.renderCheckBoxes(questionTopics).slice(0,4)}
+          </Row>
+          <Row>
+            {this.renderCheckBoxes(questionTopics).slice(4,8)}
+          </Row>
+          <Row>
+            {this.renderCheckBoxes(questionTopics).slice(8,12)}
+          </Row>
+          <Row>
+            {this.renderCheckBoxes(questionTopics).slice(12,16)}
           </Row>
         </div>
       </div>
