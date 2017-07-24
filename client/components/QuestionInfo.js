@@ -100,21 +100,21 @@ class QuestionInfo extends Component {
           <div className="collection">
             <div className="collection-item"><Icon className="collection-icon icon-blue">live_help</Icon>{question.prompt}</div>
             <div className="collection-item"><code className="code">{question.code}</code></div>
-            <div className="collection-item"><Icon className="collection-icon">check_circle</Icon>{question.correct}</div>
-            <div className="collection-item"><Icon className="collection-icon">block</Icon>{question.answer2}</div>
-            <div className="collection-item"><Icon className="collection-icon">block</Icon>{question.answer3}</div>
-            <div className="collection-item"><Icon className="collection-icon">block</Icon>{question.answer4}</div>
-            <div className="collection-item"><Icon className="collection-icon">block</Icon>{question.answer5}</div>
+            <div className="answer answer-item"><Icon className="collection-icon">check_circle</Icon><ReactMarkdown source={question.correct}/></div>
+            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer2}/></div>
+            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer3}/></div>
+            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer4}/></div>
+            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer5}/></div>
             <div className="collection-item"><Icon className="collection-icon">lightbulb_outline</Icon><ReactMarkdown source={question.explanation} /></div>
             <div className="collection-item"><Icon className="collection-icon">list</Icon>{question.topics.map((topic)=>{return <span className="topic-list" key={topic}>{topic}</span>})}</div>
             <div className="collection-item"><Icon className="collection-icon">thumbs_up_down</Icon>Rating: {rating}/5.0</div>
           </div>
           <div>
             <div
-              className="btn btn-special"
+              className="btn btn-special btn-left"
               onClick={() => this.handleEditClick(qId)}
             >Edit</div>
-            <div className="btn btn-danger right" onClick={this.handleOpenModal}>Delete</div>
+            <div className="btn btn-danger right btn-right" onClick={this.handleOpenModal}>Delete</div>
           </div>
           <ReactModal
             isOpen={this.state.showModal}

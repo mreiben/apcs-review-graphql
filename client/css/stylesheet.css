@@ -51,19 +51,24 @@ textarea:focus, input:focus{
 }
 
 .answer-choice{
+  background-color: #fff;
+  line-height: 1.5rem;
+  padding: 0px 20px;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
   color: #005cb2;
 }
 
 .answer-choice:hover{
-  background-color: #e0e0e0;
+  font-weight: bolder;
   cursor: pointer;
 }
 
 .waves-effect.waves-blue .waves-ripple {
-     /* The alpha value allows the text and background color
-     of the button to still show through. */
-      background-color: #005cb2;
-    }
+  /* The alpha value allows the text and background color
+  of the button to still show through. */
+  background-color: #005cb2;
+}
 
 .btn-special{
   transition: background-color 0.4s ease;
@@ -86,4 +91,15 @@ textarea:focus, input:focus{
 
 .collapsible-body{
   padding: 0 20px 20px 20px;
+}
+
+.answer{
+  line-height: 1.5rem;
+  padding: 0px 20px;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.answer * {
+  display: inline-block;
 }

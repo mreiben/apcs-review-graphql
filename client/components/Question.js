@@ -38,11 +38,11 @@ class Question extends Component {
         <ReactMarkdown source={this.props.prompt} />
         <code className="code">{this.props.code}</code>
         <ul className="collection">
-          <li className="collection-item answer-choice">{mixedAnswers[0]}</li>
-          <li className="collection-item answer-choice">{mixedAnswers[1]}</li>
-          <li className="collection-item answer-choice">{mixedAnswers[2]}</li>
-          <li className="collection-item answer-choice">{mixedAnswers[3]}</li>
-          <li className="collection-item answer-choice">{mixedAnswers[4]}</li>
+          <li className="answer-choice"><ReactMarkdown source={mixedAnswers[0]}/></li>
+          <li className="answer-choice"><ReactMarkdown source={mixedAnswers[1]}/></li>
+          <li className="answer-choice"><ReactMarkdown source={mixedAnswers[2]}/></li>
+          <li className="answer-choice"><ReactMarkdown source={mixedAnswers[3]}/></li>
+          <li className="answer-choice"><ReactMarkdown source={mixedAnswers[4]}/></li>
         </ul>
         <div className="section">
           <p>Topics: {this.props.topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
