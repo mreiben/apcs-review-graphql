@@ -103,3 +103,7 @@ textarea:focus, input:focus{
 .answer * {
   display: inline-block;
 }
+
+.quiz-topic * {
+  width: 175px;
+}

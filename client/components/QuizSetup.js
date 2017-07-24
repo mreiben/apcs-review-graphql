@@ -1,18 +1,49 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link } from 'react-router';
-import { Row, Input } from 'react-materialize';
+import { Row, Input, Form } from 'react-materialize';
 
 class QuizSetup extends Component {
   constructor(props){
     super(props);
-    this.state = { topics: [] };
+    this.state = { topics: [], questions: 1 };
   }
 
   renderCheckBoxes(topics){
     return topics.map((topic)=>{
-      return <Input key={topic.value} name='topics' type='checkbox' value={topic.value} label={topic.value} />
+      return <div key={topic.value} className="quiz-topic">
+        <Input
+          name='topics'
+          type='checkbox'
+          value={topic.value}
+          label={topic.value}
+          className="quiz-topic"
+          onClick={this.onTopicClick.bind(this)}
+        />
+      </div>
     });
+  }
+
+  onTopicClick(e){
+    const topics = this.state.topics;
+    let index;
+
+    if (e.target.checked) {
+      topics.push(e.target.value);
+    } else {
+      index = topics.indexOf(e.target.value);
+      topics.splice(index, 1);
+    }
+    this.setState({ topics: topics });
+  }
+
+  onNumberChange(e){
+    console.log(e.target.value)
+    this.state.questions = e.target.value;
+  }
+
+  startQuiz(){
+    console.log(`starting quiz with ${this.state.questions} questions about topics: ${this.state.topics} `);
   }
 
   render(){
@@ -56,6 +87,20 @@ class QuizSetup extends Component {
           <Row>
             {this.renderCheckBoxes(questionTopics).slice(12,16)}
           </Row>
+          <Row>
+            <Input
+              s={4}
+              type="number"
+              min={0}
+              label="How many questions?"
+              validate
+              onChange={this.onNumberChange.bind(this)}
+            />
+          </Row>
+          <div
+            className="btn dashboard-btn btn-special"
+            onClick={this.startQuiz.bind(this)}
+          >Start quiz!</div>
         </div>
       </div>
     );
