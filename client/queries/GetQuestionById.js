@@ -16,6 +16,8 @@ export default gql`
       explanation
       votes
       upVotes
+      correctAnswers
+      incorrectAnswers
     }
   }
 `;

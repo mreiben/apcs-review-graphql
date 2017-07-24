@@ -3,6 +3,7 @@ import { graphql } from 'react-apollo';
 import query from '../queries/CurrentUser';
 import { Link } from 'react-router';
 import UserQuestions from './UserQuestions';
+import { Preloader } from 'react-materialize';
 
 class UserProfile extends Component {
   constructor(props){
@@ -10,7 +11,7 @@ class UserProfile extends Component {
   }
 
   render(){
-    if(this.props.data.loading){ return <div>loading</div> }
+    if(this.props.data.loading){ return <Preloader size='small' flashing /> }
     return(
       <div>
         <div className="section">

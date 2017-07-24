@@ -11,6 +11,7 @@ import SignupForm from './components/SignupForm';
 import Dashboard from './components/Dashboard';
 import requireAuth from './components/requireAuth';
 import QuestionForm from './components/QuestionForm';
+import QuestionEditForm from './components/QuestionEditForm';
 import QuestionView from './components/QuestionView';
 import UserProfile from './components/UserProfile';
 import './css/stylesheet.css';
@@ -42,11 +43,11 @@ const Root = () => {
           <IndexRoute component={LandingPage} />
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignupForm} />
-          //requireAuth is a HOC, redirects to login if not signed in
           <Route path="/dashboard" component={requireAuth(Dashboard)} />
           <Route path="/create" component={requireAuth(QuestionForm)} />
           <Route path="/questions" component={requireAuth(QuestionView)} />
           <Route path="/profile" component={requireAuth(UserProfile)} />
+          <Route path="/edit/:id" component={requireAuth(QuestionEditForm)} />
         </Route>
       </Router>
     </ApolloProvider>

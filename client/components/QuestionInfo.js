@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import query from '../queries/GetQuestionById';
 import currentUser from '../queries/CurrentUser';
-import { CollapsibleItem, Icon, Modal } from 'react-materialize';
+import { CollapsibleItem, Icon, Modal, Preloader } from 'react-materialize';
 import ReactMarkdown from 'react-markdown';
 import questionDelete from '../mutations/QuestionDelete';
 import ReactModal from 'react-modal';
+import { hashHistory } from 'react-router';
 
 class QuestionInfo extends Component {
   constructor(props){
@@ -16,28 +17,47 @@ class QuestionInfo extends Component {
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.deleteQuestion = this.deleteQuestion.bind(this);
+    this.handleEditClick = this.handleEditClick.bind(this);
   }
 
-  handleOpenModal () {
+  componentWillMount(){
+    this.state = {
+      showModat: false
+    }
+    this.forceUpdate();
+  }
+
+  handleOpenModal() {
     this.setState({ showModal: true });
   }
 
-  handleCloseModal () {
+  handleCloseModal() {
     this.setState({ showModal: false });
+  }
+
+  handleEditClick(id){
+    hashHistory.push(`/edit/${id}`);
   }
 
   deleteQuestion(){
     const id = this.props.id;
-    console.log(id);
     this.props.mutate({
       variables: { id: id },
-      refetchQueries: [{ query: currentUser }]
+      refetchQueries: [
+        {
+          query: currentUser
+        }
+      ]
     }).then(this.handleCloseModal())
   }
 
   renderInfo(){
     if(this.props.data.loading){
-      return(<div>Loading...</div>)
+      return(
+        <div className="progress">
+          <div className="indeterminate"></div>
+        </div>
+      )
     }
     else{
       let question = this.props.data.question;
@@ -48,7 +68,7 @@ class QuestionInfo extends Component {
         rating = (question.upVotes / question.votes) * 5;
         rating = rating.toFixed(2);
       }
-
+      const qId = question.id;
       const modalStyle = {
         overlay: {
           backgroundColor: '#f44336',
@@ -90,7 +110,10 @@ class QuestionInfo extends Component {
             <div className="collection-item"><Icon className="collection-icon">thumbs_up_down</Icon>Rating: {rating}/5.0</div>
           </div>
           <div>
-            <div className="btn btn-special">Edit</div>
+            <div
+              className="btn btn-special"
+              onClick={() => this.handleEditClick(qId)}
+            >Edit</div>
             <div className="btn btn-danger right" onClick={this.handleOpenModal}>Delete</div>
           </div>
           <ReactModal

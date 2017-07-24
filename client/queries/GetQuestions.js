@@ -15,6 +15,10 @@ export default gql`
     topics
     explanation
     userName
+    votes
+    upVotes
+    correctAnswers
+    incorrectAnswers
   }
 }
 `;

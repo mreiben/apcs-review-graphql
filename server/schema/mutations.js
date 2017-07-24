@@ -64,7 +64,9 @@ const mutation = new GraphQLObjectType({
         const userName = req.user.name;
         const votes = 0;
         const upVotes = 0;
-        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, userName, votes, upVotes } ).save()
+        const correctAnswers = 0;
+        const incorrectAnswers = 0;
+        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, userName, votes, upVotes, correctAnswers, incorrectAnswers } ).save()
       .then((q) => {
         User.addQuestionToUser(req.user.id, q);
           })
@@ -82,10 +84,25 @@ const mutation = new GraphQLObjectType({
                 return req.user;
               })
           })
-        // return Question.remove({ _id: id })
-        // .then(q) => {
-        //   return User.removeQuestionFromUser(req.user.id, id);
-        // }
+      }
+    },
+    updateQuestion: {
+      type: QuestionType,
+      args: {
+        id: { type: GraphQLID },
+        prompt: { type: GraphQLString },
+        code: { type: GraphQLString },
+        answer1: { type: GraphQLString },
+        answer2: { type: GraphQLString },
+        answer3: { type: GraphQLString },
+        answer4: { type: GraphQLString },
+        answer5: { type: GraphQLString },
+        correct: { type: GraphQLString },
+        topics: { type: new GraphQLList(GraphQLString) },
+        explanation: { type: GraphQLString }
+      },
+      resolve(parentValue, { id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }, req){
+        return Question.updateQuestion( id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation )
       }
     }
   }

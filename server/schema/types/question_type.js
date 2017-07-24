@@ -24,7 +24,9 @@ const QuestionType = new GraphQLObjectType({
     explanation: { type: new GraphQLNonNull(GraphQLString) },
     userName: { type: GraphQLString },
     votes: { type: GraphQLInt },
-    upVotes: { type: GraphQLInt }
+    upVotes: { type: GraphQLInt },
+    correctAnswers: { type: GraphQLInt },
+    incorrectAnswers: { type: GraphQLInt }
   })
 });
 
