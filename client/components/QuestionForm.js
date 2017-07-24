@@ -164,7 +164,6 @@ class QuestionForm extends Component {
             multi={true}
             value={this.state.topics}
             options={questionTopics}
-            allowCreate={true}
             onChange={this.updateTopics.bind(this)}
           />
           <div className="input-field">

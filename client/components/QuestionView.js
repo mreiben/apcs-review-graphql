@@ -25,7 +25,7 @@ class QuestionView extends Component {
         userName={userName}
         votes={votes}
         upVotes={upVotes}
-        />);
+              />);
     }))
   }
 

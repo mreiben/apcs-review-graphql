@@ -15,7 +15,7 @@ class Dashboard extends Component {
       <div>
         <div className="section">
           <Link to="/create" className="btn dashboard-btn  btn-special">Create Question</Link>
-          <Link to="/questions" className="btn dashboard-btn  btn-special">Practice!</Link>
+          <Link to="/practice" className="btn dashboard-btn  btn-special">Practice!</Link>
           <Link to="/profile" className="btn dashboard-btn  btn-special">My Profile</Link>
         </div>
         <h3>Welcome to your dashboard!</h3>

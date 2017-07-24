@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
-import { Router, hashHistory, Route, IndexRoute } from 'react-router';
+import { Router, hashHistory, Route, IndexRoute, Redirect } from 'react-router';
 
 import App from './components/App';
 import LandingPage from './components/LandingPage';
@@ -12,7 +12,8 @@ import Dashboard from './components/Dashboard';
 import requireAuth from './components/requireAuth';
 import QuestionForm from './components/QuestionForm';
 import QuestionEditForm from './components/QuestionEditForm';
-import QuestionView from './components/QuestionView';
+import QuizSetup from './components/QuizSetup';
+import NotFound from './components/NotFound';
 import UserProfile from './components/UserProfile';
 import './css/stylesheet.css';
 import 'react-select/dist/react-select.css';
@@ -45,9 +46,11 @@ const Root = () => {
           <Route path="/signup" component={SignupForm} />
           <Route path="/dashboard" component={requireAuth(Dashboard)} />
           <Route path="/create" component={requireAuth(QuestionForm)} />
-          <Route path="/questions" component={requireAuth(QuestionView)} />
+          <Route path="/practice" component={requireAuth(QuizSetup)} />
           <Route path="/profile" component={requireAuth(UserProfile)} />
           <Route path="/edit/:id" component={requireAuth(QuestionEditForm)} />
+          <Route path='/404' component={NotFound} />
+          <Redirect from='*' to='/404' />
         </Route>
       </Router>
     </ApolloProvider>
