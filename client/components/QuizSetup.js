@@ -6,7 +6,11 @@ import { Row, Input, Form } from 'react-materialize';
 class QuizSetup extends Component {
   constructor(props){
     super(props);
-    this.state = { topics: [], questions: 1 };
+    this.state = {
+      topics: [],
+      questions: 0,
+      errors: ""
+    };
   }
 
   renderCheckBoxes(topics){
@@ -27,6 +31,7 @@ class QuizSetup extends Component {
   onTopicClick(e){
     const topics = this.state.topics;
     let index;
+    this.setState({errors: ""});
 
     if (e.target.checked) {
       topics.push(e.target.value);
@@ -40,10 +45,16 @@ class QuizSetup extends Component {
   onNumberChange(e){
     console.log(e.target.value)
     this.state.questions = e.target.value;
+    this.setState({errors: ""});
   }
 
   startQuiz(){
-    console.log(`starting quiz with ${this.state.questions} questions about topics: ${this.state.topics} `);
+    if(this.state.topics == [] || this.state.questions == 0 ){
+      this.setState({errors: "Please select at least one topic and choose a number of questions!"});
+    }
+    else{
+      console.log(`starting quiz with ${this.state.questions} questions about topics: ${this.state.topics} `);
+    }
   }
 
   render(){
@@ -91,7 +102,7 @@ class QuizSetup extends Component {
             <Input
               s={4}
               type="number"
-              min={0}
+              min={1}
               label="How many questions?"
               validate
               onChange={this.onNumberChange.bind(this)}
@@ -102,6 +113,7 @@ class QuizSetup extends Component {
             onClick={this.startQuiz.bind(this)}
           >Start quiz!</div>
         </div>
+        <p className="errors">{this.state.errors}</p>
       </div>
     );
   }
