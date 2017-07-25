@@ -110,50 +110,50 @@ class QuestionForm extends Component {
           <p>Please provide one correct and four incorrect answer choices:</p>
           <div className="input-field">
             <label htmlFor="answer1">Correct Answer</label>
-            <input
+            <textarea
               id="answer1"
               type="text"
-              className="validate"
+              className="materialize-textarea"
               value={this.state.answer1}
               onChange={ e => this.setState({ answer1: e.target.value, correct: e.target.value })}
             />
           </div>
           <div className="input-field">
             <label htmlFor="answer2">Incorrect Answer</label>
-            <input
+            <textarea
               id="answer2"
               type="text"
-              className="validate"
+              className="materialize-textarea"
               value={this.state.answer2}
               onChange={ e => this.setState({ answer2: e.target.value })}
             />
           </div>
           <div className="input-field">
             <label htmlFor="answer3">Incorrect Answer</label>
-            <input
+            <textarea
               id="answer3"
               type="text"
-              className="validate"
+              className="materialize-textarea"
               value={this.state.answer3}
               onChange={ e => this.setState({ answer3: e.target.value })}
             />
           </div>
           <div className="input-field">
             <label htmlFor="answer4">Incorrect Answer</label>
-            <input
+            <textarea
               id="answer4"
               type="text"
-              className="validate"
+              className="materialize-textarea"
               value={this.state.answer4}
               onChange={ e => this.setState({ answer4: e.target.value })}
             />
           </div>
           <div className="input-field">
             <label htmlFor="answer5">Incorrect Answer</label>
-            <input
+            <textarea
               id="answer5"
               type="text"
-              className="validate"
+              className="materialize-textarea"
               value={this.state.answer5}
               onChange={ e => this.setState({ answer5: e.target.value })}
             />

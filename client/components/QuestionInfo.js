@@ -98,13 +98,13 @@ class QuestionInfo extends Component {
       return(
         <CollapsibleItem header={question.prompt.substring(0,80) + "..."} icon='arrow_drop_down'>
           <div className="collection">
-            <div className="collection-item"><Icon className="collection-icon icon-blue">live_help</Icon>{question.prompt}</div>
+            <div className="collection-item"><Icon className="collection-icon icon-blue">live_help</Icon><ReactMarkdown source={question.prompt}/></div>
             <div className="collection-item"><code className="code">{question.code}</code></div>
-            <div className="answer answer-item"><Icon className="collection-icon">check_circle</Icon><ReactMarkdown source={question.correct}/></div>
-            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer2}/></div>
-            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer3}/></div>
-            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer4}/></div>
-            <div className="answer answer-item"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer5}/></div>
+            <div className="answer"><Icon className="collection-icon">check_circle</Icon><ReactMarkdown source={question.correct}/></div>
+            <div className="answer"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer2}/></div>
+            <div className="answer"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer3}/></div>
+            <div className="answer"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer4}/></div>
+            <div className="answer"><Icon className="collection-icon">block</Icon><ReactMarkdown source={question.answer5}/></div>
             <div className="collection-item"><Icon className="collection-icon">lightbulb_outline</Icon><ReactMarkdown source={question.explanation} /></div>
             <div className="collection-item"><Icon className="collection-icon">list</Icon>{question.topics.map((topic)=>{return <span className="topic-list" key={topic}>{topic}</span>})}</div>
             <div className="collection-item"><Icon className="collection-icon">thumbs_up_down</Icon>Rating: {rating}/5.0</div>
