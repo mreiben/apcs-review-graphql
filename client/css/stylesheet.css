@@ -107,3 +107,18 @@ textarea:focus, input:focus{
 .quiz-topic * {
   width: 175px;
 }
+
+.strict-button{
+  color: #f44336;
+  margin-top: 7px;;
+}
+
+.strict-button:hover+.strict-info{
+  display: block;
+}
+
+.strict-info{
+  display: none;
+  color: #f44336;
+  font-style: italic;
+}

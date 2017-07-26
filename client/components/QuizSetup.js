@@ -51,6 +51,15 @@ class QuizSetup extends Component {
     }
   }
 
+  // renderStrictHelp(){
+  //   if(this.state.strict){
+  //     return <p>Strict mode requires each question to contain all of the selected topics. This may restrict the number of available practice questions!</p>
+  //   }
+  //   else{
+  //     return <p>ee</p>
+  //   }
+  // }
+
   onNumberChange(e){
     console.log(e.target.value)
     this.state.questions = e.target.value;
@@ -116,19 +125,22 @@ class QuizSetup extends Component {
               validate
               onChange={this.onNumberChange.bind(this)}
             />
-            <Input
-              name='strict'
-              type='checkbox'
-              value="strict mode"
-              label="strict mode"
-              className="quiz-topic"
-              onClick={this.onStrictClick.bind(this)}
-            />
           </Row>
           <div
-            className="btn dashboard-btn btn-special"
+            className="btn dashboard-btn btn-special left"
             onClick={this.startQuiz.bind(this)}
           >Start quiz!</div>
+          <div className="col">
+            <input
+              type="checkbox"
+              name="strict"
+              value="strict mode"
+              id="strict-input"
+              onClick={this.onStrictClick.bind(this)}
+            />
+            <label className="active strict-button" htmlFor="strict-input">strict mode</label>
+            <div className="strict-info">Strict mode requires questions to include all selected topics!</div>
+          </div>
         </div>
         <p className="errors">{this.state.errors}</p>
       </div>
