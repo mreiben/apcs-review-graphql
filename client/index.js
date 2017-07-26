@@ -13,6 +13,7 @@ import requireAuth from './components/requireAuth';
 import QuestionForm from './components/QuestionForm';
 import QuestionEditForm from './components/QuestionEditForm';
 import QuizSetup from './components/QuizSetup';
+import QuizView from './components/QuizView';
 import NotFound from './components/NotFound';
 import UserProfile from './components/UserProfile';
 import './css/stylesheet.css';
@@ -49,8 +50,9 @@ const Root = () => {
           <Route path="/practice" component={requireAuth(QuizSetup)} />
           <Route path="/profile" component={requireAuth(UserProfile)} />
           <Route path="/edit/:id" component={requireAuth(QuestionEditForm)} />
-          <Route path='/404' component={NotFound} />
-          <Redirect from='*' to='/404' />
+          <Route path="/quiz" component={requireAuth(QuizView)} />
+          {/* <Route path='/404' component={NotFound} />
+          <Redirect from='*' to='/404' /> */}
         </Route>
       </Router>
     </ApolloProvider>

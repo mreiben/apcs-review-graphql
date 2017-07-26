@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router';
+import { Link, hashHistory } from 'react-router';
 import { Row, Input, Form } from 'react-materialize';
 
 class QuizSetup extends Component {
@@ -8,7 +8,7 @@ class QuizSetup extends Component {
     super(props);
     this.state = {
       topics: [],
-      questions: 0,
+      number: 1,
       errors: "",
       strict: false
     };
@@ -62,7 +62,7 @@ class QuizSetup extends Component {
 
   onNumberChange(e){
     console.log(e.target.value)
-    this.state.questions = e.target.value;
+    this.state.number = e.target.value;
     this.setState({errors: ""});
   }
 
@@ -71,7 +71,8 @@ class QuizSetup extends Component {
       this.setState({errors: "Please select at least one topic and choose a number of questions!"});
     }
     else{
-      console.log(`starting quiz with ${this.state.questions} questions about topics: ${this.state.topics}, strict mode: ${this.state.strict} `);
+      console.log(`starting quiz with ${this.state.number} questions about topics: ${this.state.topics}, strict mode: ${this.state.strict} `);
+      hashHistory.push(`/quiz?topics=${this.state.topics}&number=${this.state.number}&strict=${this.state.strict}`);
     }
   }
 
