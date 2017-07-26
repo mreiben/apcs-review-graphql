@@ -9,7 +9,8 @@ class QuizSetup extends Component {
     this.state = {
       topics: [],
       questions: 0,
-      errors: ""
+      errors: "",
+      strict: false
     };
   }
 
@@ -42,6 +43,14 @@ class QuizSetup extends Component {
     this.setState({ topics: topics });
   }
 
+  onStrictClick(e){
+    if (e.target.checked) {
+      this.setState({ strict: true });
+    } else {
+      this.setState({ strict: false });
+    }
+  }
+
   onNumberChange(e){
     console.log(e.target.value)
     this.state.questions = e.target.value;
@@ -53,7 +62,7 @@ class QuizSetup extends Component {
       this.setState({errors: "Please select at least one topic and choose a number of questions!"});
     }
     else{
-      console.log(`starting quiz with ${this.state.questions} questions about topics: ${this.state.topics} `);
+      console.log(`starting quiz with ${this.state.questions} questions about topics: ${this.state.topics}, strict mode: ${this.state.strict} `);
     }
   }
 
@@ -71,7 +80,7 @@ class QuizSetup extends Component {
       { value: 'loops', label: 'loops' },
       { value: 'nested loops', label: 'nested loops' },
       { value: 'functions', label: 'functions' },
-      { value: 'string methods', label: 'string methods' },
+      { value: 'string methods', label: 'String methods' },
       { value: 'classes', label: 'classes' },
       { value: 'inheritance', label: 'inheritance' },
       { value: 'interfaces', label: 'interfaces' },
@@ -106,6 +115,14 @@ class QuizSetup extends Component {
               label="How many questions?"
               validate
               onChange={this.onNumberChange.bind(this)}
+            />
+            <Input
+              name='strict'
+              type='checkbox'
+              value="strict mode"
+              label="strict mode"
+              className="quiz-topic"
+              onClick={this.onStrictClick.bind(this)}
             />
           </Row>
           <div

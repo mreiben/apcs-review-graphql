@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLBoolean } = graphql;
 const UserType = require('./user_type');
 const QuestionType = require('./question_type');
 const mongoose = require('mongoose');
@@ -28,7 +28,23 @@ const RootQueryType = new GraphQLObjectType({
       resolve(parentValue, args){
         return Question.find({});
       }
-    }
+    },
+    questionsWithTopics: {
+      type: new GraphQLList(QuestionType),
+      args: {
+        topics: { type: new GraphQLList(GraphQLString) },
+        strict: { type: GraphQLBoolean }
+      },
+      resolve(parentValue, {topics, strict}){
+        topics = topics.sort();
+        if(strict){
+          return Question.find({ topics: topics });
+        }
+        else{
+          return Question.find({ topics: { $in: topics }});
+        }
+      }
+    },
   })
 });
 

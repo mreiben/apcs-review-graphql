@@ -31,6 +31,7 @@ class QuestionEditForm extends Component {
     event.preventDefault();
     const { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation } = this.state;
     const id = this.props.data.question.id;
+    let sortTopics = topics.sort();
     const inputValues = { "prompt": prompt, "answer 1": answer1, "answer 2": answer2, "answer 3": answer3, "answer 4": answer4, "answer 5": answer5, "correct answer": correct, "explanation": explanation }
     let newErrors = [];
     for(var prop in inputValues){
@@ -43,7 +44,7 @@ class QuestionEditForm extends Component {
     }
     else{
       this.props.mutate({
-        variables: { id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation },
+        variables: { id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, sortTopics, explanation },
         refetchQueries: [{ query: getQuestions }, { query: currentUser }]
       })
       .then(() => hashHistory.push('/profile'));
