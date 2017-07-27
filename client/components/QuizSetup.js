@@ -72,7 +72,7 @@ class QuizSetup extends Component {
       this.setState({errors: "Please select at least one topic and choose a number of questions!"});
     }
     else{
-      hashHistory.push(`/quiz?topics=${this.state.topics}&number=${this.state.number}&strict=${this.state.strict}&style=${this.state.style}`);
+      hashHistory.push(`/quiz/topics=${this.state.topics}&number=${this.state.number}&strict=${this.state.strict}&style=${this.state.style}`);
     }
   }
 
