@@ -10,7 +10,8 @@ class QuizSetup extends Component {
       topics: [],
       number: 1,
       errors: "",
-      strict: false
+      strict: false,
+      style: "feedback"
     };
   }
 
@@ -51,19 +52,19 @@ class QuizSetup extends Component {
     }
   }
 
-  // renderStrictHelp(){
-  //   if(this.state.strict){
-  //     return <p>Strict mode requires each question to contain all of the selected topics. This may restrict the number of available practice questions!</p>
-  //   }
-  //   else{
-  //     return <p>ee</p>
-  //   }
-  // }
-
   onNumberChange(e){
-    console.log(e.target.value)
-    this.state.number = e.target.value;
-    this.setState({errors: ""});
+    this.setState({ number: e.target.value });
+    this.setState({ errors: ""});
+  }
+
+  handleStyleChange(){
+    let style = this.state.style;
+    if(style == "feedback"){
+      this.setState({ style: "test" });
+    }
+    else {
+      this.setState({ style: "feedback" });
+    }
   }
 
   startQuiz(){
@@ -71,8 +72,7 @@ class QuizSetup extends Component {
       this.setState({errors: "Please select at least one topic and choose a number of questions!"});
     }
     else{
-      console.log(`starting quiz with ${this.state.number} questions about topics: ${this.state.topics}, strict mode: ${this.state.strict} `);
-      hashHistory.push(`/quiz?topics=${this.state.topics}&number=${this.state.number}&strict=${this.state.strict}`);
+      hashHistory.push(`/quiz?topics=${this.state.topics}&number=${this.state.number}&strict=${this.state.strict}&style=${this.state.style}`);
     }
   }
 
@@ -126,27 +126,41 @@ class QuizSetup extends Component {
               validate
               onChange={this.onNumberChange.bind(this)}
             />
+            <div className="col">
+              <input
+                type="checkbox"
+                name="strict"
+                value="strict mode"
+                id="strict-input"
+                onClick={this.onStrictClick.bind(this)}
+              />
+              <label className="active strict-button" htmlFor="strict-input">strict mode</label>
+              <div className="strict-info">Strict mode requires questions to include all selected topics!</div>
+              <div className="style-info"><div>Feedback mode explains answers as you take the quiz.</div><div>Test mode explains them when the quiz is done.</div></div>
+            </div>
           </Row>
           <div
             className="btn dashboard-btn btn-special left"
             onClick={this.startQuiz.bind(this)}
-          >Start quiz!</div>
-          <div className="col">
-            <input
-              type="checkbox"
-              name="strict"
-              value="strict mode"
-              id="strict-input"
-              onClick={this.onStrictClick.bind(this)}
-            />
-            <label className="active strict-button" htmlFor="strict-input">strict mode</label>
-            <div className="strict-info">Strict mode requires questions to include all selected topics!</div>
+            >Start quiz!</div>
+            <div className="style-input">
+              <div className="switch">
+                <label className="style-input">
+                  instant feedback
+                  <input
+                    type="checkbox"
+                    onChange={this.handleStyleChange.bind(this)}
+                  />
+                  <span className="lever"></span>
+                  test format
+                </label>
+              </div>
+            </div>
           </div>
+          <p className="errors">{this.state.errors}</p>
         </div>
-        <p className="errors">{this.state.errors}</p>
-      </div>
-    );
+      );
+    }
   }
-}
 
-export default QuizSetup;
+  export default QuizSetup;

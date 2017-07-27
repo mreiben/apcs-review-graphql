@@ -117,9 +117,23 @@ textarea:focus, input:focus{
   display: block;
 }
 
+.style-input:hover+.style-info{
+  display: block;
+}
+
+.style-input{
+  padding-top: 10px;
+}
+
 .strict-info{
   display: none;
   color: #f44336;
+  font-style: italic;
+}
+
+.style-info {
+  display: none;
+  color: #26A69A;
   font-style: italic;
 }
 
