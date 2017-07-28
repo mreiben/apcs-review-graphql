@@ -80,7 +80,6 @@ class QuizView extends Component {
   }
 
   onAnswerSubmit(){
-    console.log("answer submitted: ", this.state.currentAnswer);
     if(this.state.currentQuestionIndex == this.props.routeParams.number -1){
       console.log("quiz done!");
       //navigate to quiz results page

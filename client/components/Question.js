@@ -8,7 +8,8 @@ class Question extends Component {
   constructor(props){
     super(props);
     this.state = {
-      currentAnswer: ""
+      currentAnswer: "",
+      answerVisible: false
     }
   }
 
@@ -52,6 +53,36 @@ class Question extends Component {
     this.props.onAnswerSelect(e.target.value);
   }
 
+  handleSubmit(){
+    if(this.props.style == "feedback"){
+      this.setState({ answerVisible: true });
+    }
+    else{
+      this.props.onAnswerSubmit();
+      this.setState({ answerVisible: false});
+    }
+  }
+
+  renderQuestionInfo(){
+    if(this.state.answerVisible){
+      let { style, number, prompt, code, correct, explanation, topics, votes, upVotes, userName } = this.props;
+      return(
+        <div className="question-info">
+          <div className="section btn"
+            onClick={() => { this.props.onAnswerSubmit() }}
+            >
+              Next Question
+            </div>
+          <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
+          <p>Explanation: </p>
+          <ReactMarkdown source={explanation} />
+          <p>rating: {this.renderRating(votes, upVotes)}</p>
+          <p>Created by: {userName}</p>
+        </div>
+      );
+    }
+  }
+
   render(){
     let { style, number, prompt, code, correct, explanation, topics, votes, upVotes, userName } = this.props;
     if(!this.state.mixedAnswers){ return <div>loading...</div>}
@@ -88,18 +119,16 @@ class Question extends Component {
               <div
                 type="submit"
                 className="btn btn-special"
-                onClick={() => { this.props.onAnswerSubmit() }}
-                >Submit Answer & Next Question</div>
-                <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
-                <p>Explanation: </p>
-                <ReactMarkdown source={explanation} />
-                <p>rating: {this.renderRating(votes, upVotes)}</p>
-                <p>Created by: {userName}</p>
+                onClick={() => { this.handleSubmit() }}
+                >
+                  Submit Answer
+                </div>
+              </div>
+              {this.renderQuestionInfo()}
             </div>
           </div>
-        </div>
       )
     }
   }
 }
-  export default Question;
+export default Question;
