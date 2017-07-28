@@ -59,6 +59,10 @@ textarea:focus, input:focus{
   color: #005cb2;
 }
 
+.answer-selected{
+  border: 2px solid #005cb2;
+}
+
 .answer-choice:hover{
   font-weight: bolder;
   cursor: pointer;
@@ -146,4 +150,8 @@ textarea:focus, input:focus{
 .quiz-header div{
   display: inline;
   margin-right: 50px;
+}
+
+.collection-item label div p{
+  margin-top: 0;
 }

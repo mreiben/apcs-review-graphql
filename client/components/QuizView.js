@@ -2,17 +2,19 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import query from '../queries/GetQuestionsWithTopics';
 import { Link } from 'react-router';
-import { Preloader } from 'react-materialize';
+import { Preloader, Input } from 'react-materialize';
 import ReactMarkdown from 'react-markdown';
+import Question from './Question.js';
 
 class QuizView extends Component {
   constructor(props){
     super(props);
     this.state = {
       currentQuestionIndex: 0,
-      currentAnswer: ""
+      currentAnswer: "",
+      userAnswers: [],
+      correctAnswers: []
     };
-
   }
 
   renderTypesList(){
@@ -45,80 +47,67 @@ class QuizView extends Component {
     }
   }
 
-  shuffle(array){
-    var currentIndex = array.length, temporaryValue, randomIndex;
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-    return array;
+  renderQuestion(){
+    let question = this.props.data.questionsWithTopics[this.state.currentQuestionIndex];
+    let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, votes, upVotes, userName } = question;
+    let style = this.props.routeParams.style;
+    let number = this.state.currentQuestionIndex + 1;
+    return(
+      <Question
+        prompt={prompt}
+        code={code}
+        answer1={answer1}
+        answer2={answer2}
+        answer3={answer3}
+        answer4={answer4}
+        answer5={answer5}
+        correct={correct}
+        explanation={explanation}
+        topics={topics}
+        number={number}
+        style={style}
+        votes={votes}
+        upVotes={upVotes}
+        userName={userName}
+        onAnswerSelect={this.onAnswerSelect.bind(this)}
+        onAnswerSubmit={this.onAnswerSubmit.bind(this)}
+      />
+    )
   }
 
-  renderRating(votes, upVotes){
-    if(votes == 0){
-      return "unrated";
-    }
-    else {
-      return (5 * (upvotes / votes)).toFixed(2);
-    }
-  }
-
-  handleAnswerSelect(answer){
+  onAnswerSelect(answer){
     this.setState({ currentAnswer: answer});
   }
 
-  handleAnswerSubmit(){
-    if(this.state.currentQuestionIndex == this.props.location.query.number -1){
+  onAnswerSubmit(){
+    console.log("answer submitted: ", this.state.currentAnswer);
+    if(this.state.currentQuestionIndex == this.props.routeParams.number -1){
       console.log("quiz done!");
+      //navigate to quiz results page
     }
     else{
       let i = this.state.currentQuestionIndex;
-      this.setState({ currentQuestionIndex: i + 1 });
+      let { userAnswers, correctAnswers } = this.state;
+      userAnswers.push(this.state.currentAnswer);
+      correctAnswers.push(this.props.data.questionsWithTopics[i].correct);
+      this.setState({
+        currentQuestionIndex: i + 1,
+        userAnswers: userAnswers,
+        correctAnswers: correctAnswers,
+        currentAnswer: ""
+      });
     }
   }
 
-  renderQuestion(i){
+  render(){
     if(!this.props.data.questionsWithTopics){
       return <Preloader size='big' />
     }
     else{
-      let questions = this.props.data.questionsWithTopics;
-      let question = questions[i];
-      let answers = [question.correct, question.answer2, question.answer3, question.answer4, question.answer5];
-      answers = this.shuffle(answers);
-      return (
-        <div>
-          <h5>Question {this.state.currentQuestionIndex + 1}</h5>
-          <ReactMarkdown source={question.prompt} />
-          <code className="code">{question.code}</code>
-          <ul className="collection">
-            <li className="answer-choice" onClick={() => {this.handleAnswerSelect(answers[0])}}><ReactMarkdown source={answers[0]}/></li>
-            <li className="answer-choice" onClick={() => {this.handleAnswerSelect(answers[1])}}><ReactMarkdown source={answers[1]}/></li>
-            <li className="answer-choice" onClick={() => {this.handleAnswerSelect(answers[2])}}><ReactMarkdown source={answers[2]}/></li>
-            <li className="answer-choice" onClick={() => {this.handleAnswerSelect(answers[3])}}><ReactMarkdown source={answers[3]}/></li>
-            <li className="answer-choice" onClick={() => {this.handleAnswerSelect(answers[4])}}><ReactMarkdown source={answers[4]}/></li>
-          </ul>
-          <div className="section">
-            <div
-              type="submit"
-              className="btn btn-special"
-              onClick={() => { this.handleAnswerSubmit() }}
-              >Submit Answer & Next Question</div>
-              <p>Topics: {question.topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
-              <p>Explanation: </p>
-              <ReactMarkdown source={question.explanation} />
-              <p>rating: {this.renderRating(question.votes, question.upVotes)}</p>
-              <p>Created by: {question.userName}</p>
-            </div>
-          </div>
-        );
-      }
-    }
-
-    render(){
+      // let question = this.props.data.questionsWithTopics[this.state.currentQuestionIndex];
+      // let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, votes, upVotes, userName } = question;
+      // let style = this.props.routeParams.style;
+      // let number = this.state.currentQuestionIndex + 1;
       return(
         <div>
           <div className="section">
@@ -128,20 +117,19 @@ class QuizView extends Component {
               <div>Topics: {this.renderTypesList()}</div>
               <div>{this.renderStrict()}</div>
             </div>
-          </div>
-          <div>
-            {this.renderQuestion(this.state.currentQuestionIndex)}
+            {this.renderQuestion()}
           </div>
         </div>
       );
     }
   }
+}
 
-  export default graphql(query, {
-    options: (ownProps) => ({
-      variables: {
-        topics: ownProps.params.topics.split(","),
-        strict: (ownProps.params.strict == "true")
-      }
-    })
-  })(QuizView);
+export default graphql(query, {
+  options: (ownProps) => ({
+    variables: {
+      topics: ownProps.params.topics.split(","),
+      strict: (ownProps.params.strict == "true")
+    }
+  })
+})(QuizView);
