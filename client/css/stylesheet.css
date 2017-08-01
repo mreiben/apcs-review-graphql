@@ -135,6 +135,25 @@ textarea:focus, input:focus{
   font-style: italic;
 }
 
+.warning{
+  color: #f44336;
+  font-style: italic;
+  margin-top: 10px;
+  display: inline-block;
+}
+.warning i {
+  display: inline-block;
+  padding-right: 5px;
+  padding-bottom: 10px;
+}
+
+.warning div {
+  width: 700px;
+  display: inline-block;
+  padding-top: 10px;
+  vertical-align: bottom;
+}
+
 .style-info {
   display: none;
   color: #26A69A;

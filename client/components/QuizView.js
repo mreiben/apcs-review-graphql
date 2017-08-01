@@ -14,18 +14,19 @@ class QuizView extends Component {
       currentQuestionIndex: 0,
       currentAnswer: "",
       userAnswers: [],
-      correctAnswers: []
+      correctAnswers: [],
+      questions: []
     };
   }
 
   componentWillReceiveProps(newProps){
-    if(this.props.data.questionsWithTopics && !this.state.questions){
+    if(this.props.data.questionsWithTopics && !this.state.questions == []){
       let questions = newProps.data.questionsWithTopics;
       let qPositions = this.shuffle(_.range(0, questions.length));
       let mixedQuestions = qPositions.map((i) =>{
         return questions[i];
-      })
-      this.setState({questions: mixedQuestions});
+      });
+      this.setState({questions: mixedQuestions.slice(0, this.props.params.number)});
     }
   }
 
@@ -52,18 +53,36 @@ class QuizView extends Component {
   }
 
   renderNumber(){
+    let n = this.props.data.questionsWithTopics.length;
     let number = this.props.params.number;
     if(number == 1){
       return "1 Question";
+    }
+    else if(number > n){
+      return `${n} Questions`;
     }
     else {
       return `${number} Questions`;
     }
   }
 
+  renderNumberWarning(){
+    let n = this.props.data.questionsWithTopics.length;
+    if (this.props.params.number > n){
+      return <div className="warning">
+        <i className="material-icons">error_outline</i>
+        <div className="">
+          Uh-oh! We couldn't find enough questions to fill your quiz.
+          For now, you can practice with {n} questions. Please write more so that
+          other students can get more practice with these topics!
+        </div>
+      </div>
+    }
+  }
+
   renderStrict(){
     let strict = this.props.params.strict;
-    if(strict){
+    if(strict == "true"){
       return "Strict Mode: On";
     }
     else {
@@ -72,7 +91,7 @@ class QuizView extends Component {
   }
 
   renderQuestion(){
-    if(!this.state.questions){
+    if(this.state.questions.length == 0){
       return <Preloader size='big' />
     }
     else{
@@ -112,6 +131,7 @@ class QuizView extends Component {
     if(this.state.currentQuestionIndex == this.props.routeParams.number -1){
       console.log("quiz done!");
       //navigate to quiz results page
+
     }
     else{
       let i = this.state.currentQuestionIndex;
@@ -132,10 +152,6 @@ class QuizView extends Component {
       return <Preloader size='big' />
     }
     else{
-      // let question = this.props.data.questionsWithTopics[this.state.currentQuestionIndex];
-      // let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, votes, upVotes, userName } = question;
-      // let style = this.props.routeParams.style;
-      // let number = this.state.currentQuestionIndex + 1;
       return(
         <div>
           <div className="section">
@@ -145,6 +161,7 @@ class QuizView extends Component {
               <div>Topics: {this.renderTypesList()}</div>
               <div>{this.renderStrict()}</div>
             </div>
+            {this.renderNumberWarning()}
             {this.renderQuestion()}
           </div>
         </div>
