@@ -73,64 +73,85 @@ class Question extends Component {
             >
               Next Question
             </div>
-          <div className="section">
-            <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
-            <p>Explanation: </p>
-            <ReactMarkdown source={explanation} />
-            <p>rating: {this.renderRating(votes, upVotes)}</p>
-            <p>Created by: {userName}</p>
+            <div className="section">
+              <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
+              <p>Explanation: </p>
+              <ReactMarkdown source={explanation} />
+              <p>rating: {this.renderRating(votes, upVotes)}</p>
+              <p>Created by: {userName}</p>
+            </div>
           </div>
+        );
+      }
+    }
+
+    renderAnswerChoice(i){
+      let id = `answer${i}`;
+      let classes = "";
+      if(this.state.answerVisible && this.props.correct == this.state.mixedAnswers[i]){
+        classes = "correctAnswer";
+      }
+      else if(this.state.answerVisible){
+        classes = "incorrectAnswer";
+      }
+      return(
+        <div className="collection-item">
+          <input checked={this.state.currentAnswer === this.state.mixedAnswers[i]}
+            className={classes}
+            name="answerGroup"
+            type="radio"
+            id={id}
+            value={this.state.mixedAnswers[i]}
+            onClick={this.handleAnswerSelect.bind(this)}
+          />
+          <label htmlFor={id}><ReactMarkdown source={this.state.mixedAnswers[i]}/></label>
         </div>
       );
     }
-  }
 
-  render(){
-    let { style, number, prompt, code, correct, explanation, topics, votes, upVotes, userName } = this.props;
-    if(!this.state.mixedAnswers){ return <div>loading...</div>}
-    else{
-      return(
-        <div>
+    render(){
+      let { style, number, prompt, code, correct, explanation, topics, votes, upVotes, userName } = this.props;
+      if(!this.state.mixedAnswers){ return <div>loading...</div>}
+      else{
+        return(
           <div>
-            <h5>Question {number}</h5>
-            <ReactMarkdown source={prompt} />
-            <code className="code">{code}</code>
-            <div className="collection">
-              <div className="collection-item">
-                <input checked={this.state.currentAnswer === this.state.mixedAnswers[0]} name="answerGroup" type="radio" id="answer0" value={this.state.mixedAnswers[0]} onClick={this.handleAnswerSelect.bind(this)} />
-                <label htmlFor="answer0"><ReactMarkdown source={this.state.mixedAnswers[0]}/></label>
-              </div>
-              <div className="collection-item">
-                <input checked={this.state.currentAnswer === this.state.mixedAnswers[1]} name="answerGroup" type="radio" id="answer1" value={this.state.mixedAnswers[1]} onClick={this.handleAnswerSelect.bind(this)} />
-                <label htmlFor="answer1"><ReactMarkdown source={this.state.mixedAnswers[1]}/></label>
-              </div>
-              <div className="collection-item">
-                <input checked={this.state.currentAnswer === this.state.mixedAnswers[2]} name="answerGroup" type="radio" id="answer2" value={this.state.mixedAnswers[2]} onClick={this.handleAnswerSelect.bind(this)} />
-                <label htmlFor="answer2"><ReactMarkdown source={this.state.mixedAnswers[2]}/></label>
-              </div>
-              <div className="collection-item">
-                <input checked={this.state.currentAnswer === this.state.mixedAnswers[3]} name="answerGroup" type="radio" id="answer3" value={this.state.mixedAnswers[3]} onClick={this.handleAnswerSelect.bind(this)} />
-                <label htmlFor="answer3"><ReactMarkdown source={this.state.mixedAnswers[3]}/></label>
-              </div>
-              <div className="collection-item">
-                <input checked={this.state.currentAnswer === this.state.mixedAnswers[4]} name="answerGroup" type="radio" id="answer4" value={this.state.mixedAnswers[4]} onClick={this.handleAnswerSelect.bind(this)} />
-                <label htmlFor="answer4"><ReactMarkdown source={this.state.mixedAnswers[4]}/></label>
-              </div>
-            </div>
-            <div className="section">
-              <div
-                type="submit"
-                className="btn btn-special"
-                onClick={() => { this.handleSubmit() }}
-                >
-                  Submit Answer
+            <div>
+              <h5>Question {number}</h5>
+              <ReactMarkdown source={prompt} />
+              <code className="code">{code}</code>
+              <div className="collection">
+                {this.renderAnswerChoice(0)}
+                <div className="collection-item">
+                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[1]} name="answerGroup" type="radio" id="answer1" value={this.state.mixedAnswers[1]} onClick={this.handleAnswerSelect.bind(this)} />
+                  <label htmlFor="answer1"><ReactMarkdown source={this.state.mixedAnswers[1]}/></label>
+                </div>
+                <div className="collection-item">
+                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[2]} name="answerGroup" type="radio" id="answer2" value={this.state.mixedAnswers[2]} onClick={this.handleAnswerSelect.bind(this)} />
+                  <label htmlFor="answer2"><ReactMarkdown source={this.state.mixedAnswers[2]}/></label>
+                </div>
+                <div className="collection-item">
+                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[3]} name="answerGroup" type="radio" id="answer3" value={this.state.mixedAnswers[3]} onClick={this.handleAnswerSelect.bind(this)} />
+                  <label htmlFor="answer3"><ReactMarkdown source={this.state.mixedAnswers[3]}/></label>
+                </div>
+                <div className="collection-item">
+                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[4]} name="answerGroup" type="radio" id="answer4" value={this.state.mixedAnswers[4]} onClick={this.handleAnswerSelect.bind(this)} />
+                  <label htmlFor="answer4"><ReactMarkdown source={this.state.mixedAnswers[4]}/></label>
                 </div>
               </div>
-              {this.renderQuestionInfo()}
+              <div className="section">
+                <div
+                  type="submit"
+                  className="btn btn-special"
+                  onClick={() => { this.handleSubmit() }}
+                  >
+                    Submit Answer
+                  </div>
+                </div>
+                {this.renderQuestionInfo()}
+              </div>
             </div>
-          </div>
-      )
+          )
+        }
+      }
     }
-  }
-}
-export default Question;
+    export default Question;
