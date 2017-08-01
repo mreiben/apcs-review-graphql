@@ -88,23 +88,28 @@ class Question extends Component {
     renderAnswerChoice(i){
       let id = `answer${i}`;
       let classes = "";
+      let disabled = false;
       if(this.state.answerVisible && this.props.correct == this.state.mixedAnswers[i]){
         classes = "correctAnswer";
+        disabled = true;
       }
       else if(this.state.answerVisible){
         classes = "incorrectAnswer";
+        disabled = true;
       }
       return(
         <div className="collection-item">
-          <input checked={this.state.currentAnswer === this.state.mixedAnswers[i]}
-            className={classes}
-            name="answerGroup"
-            type="radio"
-            id={id}
-            value={this.state.mixedAnswers[i]}
-            onClick={this.handleAnswerSelect.bind(this)}
-          />
-          <label htmlFor={id}><ReactMarkdown source={this.state.mixedAnswers[i]}/></label>
+          <div className={classes}>
+            <input checked={this.state.currentAnswer === this.state.mixedAnswers[i]}
+              name="answerGroup"
+              disabled={disabled}
+              type="radio"
+              id={id}
+              value={this.state.mixedAnswers[i]}
+              onClick={this.handleAnswerSelect.bind(this)}
+            />
+            <label htmlFor={id}><ReactMarkdown source={this.state.mixedAnswers[i]}/></label>
+          </div>
         </div>
       );
     }
@@ -121,22 +126,10 @@ class Question extends Component {
               <code className="code">{code}</code>
               <div className="collection">
                 {this.renderAnswerChoice(0)}
-                <div className="collection-item">
-                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[1]} name="answerGroup" type="radio" id="answer1" value={this.state.mixedAnswers[1]} onClick={this.handleAnswerSelect.bind(this)} />
-                  <label htmlFor="answer1"><ReactMarkdown source={this.state.mixedAnswers[1]}/></label>
-                </div>
-                <div className="collection-item">
-                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[2]} name="answerGroup" type="radio" id="answer2" value={this.state.mixedAnswers[2]} onClick={this.handleAnswerSelect.bind(this)} />
-                  <label htmlFor="answer2"><ReactMarkdown source={this.state.mixedAnswers[2]}/></label>
-                </div>
-                <div className="collection-item">
-                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[3]} name="answerGroup" type="radio" id="answer3" value={this.state.mixedAnswers[3]} onClick={this.handleAnswerSelect.bind(this)} />
-                  <label htmlFor="answer3"><ReactMarkdown source={this.state.mixedAnswers[3]}/></label>
-                </div>
-                <div className="collection-item">
-                  <input checked={this.state.currentAnswer === this.state.mixedAnswers[4]} name="answerGroup" type="radio" id="answer4" value={this.state.mixedAnswers[4]} onClick={this.handleAnswerSelect.bind(this)} />
-                  <label htmlFor="answer4"><ReactMarkdown source={this.state.mixedAnswers[4]}/></label>
-                </div>
+                {this.renderAnswerChoice(1)}
+                {this.renderAnswerChoice(2)}
+                {this.renderAnswerChoice(3)}
+                {this.renderAnswerChoice(4)}
               </div>
               <div className="section">
                 <div
