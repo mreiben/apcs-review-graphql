@@ -153,11 +153,7 @@ textarea:focus, input:focus{
 }
 
 .collection-item label div p{
-  margin-top: 0;
-}
-
-.collection-item div label{
-  padding: 3px;
+  margin: 0;
 }
 
 .correctAnswer label{

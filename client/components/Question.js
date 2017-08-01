@@ -108,7 +108,7 @@ class Question extends Component {
               value={this.state.mixedAnswers[i]}
               onClick={this.handleAnswerSelect.bind(this)}
             />
-            <label htmlFor={id}><ReactMarkdown source={this.state.mixedAnswers[i]}/></label>
+            <label style={{height: 'inherit'}} htmlFor={id}><ReactMarkdown source={this.state.mixedAnswers[i]}/></label>
           </div>
         </div>
       );

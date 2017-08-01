@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import { Preloader, Input } from 'react-materialize';
 import ReactMarkdown from 'react-markdown';
 import Question from './Question.js';
+import _ from 'lodash';
 
 class QuizView extends Component {
   constructor(props){
@@ -15,6 +16,29 @@ class QuizView extends Component {
       userAnswers: [],
       correctAnswers: []
     };
+  }
+
+  componentWillReceiveProps(newProps){
+    if(this.props.data.questionsWithTopics && !this.state.questions){
+      let questions = newProps.data.questionsWithTopics;
+      let qPositions = this.shuffle(_.range(0, questions.length));
+      let mixedQuestions = qPositions.map((i) =>{
+        return questions[i];
+      })
+      this.setState({questions: mixedQuestions});
+    }
+  }
+
+  shuffle(array){
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    while (0 !== currentIndex) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
   }
 
   renderTypesList(){
@@ -48,31 +72,36 @@ class QuizView extends Component {
   }
 
   renderQuestion(){
-    let question = this.props.data.questionsWithTopics[this.state.currentQuestionIndex];
-    let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, votes, upVotes, userName } = question;
-    let style = this.props.routeParams.style;
-    let number = this.state.currentQuestionIndex + 1;
-    return(
-      <Question
-        prompt={prompt}
-        code={code}
-        answer1={answer1}
-        answer2={answer2}
-        answer3={answer3}
-        answer4={answer4}
-        answer5={answer5}
-        correct={correct}
-        explanation={explanation}
-        topics={topics}
-        number={number}
-        style={style}
-        votes={votes}
-        upVotes={upVotes}
-        userName={userName}
-        onAnswerSelect={this.onAnswerSelect.bind(this)}
-        onAnswerSubmit={this.onAnswerSubmit.bind(this)}
-      />
-    )
+    if(!this.state.questions){
+      return <Preloader size='big' />
+    }
+    else{
+      let question = this.state.questions[this.state.currentQuestionIndex];
+      let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, votes, upVotes, userName } = question;
+      let style = this.props.routeParams.style;
+      let number = this.state.currentQuestionIndex + 1;
+      return(
+        <Question
+          prompt={prompt}
+          code={code}
+          answer1={answer1}
+          answer2={answer2}
+          answer3={answer3}
+          answer4={answer4}
+          answer5={answer5}
+          correct={correct}
+          explanation={explanation}
+          topics={topics}
+          number={number}
+          style={style}
+          votes={votes}
+          upVotes={upVotes}
+          userName={userName}
+          onAnswerSelect={this.onAnswerSelect.bind(this)}
+          onAnswerSubmit={this.onAnswerSubmit.bind(this)}
+        />
+      )
+    }
   }
 
   onAnswerSelect(answer){
