@@ -24,6 +24,7 @@ class Question extends Component {
     let mixedAnswers = this.shuffle([answer1, answer2, answer3, answer4, answer5]);
     if(nextProps.answer1 != this.props.answer1){
       this.setState({mixedAnswers: mixedAnswers});
+      this.setState({answerVisible: false});
     }
   }
 
@@ -54,12 +55,11 @@ class Question extends Component {
   }
 
   handleSubmit(){
-    if(this.props.style == "feedback"){
+    if(this.props.style == "feedback" && !this.state.answerVisible){
       this.setState({ answerVisible: true });
     }
     else{
       this.props.onAnswerSubmit();
-      this.setState({ answerVisible: false});
     }
   }
 
@@ -73,11 +73,13 @@ class Question extends Component {
             >
               Next Question
             </div>
-          <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
-          <p>Explanation: </p>
-          <ReactMarkdown source={explanation} />
-          <p>rating: {this.renderRating(votes, upVotes)}</p>
-          <p>Created by: {userName}</p>
+          <div className="section">
+            <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
+            <p>Explanation: </p>
+            <ReactMarkdown source={explanation} />
+            <p>rating: {this.renderRating(votes, upVotes)}</p>
+            <p>Created by: {userName}</p>
+          </div>
         </div>
       );
     }
