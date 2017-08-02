@@ -10,6 +10,7 @@ const QuizSchema = new Schema({
   correctAnswers: [String],
   userAnswers: [String],
   questionTopics: [[String]],
+  explanations: [String],
   correct: Number,
   userId: String
 });

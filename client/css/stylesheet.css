@@ -182,3 +182,12 @@ textarea:focus, input:focus{
 .incorrectAnswer label{
   border-bottom: 2px dashed #f44336;
 }
+
+.resultCat{
+  font-weight: bold;
+}
+
+.sub-collapse .collapsible-header{
+  background-color: #1e88e5;
+  color: white;
+}

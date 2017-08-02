@@ -57,12 +57,13 @@ const mutation = new GraphQLObjectType({
         questionIds: { type: new GraphQLList(GraphQLID) },
         correctAnswers: { type: new GraphQLList(GraphQLString) },
         userAnswers: { type: new GraphQLList(GraphQLString) },
+        explanations: { type: new GraphQLList(GraphQLString) },
         questionTopics: { type: new GraphQLList(new GraphQLList(GraphQLString)) },
         correct: { type: GraphQLInt }
       },
-      resolve(parentValue, { prompts, codes, questionIds, userAnswers, correctAnswers, questionTopics, correct }, req){
+      resolve(parentValue, { prompts, codes, questionIds, userAnswers, correctAnswers, explanations, questionTopics, correct }, req){
         const userId = req.user.id;
-        return( new Quiz( { prompts, codes, questionIds, userAnswers, correctAnswers, questionTopics, correct, userId }) ).save()
+        return( new Quiz( { prompts, codes, questionIds, userAnswers, correctAnswers, explanations, questionTopics, correct, userId }) ).save()
         .then((q) =>{
           User.addQuizToUser(userId, q);
           return q;

@@ -150,6 +150,7 @@ class QuizView extends Component {
       let prompts = this.state.questions.map((q) => { return q.prompt });
       let questionTopics = this.state.questions.map((q) => { return q.topics });
       let codes = this.state.questions.map((q) => { return q.code });
+      let explanations = this.state.questions.map((q) => { return q.explanation });
       let questionIds = this.state.questions.map((q) => { return q.id });
       let { userAnswers, correctAnswers } = this.state;
       let correct = 0;
@@ -158,7 +159,7 @@ class QuizView extends Component {
       }
 
       this.props.mutate({
-        variables: { prompts, codes, questionIds, correctAnswers, userAnswers, questionTopics, correct },
+        variables: { prompts, codes, questionIds, correctAnswers, userAnswers, questionTopics, correct, explanations },
         refetchQueries: [{ query: currentUser }]
       }) //reroute to user quiz results view
       .then((quizResult) => {

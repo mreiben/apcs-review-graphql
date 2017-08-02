@@ -3,6 +3,9 @@ import { graphql } from 'react-apollo';
 import query from '../queries/GetQuizById';
 import { Preloader } from 'react-materialize';
 import { Link } from 'react-router';
+import ReactMarkdown from 'react-markdown';
+import { Collapsible, CollapsibleItem } from 'react-materialize';
+import _ from 'lodash';
 
 class QuizResults extends Component {
   constructor(props){
@@ -17,17 +20,37 @@ class QuizResults extends Component {
     let prompt = quiz.prompts[i];
     let userAnswer = quiz.userAnswers[i];
     let correct = quiz.correctAnswers[i];
+    let code = quiz.codes[i];
+    let explanation = quiz.explanations[i];
     let topics = quiz.questionTopics[i].join(", ");
-    console.log(quiz);
+    let header = `Question ${i + 1} - Topics: ${topics}`;
+    let wasCorrect = userAnswer == correct;
+    let icon = wasCorrect ? "check" : "clear";
+
     return(
-      <div>
-        Questsion {i + 1}:
-        <p>Topics: {topics}</p>
-        <p>Prompt: {prompt}</p>
-        <p>Correct Answer: {correct}</p>
-        <p>Your answer: {userAnswer}</p>
-      </div>
+      <CollapsibleItem header={header} icon={icon} key={i}>
+        <div className="collection">
+          <Collapsible className="sub-collapse">
+            <CollapsibleItem header="Prompt" icon="live_help">
+              <div className="collection-item"><ReactMarkdown source={prompt} /></div>
+            </CollapsibleItem>
+            <CollapsibleItem header="Code" icon="code">
+              <div className="collection-item"><code className="code">{code}</code></div>
+            </CollapsibleItem>
+            <CollapsibleItem header="Explanation" icon="lightbulb_outline">
+              <div className="collection-item"><ReactMarkdown source={explanation} /></div>
+            </CollapsibleItem>
+          </Collapsible>
+          <div className="collection-item"><span className="resultCat">Correct Answer: </span><ReactMarkdown source={correct} /></div>
+          <div className="collection-item"><span className="resultCat">Your Answer: </span><ReactMarkdown source={userAnswer} /></div>
+        </div>
+      </CollapsibleItem>
     )
+  }
+
+  renderQuestions(){
+    let indexArr = _.range(0, this.props.data.quizById.prompts.length);
+    return indexArr.map((i) => {return this.renderQuestion(i)});
   }
 
   render(){
@@ -45,7 +68,7 @@ class QuizResults extends Component {
           <div className="section">
             <h4>Total Questions: {quiz.userAnswers.length}</h4>
           </div>
-          <code>{this.renderQuestion(0)}</code>
+          <Collapsible>{this.renderQuestions()}</Collapsible>
         </div>
       );
     }
