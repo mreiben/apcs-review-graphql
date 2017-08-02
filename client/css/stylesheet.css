@@ -191,3 +191,8 @@ textarea:focus, input:focus{
   background-color: #1e88e5;
   color: white;
 }
+
+.chart-holder{
+  width: 60%;
+  height: 400px;
+}

@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 import _ from 'lodash';
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 class QuizResults extends Component {
   constructor(props){
@@ -53,18 +54,76 @@ class QuizResults extends Component {
     return indexArr.map((i) => {return this.renderQuestion(i)});
   }
 
+  getData(){
+    let topics = {};
+    let questions = this.props.data.quizById;
+    for(let i = 0; i < questions.correctAnswers.length; i++){
+      let qTopics = questions.questionTopics[i];
+      for(let t = 0; t < qTopics.length; t++){
+        let key = qTopics[t];
+        if (!topics[key]){
+          topics[key] = {"count": 0, "correct": 0};
+        }
+        let tCount = topics[key].count;
+        let tCorrect = topics[key].correct;
+        if(questions.userAnswers[i] == questions.correctAnswers[i]){
+          topics[key] = {"count": tCount + 1, "correct": tCorrect + 1 }
+        }
+        else {
+          topics[key] = {"count": tCount + 1, "correct": tCorrect }
+        }
+      }
+    }
+
+    let topicsArr = [];
+    Object.keys(topics).forEach(function(entry){
+      let obj = {};
+      let key = entry;
+      let kCount = topics[key].count;
+      let kCorrect = topics[key].correct;
+      kCount = kCount - kCorrect;
+      obj= {topic: key, incorrect: kCount, correct: kCorrect};
+      topicsArr.push(obj);
+    });
+    return topicsArr;
+  }
+
   render(){
     if(!this.props.data.quizById){
       return <Preloader size='big' />
     }
     else{
+      const data = this.getData();
+      console.log(data);
+
       let quiz = this.props.data.quizById;
+
+      const AxisLabel = ({ axisType, x=0, y=0, width, height, stroke, children }) => {
+        const isVert = axisType === 'yAxis';
+        const cx = isVert ? x : x + (width / 2);
+        const cy = isVert ? (height / 2) + y : y + height + 10;
+        const rot = isVert ? `270 ${cx} ${cy}` : 0;
+        return (
+          <text x={cx} y={cy} transform={`rotate(${rot})`} textAnchor="middle" stroke={stroke}>
+            {children}
+          </text>
+        );
+      };
       return(
         <div>
           <div className="section">
             <Link to="/dashboard" className="btn dashboard-btn  btn-special z-depth-0">Back</Link>
           </div>
           <h3>Quiz Results:</h3>
+          <BarChart width={600} height={300} data={data}
+            margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+            <XAxis dataKey="topic"/>
+            <YAxis allowDecimals={false} label={<AxisLabel axisType="yAxis" x={25} y={125} width={0} height={0}>Number of Questions</AxisLabel>}/>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <Legend />
+            <Bar dataKey="correct" stackId="a" fill="#1e88e5" />
+            <Bar dataKey="incorrect" stackId="a" fill="#f44336" />
+          </BarChart>
           <div className="section">
             <h4>Total Questions: {quiz.userAnswers.length}</h4>
           </div>
