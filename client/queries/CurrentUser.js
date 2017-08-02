@@ -9,6 +9,9 @@ export default gql`
     questions{
       id
     }
+    quizzes{
+      id
+    }
   }
 }
 `;

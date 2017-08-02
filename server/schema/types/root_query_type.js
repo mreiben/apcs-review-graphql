@@ -2,9 +2,11 @@ const graphql = require('graphql');
 const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLBoolean } = graphql;
 const UserType = require('./user_type');
 const QuestionType = require('./question_type');
+const QuizType = require('./quiz_type');
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
 const Question = mongoose.model('question');
+const Quiz = mongoose.model('quiz');
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',

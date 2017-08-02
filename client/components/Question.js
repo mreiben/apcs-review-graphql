@@ -68,50 +68,59 @@ class Question extends Component {
       let { style, number, prompt, code, correct, explanation, topics, votes, upVotes, userName } = this.props;
       return(
         <div className="question-info">
-          <div className="section btn"
-            onClick={() => { this.props.onAnswerSubmit() }}
-            >
-              Next Question
-            </div>
-            <div className="section">
-              <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
-              <p>Explanation: </p>
-              <ReactMarkdown source={explanation} />
-              <p>rating: {this.renderRating(votes, upVotes)}</p>
-              <p>Created by: {userName}</p>
-            </div>
-          </div>
-        );
-      }
-    }
-
-    renderAnswerChoice(i){
-      let id = `answer${i}`;
-      let classes = "";
-      let disabled = false;
-      if(this.state.answerVisible && this.props.correct == this.state.mixedAnswers[i]){
-        classes = "correctAnswer";
-        disabled = true;
-      }
-      else if(this.state.answerVisible){
-        classes = "incorrectAnswer";
-        disabled = true;
-      }
-      return(
-        <div className="collection-item">
-          <div className={classes}>
-            <input checked={this.state.currentAnswer === this.state.mixedAnswers[i]}
-              name="answerGroup"
-              disabled={disabled}
-              type="radio"
-              id={id}
-              value={this.state.mixedAnswers[i]}
-              onClick={this.handleAnswerSelect.bind(this)}
-            />
-            <label style={{height: 'inherit'}} htmlFor={id}><ReactMarkdown source={this.state.mixedAnswers[i]}/></label>
+          <div className="section">
+            <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
+            <p>Explanation: </p>
+            <ReactMarkdown source={explanation} />
+            <p>rating: {this.renderRating(votes, upVotes)}</p>
+            <p>Created by: {userName}</p>
           </div>
         </div>
       );
+    }
+  }
+
+  renderAnswerChoice(i){
+    let id = `answer${i}`;
+    let classes = "";
+    let disabled = false;
+    if(this.state.answerVisible && this.props.correct == this.state.mixedAnswers[i]){
+      classes = "correctAnswer";
+      disabled = true;
+    }
+    else if(this.state.answerVisible){
+      classes = "incorrectAnswer";
+      disabled = true;
+    }
+    return(
+      <div className="collection-item">
+        <div className={classes}>
+          <input checked={this.state.currentAnswer === this.state.mixedAnswers[i]}
+            name="answerGroup"
+            disabled={disabled}
+            type="radio"
+            id={id}
+            value={this.state.mixedAnswers[i]}
+            onClick={this.handleAnswerSelect.bind(this)}
+          />
+          <label style={{height: 'inherit'}} htmlFor={id}><ReactMarkdown source={this.state.mixedAnswers[i]}/></label>
+        </div>
+      </div>
+    );
+  }
+
+
+  renderSubmitButton(){
+    let btnState = this.state.answerVisible ? "Next Question" : "Submit Answer";
+    return (
+      <div
+        type="submit"
+        className="btn btn-special"
+        onClick={() => { this.handleSubmit() }}
+        >
+          {btnState}
+        </div>
+      )
     }
 
     render(){
@@ -132,19 +141,13 @@ class Question extends Component {
                 {this.renderAnswerChoice(4)}
               </div>
               <div className="section">
-                <div
-                  type="submit"
-                  className="btn btn-special"
-                  onClick={() => { this.handleSubmit() }}
-                  >
-                    Submit Answer
-                  </div>
-                </div>
-                {this.renderQuestionInfo()}
+                {this.renderSubmitButton() }
               </div>
+              {this.renderQuestionInfo()}
             </div>
-          )
-        }
+          </div>
+        )
       }
     }
-    export default Question;
+  }
+  export default Question;

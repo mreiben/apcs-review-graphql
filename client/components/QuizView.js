@@ -66,7 +66,16 @@ class QuizView extends Component {
 
   renderNumberWarning(){
     let n = this.props.questions.length;
-    if (this.props.number > n){
+    if(n == 0){
+      return <div className="warning">
+        <i className="material-icons">error_outline</i>
+        <div className="">
+          Uh-oh! No questions matched your request. Removing Strict Mode and expanding your topics list may fix this problem.
+          Consider writing your own question for these topics!
+        </div>
+      </div>
+    }
+    else if (this.props.number > n){
       return <div className="warning">
         <i className="material-icons">error_outline</i>
         <div className="">
@@ -137,8 +146,18 @@ class QuizView extends Component {
         currentAnswer: ""
       });
       console.log("quiz done!");
-      //navigate to quiz results page
+      //construct quiz results data
+      let quizData = _.range(0, this.state.userAnswers.length).map((i) => {
+        return {
+          prompt: this.props.questions[i].prompt,
+          topics: this.props.questions[i].topics,
+          correct: this.state.correctAnswers[i],
+          userAnswer: this.state.userAnswers[i]
+        }
+      })
+      console.log(quizData);
 
+      //navigate to quiz results page with data as params
     }
     else{
       this.setState({

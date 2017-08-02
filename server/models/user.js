@@ -18,27 +18,53 @@ const UserSchema = new Schema({
 UserSchema.statics.addQuestionToUser = function(user_id, question){
   const Question = mongoose.model('question');
   return (this.findById(user_id)
-    .then( (user) => {
-      user.questions.push(question)
-      return user.save();
-    })
-  );
+  .then( (user) => {
+    user.questions.push(question)
+    return user.save();
+  })
+);
 }
 
 UserSchema.statics.removeQuestionFromUser = function(user_id, question_id){
   return (this.findById(user_id)
-    .then((user) => {
-      let qIndex = user.questions.map(function(item){ return item.id; }).indexOf(question_id);
-      user.questions.splice(qIndex, 1);
-      return user.save;
-    })
-  )
+  .then((user) => {
+    let qIndex = user.questions.map(function(item){ return item.id; }).indexOf(question_id);
+    user.questions.splice(qIndex, 1);
+    return user.save();
+  })
+)
 }
 
 UserSchema.statics.findQuestions = function(id) {
   return this.findById(id)
-    .populate('questions')
-    .then(user => user.questions);
+  .populate('questions')
+  .then(user => user.questions);
+}
+
+UserSchema.statics.addQuizToUser = function(user_id, quiz){
+  const Quiz = mongoose.model('quiz');
+  return (this.findById(user_id)
+    .then( (user) =>{
+      user.quizzes.push(quiz)
+      return user.save();
+    })
+  )
+}
+
+UserSchema.statics.findQuizzes = function(id){
+  return this.findById(id)
+  .populate('quizzes')
+  .then(user => user.quizzes);
+}
+
+UserSchema.statics.removeQuizFromUser = function(user_id, quiz_id){
+  return (this.findById(user_id)
+  .then( (user) => {
+      let qIndex = user.quizzes.map(function(item){ return item.id; }).indexOf(quiz_id);
+      user.quizzes.splice(qIndex, 1);
+      return user.save();
+    })
+  )
 }
 
 // The user's password is never saved in plain text.  Prior to saving the

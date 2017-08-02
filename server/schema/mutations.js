@@ -4,15 +4,18 @@ const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLNonNull,
-  GraphQLID
+  GraphQLID,
+  GraphQLInt
 } = graphql;
 
 const UserType = require('./types/user_type');
 const QuestionType = require('./types/question_type');
+const QuizType = require('./types/quiz_type');
 const AuthService = require('../services/auth');
 const mongoose = require('mongoose');
 const Question = mongoose.model('question');
 const User = mongoose.model('user');
+const Quiz = mongoose.model('quiz');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -44,6 +47,24 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { email, password }, req){
         return AuthService.login({ email, password, req });
+      }
+    },
+    createQuiz: {
+      type: QuizType,
+      args: {
+        prompts: { type: new GraphQLList(GraphQLString) },
+        codes: { type: new GraphQLList(GraphQLString) },
+        questionIds: { type: new GraphQLList(GraphQLID) },
+        correctAnswers: { type: new GraphQLList(GraphQLString) },
+        userAnswers: { type: new GraphQLList(GraphQLString) },
+        questionTopics: { type: new GraphQLList(new GraphQLList(GraphQLString)) },
+        correct: { type: GraphQLInt }
+      },
+      resolve(parentValue, { prompts, codes, questionIds, userAnswers, questionTopics, correct }, req){
+        return( new Quiz( { prompts, codes, questionIds, userAnswers, questionTopics, correct}) ).save()
+        .then((q) =>{
+          User.addQuizToUser(req.user.id, q);
+        });
       }
     },
     createQuestion: {

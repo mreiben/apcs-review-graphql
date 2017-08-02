@@ -176,7 +176,7 @@ textarea:focus, input:focus{
 }
 
 .correctAnswer label{
-  border-bottom: 2px dashed #26A69A;
+  border-bottom: 2px solid #26A69A;
 }
 
 .incorrectAnswer label{
