@@ -19,15 +19,13 @@ class QuizView extends Component {
     };
   }
 
-  componentWillReceiveProps(newProps){
-    if(this.props.data.questionsWithTopics && !this.state.questions == []){
-      let questions = newProps.data.questionsWithTopics;
-      let qPositions = this.shuffle(_.range(0, questions.length));
-      let mixedQuestions = qPositions.map((i) =>{
-        return questions[i];
-      });
-      this.setState({questions: mixedQuestions.slice(0, this.props.params.number)});
-    }
+  componentDidMount(){
+    let questions = this.props.questions;
+    let qPositions = this.shuffle(_.range(0, questions.length));
+    let mixedQuestions = qPositions.map((i) =>{
+      return questions[i];
+    });
+    this.setState({questions: mixedQuestions.slice(0, this.props.number)});
   }
 
   shuffle(array){
@@ -43,7 +41,7 @@ class QuizView extends Component {
   }
 
   renderTypesList(){
-    let topics = this.props.params.topics.split(",").join(", ");
+    let topics = this.props.topics.split(",").join(", ");
     if(topics.length < 50){
       return topics
     }
@@ -53,8 +51,8 @@ class QuizView extends Component {
   }
 
   renderNumber(){
-    let n = this.props.data.questionsWithTopics.length;
-    let number = this.props.params.number;
+    let n = this.props.questions.length;
+    let number = this.props.number;
     if(number == 1){
       return "1 Question";
     }
@@ -67,8 +65,8 @@ class QuizView extends Component {
   }
 
   renderNumberWarning(){
-    let n = this.props.data.questionsWithTopics.length;
-    if (this.props.params.number > n){
+    let n = this.props.questions.length;
+    if (this.props.number > n){
       return <div className="warning">
         <i className="material-icons">error_outline</i>
         <div className="">
@@ -81,7 +79,7 @@ class QuizView extends Component {
   }
 
   renderStrict(){
-    let strict = this.props.params.strict;
+    let strict = this.props.strict;
     if(strict == "true"){
       return "Strict Mode: On";
     }
@@ -97,7 +95,7 @@ class QuizView extends Component {
     else{
       let question = this.state.questions[this.state.currentQuestionIndex];
       let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, votes, upVotes, userName } = question;
-      let style = this.props.routeParams.style;
+      let style = this.props.style;
       let number = this.state.currentQuestionIndex + 1;
       return(
         <Question
@@ -128,16 +126,21 @@ class QuizView extends Component {
   }
 
   onAnswerSubmit(){
-    if(this.state.currentQuestionIndex == this.props.routeParams.number -1){
+    let i = this.state.currentQuestionIndex;
+    let { userAnswers, correctAnswers } = this.state;
+    userAnswers.push(this.state.currentAnswer);
+    correctAnswers.push(this.state.questions[i].correct);
+    if(this.state.currentQuestionIndex == this.props.number -1){
+      this.setState({
+        userAnswers: userAnswers,
+        correctAnswers: correctAnswers,
+        currentAnswer: ""
+      });
       console.log("quiz done!");
       //navigate to quiz results page
 
     }
     else{
-      let i = this.state.currentQuestionIndex;
-      let { userAnswers, correctAnswers } = this.state;
-      userAnswers.push(this.state.currentAnswer);
-      correctAnswers.push(this.props.data.questionsWithTopics[i].correct);
       this.setState({
         currentQuestionIndex: i + 1,
         userAnswers: userAnswers,
@@ -145,10 +148,11 @@ class QuizView extends Component {
         currentAnswer: ""
       });
     }
+
   }
 
   render(){
-    if(!this.props.data.questionsWithTopics){
+    if(!this.props.questions){
       return <Preloader size='big' />
     }
     else{
@@ -170,11 +174,4 @@ class QuizView extends Component {
   }
 }
 
-export default graphql(query, {
-  options: (ownProps) => ({
-    variables: {
-      topics: ownProps.params.topics.split(","),
-      strict: (ownProps.params.strict == "true")
-    }
-  })
-})(QuizView);
+export default QuizView;

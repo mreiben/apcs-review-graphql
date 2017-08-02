@@ -13,7 +13,7 @@ import requireAuth from './components/requireAuth';
 import QuestionForm from './components/QuestionForm';
 import QuestionEditForm from './components/QuestionEditForm';
 import QuizSetup from './components/QuizSetup';
-import QuizView from './components/QuizView';
+import QuizHolder from './components/QuizHolder';
 import NotFound from './components/NotFound';
 import UserProfile from './components/UserProfile';
 import './css/stylesheet.css';
@@ -50,7 +50,7 @@ const Root = () => {
           <Route path="/practice" component={requireAuth(QuizSetup)} />
           <Route path="/profile" component={requireAuth(UserProfile)} />
           <Route path="/edit/:id" component={requireAuth(QuestionEditForm)} />
-          <Route path="/quiz/topics=:topics&number=:number&strict=:strict&style=:style" component={requireAuth(QuizView)} />
+          <Route path="/quiz/topics=:topics&number=:number&strict=:strict&style=:style" component={requireAuth(QuizHolder)} />
           {/* <Route path='/404' component={NotFound} />
           <Redirect from='*' to='/404' /> */}
         </Route>
