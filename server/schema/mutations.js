@@ -60,8 +60,8 @@ const mutation = new GraphQLObjectType({
         questionTopics: { type: new GraphQLList(new GraphQLList(GraphQLString)) },
         correct: { type: GraphQLInt }
       },
-      resolve(parentValue, { prompts, codes, questionIds, userAnswers, questionTopics, correct }, req){
-        return( new Quiz( { prompts, codes, questionIds, userAnswers, questionTopics, correct}) ).save()
+      resolve(parentValue, { prompts, codes, questionIds, userAnswers, questionTopics, correct, userId }, req){
+        return( new Quiz( { prompts, codes, questionIds, userAnswers, questionTopics, correct, userId }) ).save()
         .then((q) =>{
           User.addQuizToUser(req.user.id, q);
         });

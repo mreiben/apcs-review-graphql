@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import query from '../queries/GetQuestionsWithTopics';
-import { Link } from 'react-router';
+import mutation from '../mutations/CreateQuizResult';
+import currentUser from '../queries/CurrentUser';
+import { Link, hashHistory } from 'react-router';
 import { Preloader, Input } from 'react-materialize';
 import ReactMarkdown from 'react-markdown';
 import Question from './Question.js';
@@ -145,19 +146,23 @@ class QuizView extends Component {
         correctAnswers: correctAnswers,
         currentAnswer: ""
       });
-      console.log("quiz done!");
-      //construct quiz results data
-      let quizData = _.range(0, this.state.userAnswers.length).map((i) => {
-        return {
-          prompt: this.props.questions[i].prompt,
-          topics: this.props.questions[i].topics,
-          correct: this.state.correctAnswers[i],
-          userAnswer: this.state.userAnswers[i]
-        }
-      })
-      console.log(quizData);
+      //run mutation to create quiz result and attach it to user
+      let prompts = this.state.questions.map((q) => { return q.prompt });
+      let questionTopics = this.state.questions.map((q) => { return q.topics });
+      let codes = this.state.questions.map((q) => { return q.code });
+      let questionIds = this.state.questions.map((q) => { return q.id });
+      let { userAnswers, correctAnswers } = this.state;
+      let userId = this.props.data.user.id;
+      let correct = 0;
+      for(let i = 0; i < this.state.userAnswers.length; i++){
+        if(userAnswers[i] == correctAnswers[i]){ correct++; }
+      }
 
-      //navigate to quiz results page with data as params
+      this.props.mutate({
+        variables: { prompts, codes, questionIds, correctAnswers, userAnswers, questionTopics, correct, userId },
+        refetchQueries: [{ query: currentUser }]
+      }) //reroute to user quiz results view
+      .then(() => hashHistory.push('/dashboard'));
     }
     else{
       this.setState({
@@ -193,4 +198,6 @@ class QuizView extends Component {
   }
 }
 
-export default QuizView;
+export default graphql(currentUser)(
+  graphql(mutation)(QuizView)
+);

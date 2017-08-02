@@ -18,7 +18,8 @@ const QuizType = new GraphQLObjectType({
     correctAnswers: { type: new GraphQLList(GraphQLString) },
     userAnswers: { type: new GraphQLList(GraphQLString) },
     questionTopics: { type: new GraphQLList(new GraphQLList(GraphQLString)) },
-    correct: { type: GraphQLInt }
+    correct: { type: GraphQLInt },
+    userId: { type: GraphQLID }
   })
 });
 

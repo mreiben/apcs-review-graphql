@@ -10,7 +10,8 @@ const QuizSchema = new Schema({
   correctAnswers: [String],
   userAnswers: [String],
   questionTopics: [[String]],
-  correct: Number
+  correct: Number,
+  userId: String
 });
 
 // QuizSchema.statics.updateQuestion = function(id, prompt, code, correct, answer1, answer2, answer3, answer4, answer5, topics, explanation){

@@ -12,6 +12,10 @@ const UserSchema = new Schema({
   questions: [{
     type: Schema.Types.ObjectId,
     ref: 'question'
+  }],
+  quizzes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'quiz'
   }]
 });
 
