@@ -152,17 +152,20 @@ class QuizView extends Component {
       let codes = this.state.questions.map((q) => { return q.code });
       let questionIds = this.state.questions.map((q) => { return q.id });
       let { userAnswers, correctAnswers } = this.state;
-      let userId = this.props.data.user.id;
       let correct = 0;
       for(let i = 0; i < this.state.userAnswers.length; i++){
         if(userAnswers[i] == correctAnswers[i]){ correct++; }
       }
 
       this.props.mutate({
-        variables: { prompts, codes, questionIds, correctAnswers, userAnswers, questionTopics, correct, userId },
+        variables: { prompts, codes, questionIds, correctAnswers, userAnswers, questionTopics, correct },
         refetchQueries: [{ query: currentUser }]
       }) //reroute to user quiz results view
-      .then(() => hashHistory.push('/dashboard'));
+      .then((quizResult) => {
+          const quizId = quizResult.data.createQuiz.id;
+          hashHistory.push(`/quizresults/id=${quizId}`);
+        }
+      );
     }
     else{
       this.setState({
