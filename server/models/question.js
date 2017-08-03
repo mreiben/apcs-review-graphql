@@ -42,4 +42,31 @@ QuestionSchema.statics.updateQuestion = function(id, prompt, code, correct, answ
   )
 }
 
+QuestionSchema.statics.addVote = function(qId, userId, vote){
+  return (this.find({_id: qId})
+    .then((question)=>{
+      let upVoters = question[0].upVoters;
+      let downVoters = question[0].downVoters;
+      if (upVoters.indexOf(userId) != -1){ upVoters.splice(upVoters.indexOf(userId), 1); }
+      if (downVoters.indexOf(userId) != -1){ downVoters.splice(downVoters.indexOf(userId), 1); }
+      if(vote == "up"){
+        upVoters.push(userId);
+      }
+      else{
+        downVoters.push(userId);
+      }
+
+      this.update(
+        { _id: qId },
+        {
+          upVoters: upVoters,
+          downVoters: downVoters
+        }
+      ).then(
+        (status) => { return this.find({_id: qId });}
+      )
+    })
+  )
+}
+
 mongoose.model('question', QuestionSchema);

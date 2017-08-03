@@ -104,6 +104,10 @@ textarea:focus, input:focus{
   background-color: #e57373;
 }
 
+.btn-pressed{
+  filter: brightness(60%);
+}
+
 .collapsible-body{
   padding: 0 20px 20px 20px;
 }

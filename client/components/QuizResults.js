@@ -26,6 +26,7 @@ class QuizResults extends Component {
     let explanation = quiz.explanations[i];
     let qId = quiz.questionIds[i];
     let topics = quiz.questionTopics[i].join(", ");
+    let userId = quiz.userId;
 
     return <ResultQuestionView
         key={i}
@@ -37,6 +38,7 @@ class QuizResults extends Component {
         explanation={explanation}
         topics={topics}
         qId={qId}
+        userId={userId}
       />
   }
 

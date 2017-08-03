@@ -129,6 +129,16 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, { id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }, req){
         return Question.updateQuestion( id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation )
       }
+    },
+    addVote: {
+      type: QuestionType,
+      args: {
+        qId: { type: GraphQLID },
+        vote: { type: GraphQLString }
+      },
+      resolve(parentValue, { qId, userId, vote}, req ){
+        return Question.addVote( qId, req.user.id, vote)
+      }
     }
   }
 });
