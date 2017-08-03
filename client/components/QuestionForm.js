@@ -28,9 +28,9 @@ class QuestionForm extends Component {
 
   onSubmit(event){
     event.preventDefault();
-    const { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation } = this.state;
-    let sortTopics = topics.sort();
-    const inputValues = { "prompt": prompt, "answer 1": answer1, "answer 2": answer2, "answer 3": answer3, "answer 4": answer4, "answer 5": answer5, "correct answer": correct, "explanation": explanation }
+    const { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation } = this.state;
+    let topics = this.state.topics.sort();
+    const inputValues = { "prompt": prompt, "answer 1": answer1, "answer 2": answer2, "answer 3": answer3, "answer 4": answer4, "answer 5": answer5, "correct answer": correct, "explanation": explanation, "topic": topics }
     let newErrors = [];
     for(var prop in inputValues){
       if(inputValues[prop]  == ''){
@@ -42,7 +42,7 @@ class QuestionForm extends Component {
     }
     else{
       this.props.mutate({
-        variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, sortTopics, explanation },
+        variables: { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation },
         refetchQueries: [{ query: getQuestions }, { query: currentUser }]
       })
       .then(() => hashHistory.push('/dashboard'));

@@ -86,11 +86,12 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation }, req){
         const userName = req.user.name;
-        const votes = 0;
-        const upVotes = 0;
+        const downVoters = [];
+        const upVoters = [];
+        const comments = [];
         const correctAnswers = 0;
         const incorrectAnswers = 0;
-        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, userName, votes, upVotes, correctAnswers, incorrectAnswers } ).save()
+        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, userName, upVoters, downVoters, correctAnswers, incorrectAnswers, comments } ).save()
       .then((q) => {
         User.addQuestionToUser(req.user.id, q);
           })

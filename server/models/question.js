@@ -15,8 +15,9 @@ const QuestionSchema = new Schema({
   topics: [String],
   explanation: String,
   userName: String,
-  votes: Number,
-  upVotes: Number,
+  downVoters: [String],
+  upVoters: [String],
+  comments: [String],
   correctAnswers: Number,
   incorrectAnswers: Number
 });

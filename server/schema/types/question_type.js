@@ -23,8 +23,9 @@ const QuestionType = new GraphQLObjectType({
     topics: { type: new GraphQLList(GraphQLString) },
     explanation: { type: new GraphQLNonNull(GraphQLString) },
     userName: { type: GraphQLString },
-    votes: { type: GraphQLInt },
-    upVotes: { type: GraphQLInt },
+    downVoters: { type: new GraphQLList(GraphQLID) },
+    upVoters: { type: new GraphQLList(GraphQLID) },
+    comments: { type: new GraphQLList(GraphQLString) },
     correctAnswers: { type: GraphQLInt },
     incorrectAnswers: { type: GraphQLInt }
   })

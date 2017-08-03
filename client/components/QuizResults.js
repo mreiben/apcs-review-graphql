@@ -44,6 +44,7 @@ class QuizResults extends Component {
           </Collapsible>
           <div className="collection-item"><span className="resultCat">Correct Answer: </span><ReactMarkdown source={correct} /></div>
           <div className="collection-item"><span className="resultCat">Your Answer: </span><ReactMarkdown source={userAnswer} /></div>
+
         </div>
       </CollapsibleItem>
     )
@@ -119,7 +120,7 @@ class QuizResults extends Component {
       return(
         <div>
           <div className="section">
-            <Link to="/dashboard" className="btn dashboard-btn  btn-special z-depth-0">Back</Link>
+            <Link to="/dashboard" className="btn dashboard-btn  btn-special z-depth-0">Dashboard</Link>
           </div>
           <h3>Quiz Results:</h3>
           <BarChart width={700} height={500} data={data}
@@ -128,8 +129,8 @@ class QuizResults extends Component {
             <YAxis allowDecimals={false} label={<YAxisLabel axisType="yAxis" x={25} y={200} width={0} height={0}>Number of Questions</YAxisLabel>}/>
             <CartesianGrid strokeDasharray="3 3"/>
             <Legend verticalAlign="top"/>
-            <Bar dataKey="correct" stackId="a" fill="#1e88e5" maxBarSize={60}/>
-            <Bar dataKey="incorrect" stackId="a" fill="#f44336" maxBarSize={60}/>
+            <Bar dataKey="correct" stackId="a" fill="#1e88e5"/>
+            <Bar dataKey="incorrect" stackId="a" fill="#f44336"/>
           </BarChart>
           <div className="section">
             <h4>Total Questions: {quiz.userAnswers.length}</h4>
