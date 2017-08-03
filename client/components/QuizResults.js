@@ -95,6 +95,7 @@ class QuizResults extends Component {
     else{
       const data = this.getData();
       let quiz = this.props.data.quizById;
+
       const YAxisLabel = ({ axisType, x=0, y=0, width, height, stroke, children }) => {
         const isVert = axisType === 'yAxis';
         const cx = isVert ? x : x + (width / 2);
@@ -107,17 +108,13 @@ class QuizResults extends Component {
         );
       };
 
-      const CustomizedXAxisTick = React.createClass({
-        render () {
-          const {x, y, stroke, payload} = this.props;
-
-         	return (
-          	<g transform={`translate(${x},${y})`}>
-              <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
-            </g>
-          );
-        }
-      });
+      const CustomizedXAxisTick = ({x, y, stroke, payload}) =>{
+       	return (
+        	<g transform={`translate(${x},${y})`}>
+            <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+          </g>
+        );
+      };
 
       return(
         <div>
@@ -128,10 +125,9 @@ class QuizResults extends Component {
           <BarChart width={700} height={500} data={data}
             margin={{top: 20, right: 30, left: 30, bottom: 75}}>
             <XAxis dataKey="topic" tick={<CustomizedXAxisTick/>} interval={0}/>
-            <YAxis allowDecimals={false} label={<YAxisLabel axisType="yAxis" x={25} y={175} width={0} height={0}>Number of Questions</YAxisLabel>}/>
+            <YAxis allowDecimals={false} label={<YAxisLabel axisType="yAxis" x={25} y={200} width={0} height={0}>Number of Questions</YAxisLabel>}/>
             <CartesianGrid strokeDasharray="3 3"/>
             <Legend verticalAlign="top"/>
-            <Tooltip />
             <Bar dataKey="correct" stackId="a" fill="#1e88e5" maxBarSize={60}/>
             <Bar dataKey="incorrect" stackId="a" fill="#f44336" maxBarSize={60}/>
           </BarChart>
