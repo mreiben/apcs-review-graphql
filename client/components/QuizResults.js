@@ -94,11 +94,8 @@ class QuizResults extends Component {
     }
     else{
       const data = this.getData();
-      console.log(data);
-
       let quiz = this.props.data.quizById;
-
-      const AxisLabel = ({ axisType, x=0, y=0, width, height, stroke, children }) => {
+      const YAxisLabel = ({ axisType, x=0, y=0, width, height, stroke, children }) => {
         const isVert = axisType === 'yAxis';
         const cx = isVert ? x : x + (width / 2);
         const cy = isVert ? (height / 2) + y : y + height + 10;
@@ -109,20 +106,34 @@ class QuizResults extends Component {
           </text>
         );
       };
+
+      const CustomizedXAxisTick = React.createClass({
+        render () {
+          const {x, y, stroke, payload} = this.props;
+
+         	return (
+          	<g transform={`translate(${x},${y})`}>
+              <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">{payload.value}</text>
+            </g>
+          );
+        }
+      });
+
       return(
         <div>
           <div className="section">
             <Link to="/dashboard" className="btn dashboard-btn  btn-special z-depth-0">Back</Link>
           </div>
           <h3>Quiz Results:</h3>
-          <BarChart width={600} height={300} data={data}
-            margin={{top: 20, right: 30, left: 20, bottom: 5}}>
-            <XAxis dataKey="topic"/>
-            <YAxis allowDecimals={false} label={<AxisLabel axisType="yAxis" x={25} y={125} width={0} height={0}>Number of Questions</AxisLabel>}/>
+          <BarChart width={700} height={500} data={data}
+            margin={{top: 20, right: 30, left: 30, bottom: 75}}>
+            <XAxis dataKey="topic" tick={<CustomizedXAxisTick/>} interval={0}/>
+            <YAxis allowDecimals={false} label={<YAxisLabel axisType="yAxis" x={25} y={175} width={0} height={0}>Number of Questions</YAxisLabel>}/>
             <CartesianGrid strokeDasharray="3 3"/>
-            <Legend />
-            <Bar dataKey="correct" stackId="a" fill="#1e88e5" />
-            <Bar dataKey="incorrect" stackId="a" fill="#f44336" />
+            <Legend verticalAlign="top"/>
+            <Tooltip />
+            <Bar dataKey="correct" stackId="a" fill="#1e88e5" maxBarSize={60}/>
+            <Bar dataKey="incorrect" stackId="a" fill="#f44336" maxBarSize={60}/>
           </BarChart>
           <div className="section">
             <h4>Total Questions: {quiz.userAnswers.length}</h4>
