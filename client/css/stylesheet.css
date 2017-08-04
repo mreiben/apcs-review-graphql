@@ -211,3 +211,12 @@ textarea:focus, input:focus{
   width: 60%;
   height: 400px;
 }
+
+.comment-submit-box div{
+  display: inline-block;
+}
+
+.last-update{
+  font-style:italic;
+  margin-left: 20px;
+}

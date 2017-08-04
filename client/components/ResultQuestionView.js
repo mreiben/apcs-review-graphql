@@ -57,7 +57,8 @@ class ResultQuestionView extends Component {
   }
 
   handleCommentSubmit(){
-    console.log(this.state.comment)
+    console.log(this.state.comment);
+    this.setState({comment: ""});
   }
 
   render(){
@@ -71,6 +72,7 @@ class ResultQuestionView extends Component {
       let icon = wasCorrect ? "check" : "clear";
       let up = this.props.data.question.upVoters.length;
       let down = this.props.data.question.downVoters.length;
+      let lastUpdate = this.props.data.question.lastUpdate;
 
       return(
         <CollapsibleItem header={header} icon={icon} key={this.props.qIndex}>
@@ -96,7 +98,7 @@ class ResultQuestionView extends Component {
                     {this.renderVoteButton("down")}
                     {this.renderQuestionRating(up, down)}
                   </div>
-                  <div className="row">
+                  <div className="row comment-box">
                     <label htmlFor="comment">Add a comment about this question</label>
                     <textarea
                       id="comment"
@@ -105,10 +107,13 @@ class ResultQuestionView extends Component {
                       className="materialize-textarea"
                       onChange={(e) => {this.setState({comment: e.target.value})}}
                     />
-                    <div
-                      className="btn btn-special"
-                      onClick={()=>{this.handleCommentSubmit()}}
-                      >Submit</div>
+                    <div className="comment-submit-box">
+                      <div
+                        className="btn btn-special"
+                        onClick={()=>{this.handleCommentSubmit()}}
+                        >Submit</div>
+                        <div className="last-update">Question last updated: {lastUpdate}</div>
+                    </div>
                   </div>
                 </form>
               </div>

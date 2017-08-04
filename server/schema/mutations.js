@@ -91,7 +91,8 @@ const mutation = new GraphQLObjectType({
         const comments = [];
         const correctAnswers = 0;
         const incorrectAnswers = 0;
-        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, userName, upVoters, downVoters, correctAnswers, incorrectAnswers, comments } ).save()
+        const lastUpdate = new Date().toString();
+        return (new Question( { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation, userName, upVoters, downVoters, correctAnswers, incorrectAnswers, comments, lastUpdate } ).save()
       .then((q) => {
         User.addQuestionToUser(req.user.id, q);
           })

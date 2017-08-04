@@ -19,7 +19,8 @@ const QuestionSchema = new Schema({
   upVoters: [String],
   comments: [String],
   correctAnswers: Number,
-  incorrectAnswers: Number
+  incorrectAnswers: Number,
+  lastUpdate: String
 });
 
 QuestionSchema.statics.updateQuestion = function(id, prompt, code, correct, answer1, answer2, answer3, answer4, answer5, topics, explanation){
@@ -35,7 +36,9 @@ QuestionSchema.statics.updateQuestion = function(id, prompt, code, correct, answ
       answer5: answer5,
       topics: topics,
       explanation: explanation,
-      prompt: prompt
+      prompt: prompt,
+      upVoters: [],
+      downVoters: []
     }
   ).then(
     (status) => { return this.find({_id: id });}
@@ -63,10 +66,27 @@ QuestionSchema.statics.addVote = function(qId, userId, vote){
           downVoters: downVoters
         }
       ).then(
-        (status) => { return this.find({_id: qId });}
+        (status) => { return this.find({_id: qId }); }
       )
     })
   )
+}
+
+QuestionSchema.statics.addComment = function(qId, comment){
+  return (this.find({_id: qId}))
+    .then((question) => {
+      let comments = question[0].comments;
+      comments.push(comment);
+
+      this.update(
+        {_id: qId},
+        {
+          comments: comments
+        }
+      ).then(
+        (status) => { return this.find({_id: qId }); }
+      )
+    })
 }
 
 mongoose.model('question', QuestionSchema);

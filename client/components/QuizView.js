@@ -124,6 +124,7 @@ class QuizView extends Component {
           downVoters={downVoters}
           upVoters={upVoters}
           userName={userName}
+          lastUpdate={lastUpdate}
           onAnswerSelect={this.onAnswerSelect.bind(this)}
           onAnswerSubmit={this.onAnswerSubmit.bind(this)}
         />

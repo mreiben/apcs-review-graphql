@@ -18,6 +18,7 @@ export default gql`
       downVoters
       correctAnswers
       incorrectAnswers
+      lastUpdate
     }
   }
 `;

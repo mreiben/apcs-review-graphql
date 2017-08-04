@@ -27,7 +27,8 @@ const QuestionType = new GraphQLObjectType({
     upVoters: { type: new GraphQLList(GraphQLID) },
     comments: { type: new GraphQLList(GraphQLString) },
     correctAnswers: { type: GraphQLInt },
-    incorrectAnswers: { type: GraphQLInt }
+    incorrectAnswers: { type: GraphQLInt },
+    lastUpdate: { type: GraphQLString }
   })
 });
 
