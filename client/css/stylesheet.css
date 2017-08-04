@@ -237,3 +237,15 @@ textarea:focus, input:focus{
   float: right;
   cursor: hand;
 }
+
+.danger-icon, .red-icon{
+  color: #f44336;
+}
+
+.blue-icon{
+  color: #1e88e5;
+}
+
+.green-icon{
+  color: #26A69A;
+}
