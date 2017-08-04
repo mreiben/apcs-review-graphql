@@ -24,7 +24,7 @@ class QuestionComment extends Component {
     else {
       return(
         <div className="row collection-item">
-          <label htmlFor="comment">Add a comment about this question</label>
+          <label htmlFor="comment">Add a comment about this question - markdown compatible!</label>
           <textarea
             id="comment"
             type="text"
@@ -36,8 +36,7 @@ class QuestionComment extends Component {
             <div
               className="btn btn-special"
               onClick={() => {this.onHandleCommentSubmit()}}
-              >Submit</div>
-              <div className="last-update">Question last updated: {this.props.lastUpdate}</div>
+              >Comment</div>
           </div>
         </div>
       )

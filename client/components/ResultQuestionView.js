@@ -71,28 +71,34 @@ class ResultQuestionView extends Component {
     }
 
     renderComments(comments){
-      let parsedComments = comments.map((comment) =>{
-        let userName = comment.substring(0, comment.indexOf(":"));
-        let message = comment.substring(comment.indexOf(":")+ 1);
-        if(this.props.userName == userName){
-          return (
-            <div className="comment" key={comment}>
-              <i
-                className="material-icons"
-                onClick={()=>{this.handleCommentDelete(comment)}}
-              >delete</i>
-              <span className="resultCat">{userName}:</span><ReactMarkdown source={message} />
+      if(comments.length == 0){
+        return "";
+      }
+      else{
+        let parsedComments = comments.map((comment) =>{
+          let userName = comment.substring(0, comment.indexOf(":"));
+          let message = comment.substring(comment.indexOf(":")+ 1);
+          if(this.props.userName == userName){
+            return (
+              <div className="comment" key={comment}>
+                <i
+                  className="material-icons"
+                  onClick={()=>{this.handleCommentDelete(comment)}}
+                >delete</i>
+                <span className="resultCat">{userName}:</span><ReactMarkdown source={message} />
+              </div>
+            )
+          }
+          else{
+            return <div className="comment" key={comment}>
+              <span className="resultCat">{userName}</span><ReactMarkdown source={message} />
             </div>
-          )
-        }
-        else{
-          return <div className="comment" key={comment}>
-            <span className="resultCat">{userName}</span><ReactMarkdown source={message} />
-          </div>
-        }
-      });
-      return <div className="comment-holder">{parsedComments}</div>;
+          }
+        });
+        return <div className="comment-holder">{parsedComments}</div>;
+      }
     }
+
 
     handleCommentDelete(comment){
       let qId = this.props.qId;
@@ -129,20 +135,23 @@ class ResultQuestionView extends Component {
                 <CollapsibleItem header="Explanation" icon="lightbulb_outline">
                   <div className="collection-item"><ReactMarkdown source={explanation} /></div>
                 </CollapsibleItem>
+                <CollapsibleItem header="Comments" icon="chat">
+                  <div className="collection-item comments-box">
+                    {this.renderComments(comments)}
+                  </div>
+                  <QuestionComment
+                    lastUpdate={lastUpdate}
+                    handleCommentSubmit={this.handleCommentSubmit}
+                  />
+                </CollapsibleItem>
               </Collapsible>
               <div className="collection-item"><span className="resultCat">Correct Answer: </span><ReactMarkdown source={correct} /></div>
               <div className="collection-item"><span className="resultCat">Your Answer: </span><ReactMarkdown source={userAnswer} /></div>
-              <div className="collection-item comments-box">
-                <span className="resultcat">Comments: </span>{this.renderComments(comments)}
-              </div>
-              <QuestionComment
-                lastUpdate={lastUpdate}
-                handleCommentSubmit={this.handleCommentSubmit}
-              />
               <div className="row collection-item">
                 {this.renderVoteButton("up")}
                 {this.renderVoteButton("down")}
                 {this.renderQuestionRating(up, down)}
+                <div className="last-update">Question last updated: {lastUpdate}</div>
               </div>
             </div>
           </CollapsibleItem>
