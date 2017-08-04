@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import query from '../queries/GetQuestions';
+import query from '../queries/GetQuestionById';
 import { hashHistory } from 'react-router';
 import ReactMarkdown from 'react-markdown';
 
@@ -28,13 +28,11 @@ class Question extends Component {
     }
   }
 
-  renderRating(votes, upVotes){
-    if(votes == 0){
-      return "unrated";
-    }
-    else {
-      return (5 * (upvotes / votes)).toFixed(2);
-    }
+  renderRating(upVoters, downVoters){
+    let up = upVoters.length;
+    let down = downVoters.length;
+    let rating = ((up + 5)/(up + down + 5)*5).toFixed(1);
+    return `Current Rating: ${rating}/5.0`;
   }
 
   shuffle(array){
@@ -65,14 +63,14 @@ class Question extends Component {
 
   renderQuestionInfo(){
     if(this.state.answerVisible){
-      let { style, number, prompt, code, correct, explanation, topics, votes, upVotes, userName } = this.props;
+      let { style, number, prompt, code, correct, explanation, topics, upVoters, downVoters, userName } = this.props;
       return(
         <div className="question-info">
           <div className="section">
             <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
             <p>Explanation: </p>
             <ReactMarkdown source={explanation} />
-            <p>rating: {this.renderRating(votes, upVotes)}</p>
+            <p>rating: {this.renderRating(upVoters, downVoters)}</p>
             <p>Created by: {userName}</p>
           </div>
         </div>
@@ -124,7 +122,7 @@ class Question extends Component {
     }
 
     render(){
-      let { style, number, prompt, code, correct, explanation, topics, votes, upVotes, userName } = this.props;
+      let { style, number, prompt, code, correct, explanation, topics, upVoters, downVoters, userName } = this.props;
       if(!this.state.mixedAnswers){ return <div>loading...</div>}
       else{
         return(

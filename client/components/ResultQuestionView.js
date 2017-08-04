@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import questionQuery from '../queries/GetQuestionById';
-import addVote from '../mutations/AddVoteToQuestion';
+import query from '../queries/GetQuestionById';
+import mutation from '../mutations/AddVoteToQuestion';
 import { Preloader } from 'react-materialize';
 import ReactMarkdown from 'react-markdown';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
@@ -16,46 +16,48 @@ class ResultQuestionView extends Component {
     };
   }
 
-  handleVote(direction){
-    let upVoted = direction == "up";
+  renderQuestionRating(u, d){
+    let rating = ((u + 5)/(u + d + 5)*5).toFixed(1);
+    let str = `Current Rating: ${rating}/5.0`
+    return <div className="resultCat">{str}</div>;
+  }
+
+  handleVote(vote){
+    let votedUp = vote == "up";
+    if(vote == "up"){
+      this.setState({upVote: true, downVote: false});
+    }
+    else{
+      this.setState({upVote: false, downVote: true});
+    }
     let qId = this.props.qId;
     let userId = this.props.userId;
-    let vote = upVoted ? "up" : "down";
     this.props.mutate({
       variables: { qId, userId, vote },
       refetchQueries: [{
-        query: questionQuery,
+        query: query,
         variables: { id: qId }
       }]
-    })
-    .then(() => this.setState({upVote: upVoted, downVote: !upVoted}));
+    });
+  }
+
+  renderVoteButton(upDown){
+    let upClass = this.state.upVote ? "btn btn-pressed" : "btn";
+    let downClass = this.state.downVote ? "btn btn-red btn-pressed" : "btn btn-red";
+    let finalClass = upDown == "up" ? upClass : downClass;
+    let icon = upDown == "up" ? 'thumb_up' : 'thumb_down';
+    return(
+      <div
+        className={finalClass}
+        onClick={() => {this.handleVote(upDown)}}
+        >
+          <i className="material-icons">{icon}</i>
+      </div>
+    )
   }
 
   handleCommentSubmit(){
-    console.log("adding comment: ", this.state.comment);
-    this.setState({comment: ""});
-  }
-
-  renderThumbUp(){
-    let thumbClass = this.state.upVote ? "btn btn-pressed" : "btn";
-    return(
-      <div className={thumbClass}
-        onClick={() => this.handleVote("up")}
-        >
-        <i className="material-icons">thumb_up</i>
-      </div>
-    )
-  }
-
-  renderThumbDown(){
-    let thumbClass = this.state.downVote ? "btn btn-red btn-pressed" : "btn btn-red";
-    return(
-      <div className={thumbClass}
-        onClick={() => this.handleVote("down")}
-        >
-        <i className="material-icons">thumb_down</i>
-      </div>
-    )
+    console.log(this.state.comment)
   }
 
   render(){
@@ -63,14 +65,12 @@ class ResultQuestionView extends Component {
       return <Preloader size='big' />
     }
     else{
-      let {prompt, userAnswer, correct, code, explanation, topics, qIndex, qId } = this.props;
+      let { prompt, userAnswer, correct, code, explanation, topics, qIndex, qId } = this.props;
       let header = `Question ${qIndex + 1} - Topics: ${topics}`;
       let wasCorrect = userAnswer == correct;
       let icon = wasCorrect ? "check" : "clear";
-      let q = this.props.data.question;
-      let ups = q.upVoters.length;
-      let downs = q.downVoters.length;
-      let rating = (((ups + 5)/(ups + downs + 5)) * 5).toFixed(1);
+      let up = this.props.data.question.upVoters.length;
+      let down = this.props.data.question.downVoters.length;
 
       return(
         <CollapsibleItem header={header} icon={icon} key={this.props.qIndex}>
@@ -92,22 +92,22 @@ class ResultQuestionView extends Component {
               <div className="row">
                 <form className="col s12">
                   <div className="row">
-                    {this.renderThumbUp()}
-                    {this.renderThumbDown()}
-                    <div className="resultCat">Current Rating: {rating}/5</div>
+                    {this.renderVoteButton("up")}
+                    {this.renderVoteButton("down")}
+                    {this.renderQuestionRating(up, down)}
                   </div>
                   <div className="row">
                     <label htmlFor="comment">Add a comment about this question</label>
                     <textarea
                       id="comment"
                       type="text"
-                      className="materialize-textarea"
                       value={this.state.comment}
-                      onChange={(e) => this.setState({comment: e.target.value})}
+                      className="materialize-textarea"
+                      onChange={(e) => {this.setState({comment: e.target.value})}}
                     />
                     <div
                       className="btn btn-special"
-                      onClick={() => this.handleCommentSubmit()}
+                      onClick={()=>{this.handleCommentSubmit()}}
                       >Submit</div>
                   </div>
                 </form>
@@ -120,8 +120,8 @@ class ResultQuestionView extends Component {
   }
 }
 
-export default graphql(addVote)(
-  graphql(questionQuery, {
+export default graphql(mutation)(
+  graphql(query, {
     options: (ownProps) => ({
       variables: {
         id: ownProps.qId

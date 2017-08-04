@@ -104,7 +104,7 @@ class QuizView extends Component {
     }
     else{
       let question = this.state.questions[this.state.currentQuestionIndex];
-      let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, votes, upVotes, userName } = question;
+      let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, upVoters, downVoters, userName } = question;
       let style = this.props.style;
       let number = this.state.currentQuestionIndex + 1;
       return(
@@ -121,8 +121,8 @@ class QuizView extends Component {
           topics={topics}
           number={number}
           style={style}
-          votes={votes}
-          upVotes={upVotes}
+          downVoters={downVoters}
+          upVoters={upVoters}
           userName={userName}
           onAnswerSelect={this.onAnswerSelect.bind(this)}
           onAnswerSubmit={this.onAnswerSubmit.bind(this)}

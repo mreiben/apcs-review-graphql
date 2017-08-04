@@ -15,8 +15,8 @@ export default gql`
     topics
     explanation
     userName
-    votes
-    upVotes
+    upVoters
+    downVoters
     correctAnswers
     incorrectAnswers
   }
