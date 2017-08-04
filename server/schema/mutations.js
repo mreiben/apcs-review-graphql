@@ -131,6 +131,27 @@ const mutation = new GraphQLObjectType({
         return Question.updateQuestion( id, prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation )
       }
     },
+    addCommentToQuestion:{
+      type: QuestionType,
+      args: {
+        qId: { type: GraphQLID },
+        comment: { type: GraphQLString }
+      },
+      resolve(parentValue, { qId, comment }, req ){
+        let commentWithName = req.user.name + ": " + comment;
+        return Question.addCommentToQuestion( qId, commentWithName )
+      }
+    },
+    removeCommentFromQuestion: {
+      type: QuestionType,
+      args: {
+        qId: { type: GraphQLID },
+        comment: { type: GraphQLString }
+      },
+      resolve(parentValue, { qId, comment }, req ){
+        return Question.removeCommentFromQuestion( qId, comment )
+      }
+    },
     addVote: {
       type: QuestionType,
       args: {

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import currentUser from '../queries/CurrentUser';
 import { Link, hashHistory } from 'react-router';
 import { Row, Input, Form } from 'react-materialize';
+import { Preloader } from 'react-materialize';
 
 class QuizSetup extends Component {
   constructor(props){
@@ -72,7 +74,7 @@ class QuizSetup extends Component {
       this.setState({errors: "Please select at least one topic and choose a number of questions!"});
     }
     else{
-      hashHistory.push(`/quiz/topics=${this.state.topics}&number=${this.state.number}&strict=${this.state.strict}&style=${this.state.style}`);
+      hashHistory.push(`/quiz/name=${this.props.data.user.name}&topics=${this.state.topics}&number=${this.state.number}&strict=${this.state.strict}&style=${this.state.style}`);
     }
   }
 
@@ -96,71 +98,75 @@ class QuizSetup extends Component {
       { value: 'interfaces', label: 'interfaces' },
       { value: 'recursive functions', label: 'recursive functions' },
     ];
-
-    return(
-      <div>
-        <div className="section">
-          <Link to="/dashboard" className="btn dashboard-btn  btn-special">Back</Link>
-        </div>
+    if(this.props.data.loading){
+      <Preloader size='big' />
+    }
+    else{
+      return(
         <div>
-          <h4>Ready to practice?</h4>
-          <p>Select the topics that you want to focus on and a number of questions below:</p>
-          <Row>
-            {this.renderCheckBoxes(questionTopics).slice(0,4)}
-          </Row>
-          <Row>
-            {this.renderCheckBoxes(questionTopics).slice(4,8)}
-          </Row>
-          <Row>
-            {this.renderCheckBoxes(questionTopics).slice(8,12)}
-          </Row>
-          <Row>
-            {this.renderCheckBoxes(questionTopics).slice(12,16)}
-          </Row>
-          <Row>
-            <Input
-              s={4}
-              type="number"
-              min={1}
-              label="How many questions?"
-              validate
-              onChange={this.onNumberChange.bind(this)}
-            />
-            <div className="col">
-              <input
-                type="checkbox"
-                name="strict"
-                value="strict mode"
-                id="strict-input"
-                onClick={this.onStrictClick.bind(this)}
+          <div className="section">
+            <Link to="/dashboard" className="btn dashboard-btn  btn-special">Back</Link>
+          </div>
+          <div>
+            <h4>Ready to practice?</h4>
+            <p>Select the topics that you want to focus on and a number of questions below:</p>
+            <Row>
+              {this.renderCheckBoxes(questionTopics).slice(0,4)}
+            </Row>
+            <Row>
+              {this.renderCheckBoxes(questionTopics).slice(4,8)}
+            </Row>
+            <Row>
+              {this.renderCheckBoxes(questionTopics).slice(8,12)}
+            </Row>
+            <Row>
+              {this.renderCheckBoxes(questionTopics).slice(12,16)}
+            </Row>
+            <Row>
+              <Input
+                s={4}
+                type="number"
+                min={1}
+                label="How many questions?"
+                validate
+                onChange={this.onNumberChange.bind(this)}
               />
-              <label className="active strict-button" htmlFor="strict-input">strict mode</label>
-              <div className="strict-info">Strict mode requires questions to include all selected topics!</div>
-              <div className="style-info"><div>Feedback mode explains answers as you take the quiz.</div><div>Test mode explains them when the quiz is done.</div></div>
-            </div>
-          </Row>
-          <div
-            className="btn dashboard-btn btn-special left"
-            onClick={this.startQuiz.bind(this)}
-            >Start quiz!</div>
-            <div className="style-input">
-              <div className="switch">
-                <label className="style-input">
-                  instant feedback
-                  <input
-                    type="checkbox"
-                    onChange={this.handleStyleChange.bind(this)}
-                  />
-                  <span className="lever"></span>
-                  test format
-                </label>
+              <div className="col">
+                <input
+                  type="checkbox"
+                  name="strict"
+                  value="strict mode"
+                  id="strict-input"
+                  onClick={this.onStrictClick.bind(this)}
+                />
+                <label className="active strict-button" htmlFor="strict-input">strict mode</label>
+                <div className="strict-info">Strict mode requires questions to include all selected topics!</div>
+                <div className="style-info"><div>Feedback mode explains answers as you take the quiz.</div><div>Test mode explains them when the quiz is done.</div></div>
+              </div>
+            </Row>
+            <div
+              className="btn dashboard-btn btn-special left"
+              onClick={this.startQuiz.bind(this)}
+              >Start quiz!</div>
+              <div className="style-input">
+                <div className="switch">
+                  <label className="style-input">
+                    instant feedback
+                    <input
+                      type="checkbox"
+                      onChange={this.handleStyleChange.bind(this)}
+                    />
+                    <span className="lever"></span>
+                    test format
+                  </label>
+                </div>
               </div>
             </div>
+            <p className="errors">{this.state.errors}</p>
           </div>
-          <p className="errors">{this.state.errors}</p>
-        </div>
-      );
+        );
+      }
     }
   }
 
-  export default QuizSetup;
+  export default graphql(currentUser)(QuizSetup);

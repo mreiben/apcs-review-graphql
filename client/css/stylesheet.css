@@ -220,3 +220,20 @@ textarea:focus, input:focus{
   font-style:italic;
   margin-left: 20px;
 }
+
+.comment-holder{
+  border: 1px solid #DDDDDD;
+  border-radius: 3px;
+}
+
+.comment{
+  border-bottom: 1px solid #DDDDDD;
+  padding: 5px 5px 5px 20px;
+  white-space: pre-line;
+}
+
+.comment i {
+  color: #f44336;
+  float: right;
+  cursor: hand;
+}

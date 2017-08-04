@@ -51,8 +51,8 @@ const Root = () => {
           <Route path="/practice" component={requireAuth(QuizSetup)} />
           <Route path="/profile" component={requireAuth(UserProfile)} />
           <Route path="/edit/:id" component={requireAuth(QuestionEditForm)} />
-          <Route path="/quiz/topics=:topics&number=:number&strict=:strict&style=:style" component={requireAuth(QuizHolder)} />
-          <Route path="/quizresults/id=:id" component={requireAuth(QuizResults)} />
+          <Route path="/quiz/name=:name&topics=:topics&number=:number&strict=:strict&style=:style" component={requireAuth(QuizHolder)} />
+          <Route path="/quizresults/id=:id&name=:name" component={requireAuth(QuizResults)} />
           {/* <Route path='/404' component={NotFound} />
           <Redirect from='*' to='/404' /> */}
         </Route>

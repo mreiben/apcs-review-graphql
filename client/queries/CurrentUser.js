@@ -1,17 +1,17 @@
 import gql from 'graphql-tag';
 
 export default gql`
-{
-  user {
-    id
-    email
-    name
-    questions{
+  query currentUser{
+    user {
       id
-    }
-    quizzes{
-      id
+      email
+      name
+      questions{
+        id
+      }
+      quizzes{
+        id
+      }
     }
   }
-}
 `;

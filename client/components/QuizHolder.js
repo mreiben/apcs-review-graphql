@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import query from '../queries/GetQuestionsWithTopics';
+import currentUser from '../queries/CurrentUser';
 import { Preloader } from 'react-materialize';
 import QuizView from './QuizView.js';
 
@@ -24,6 +25,7 @@ class QuizHolder extends Component {
           strict={this.props.params.strict}
           style={this.props.params.style}
           topics={this.props.params.topics}
+          user={this.props.data.user}
         />
       );
     }

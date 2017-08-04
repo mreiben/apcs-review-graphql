@@ -72,12 +72,29 @@ QuestionSchema.statics.addVote = function(qId, userId, vote){
   )
 }
 
-QuestionSchema.statics.addComment = function(qId, comment){
+QuestionSchema.statics.addCommentToQuestion = function(qId, comment){
   return (this.find({_id: qId}))
     .then((question) => {
       let comments = question[0].comments;
       comments.push(comment);
 
+      this.update(
+        {_id: qId},
+        {
+          comments: comments
+        }
+      ).then(
+        (status) => { return this.find({_id: qId }); }
+      )
+    })
+}
+
+QuestionSchema.statics.removeCommentFromQuestion = function(qId, comment){
+  return (this.find({_id: qId}))
+    .then((question) => {
+      let comments = question[0].comments;
+      let commentIndex = comments.indexOf(comment);
+      let newComments = comments.splice(commentIndex, commentIndex + 1);
       this.update(
         {_id: qId},
         {

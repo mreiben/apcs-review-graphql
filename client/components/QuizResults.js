@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import query from '../queries/GetQuizById';
+import { graphql, compose } from 'react-apollo';
+import getQuizById from '../queries/GetQuizById';
+import currentUser from '../queries/CurrentUser';
 import { Preloader } from 'react-materialize';
 import { Link } from 'react-router';
 import ReactMarkdown from 'react-markdown';
@@ -27,6 +28,7 @@ class QuizResults extends Component {
     let qId = quiz.questionIds[i];
     let topics = quiz.questionTopics[i].join(", ");
     let userId = quiz.userId;
+    let userName = this.props.params.name;
 
     return <ResultQuestionView
         key={i}
@@ -39,6 +41,7 @@ class QuizResults extends Component {
         topics={topics}
         qId={qId}
         userId={userId}
+        userName={userName}
       />
   }
 
@@ -139,7 +142,7 @@ class QuizResults extends Component {
   }
 }
 
-export default graphql(query, {
+export default graphql(getQuizById, {
   options: (ownProps) => ({
     variables: {
       id: ownProps.params.id

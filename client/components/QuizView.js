@@ -104,7 +104,8 @@ class QuizView extends Component {
     }
     else{
       let question = this.state.questions[this.state.currentQuestionIndex];
-      let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, upVoters, downVoters, userName } = question;
+      let userName = this.props.data.user.name;
+      let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, upVoters, downVoters, lastUpdate } = question;
       let style = this.props.style;
       let number = this.state.currentQuestionIndex + 1;
       return(
@@ -137,6 +138,7 @@ class QuizView extends Component {
   }
 
   onAnswerSubmit(){
+    let userName = this.props.data.user.name;
     let i = this.state.currentQuestionIndex;
     let { userAnswers, correctAnswers } = this.state;
     userAnswers.push(this.state.currentAnswer);
@@ -165,7 +167,7 @@ class QuizView extends Component {
       }) //reroute to user quiz results view
       .then((quizResult) => {
           const quizId = quizResult.data.createQuiz.id;
-          hashHistory.push(`/quizresults/id=${quizId}`);
+          hashHistory.push(`/quizresults/id=${quizId}&name=${userName}`);
         }
       );
     }
