@@ -13,6 +13,7 @@ export default gql`
       userId
       explanations
       id
+      date
     }
   }
 `;

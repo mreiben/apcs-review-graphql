@@ -25,18 +25,18 @@ class UserProfile extends Component {
 
   render(){
 
-    if(this.props.data.loading){ return <Preloader size='small' flashing /> }
+    if(!this.props.data.user){ return <Preloader size='small' flashing /> }
     else{
 
       let questions = this.props.data.user.questions;
       let qCount = questions.length;
       let pages = Math.ceil(qCount / 5);
-      let p = this.state.questionPage - 1;
+      let p = (this.state.questionPage - 1) * 5;
       let subQuestions = questions.slice(p, p + 5);
 
       let quizzes = this.props.data.user.quizzes;
       let quizPages = Math.ceil(this.props.data.user.quizzes.length / 2);
-      let q = this.state.quizPage -1;
+      let q = (this.state.quizPage -1) * 2;
       let subQuizzes = quizzes.slice(q, q + 2);
 
       return(

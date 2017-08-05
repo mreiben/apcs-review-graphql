@@ -12,7 +12,8 @@ const QuizSchema = new Schema({
   questionTopics: [[String]],
   explanations: [String],
   correct: Number,
-  userId: String
+  userId: String,
+  date: String
 });
 
 mongoose.model('quiz', QuizSchema);

@@ -63,7 +63,8 @@ const mutation = new GraphQLObjectType({
       },
       resolve(parentValue, { prompts, codes, questionIds, userAnswers, correctAnswers, explanations, questionTopics, correct }, req){
         const userId = req.user.id;
-        return( new Quiz( { prompts, codes, questionIds, userAnswers, correctAnswers, explanations, questionTopics, correct, userId }) ).save()
+        const date = new Date().toString();
+        return( new Quiz( { prompts, codes, questionIds, userAnswers, correctAnswers, explanations, questionTopics, correct, userId, date }) ).save()
         .then((q) =>{
           User.addQuizToUser(userId, q);
           return q;

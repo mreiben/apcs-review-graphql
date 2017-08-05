@@ -38,11 +38,12 @@ class QuizInfo extends Component {
     else{
       let quiz = this.props.data.quizById;
       let qId = quiz.id;
+      let date = quiz.date;
 
       return(
         <div className="">
           {/* quiz info here */}
-          <p className="collection-item">Date: </p>
+          <p className="collection-item">Date: {date}</p>
           <p className="collection-item">Topics: {this.getTopics()}</p>
         </div>
       )
