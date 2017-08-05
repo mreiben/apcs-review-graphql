@@ -278,3 +278,12 @@ textarea:focus, input:focus{
   color: white;
   font-weight: bold;
 }
+
+.icon-right{
+  float: right;
+  cursor: hand;
+}
+
+.icon-right:hover{
+  color: #005cb2;
+}

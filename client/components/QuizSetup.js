@@ -99,7 +99,7 @@ class QuizSetup extends Component {
       { value: 'recursive functions', label: 'recursive functions' },
     ];
     if(this.props.data.loading){
-      <Preloader size='big' />
+      return <Preloader size='big' />
     }
     else{
       return(

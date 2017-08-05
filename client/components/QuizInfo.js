@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import getQuizById from '../queries/GetQuizById';
-import currentUser from '../queries/CurrentUser';
 import { CollapsibleItem, Icon, Preloader } from 'react-materialize';
 import ReactMarkdown from 'react-markdown';
+import { hashHistory } from 'react-router';
 
 class QuizInfo extends Component {
   constructor(props){
@@ -25,6 +25,13 @@ class QuizInfo extends Component {
       }
     }
     return topics.sort().join(", ");
+  }
+
+  onReplayClick(){
+    let quiz = this.props.data.quizById;
+    let number = quiz.correctAnswers.length;
+    let topics = this.getTopics().split(", ").join(",");
+    hashHistory.push(`/quiz/name=${this.props.name}&topics=${topics}&number=${number}&strict=false&style=feedback`);
   }
 
   renderInfo(){
@@ -52,9 +59,14 @@ class QuizInfo extends Component {
 
       return(
         <div className={headingColor}>
-          <p className="collection-item">{heading}</p>
-          <p className="collection-item">Topics: {this.getTopics()}</p>
-          <p className="collection-item">Date: {date}</p>
+          <p className="collection-item">{heading}
+            <i
+              className="material-icons icon-right"
+              onClick={() => {this.onReplayClick()}}
+              >replay</i>
+          </p>
+          <p className="collection-item"><span className="resultCat">Topics: </span>{this.getTopics()}</p>
+          <p className="collection-item"><span className="resultCat">Date: </span>{date}</p>
         </div>
       )
     }

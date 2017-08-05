@@ -62,7 +62,7 @@ class UserProfile extends Component {
             maxButtons={5}
             onSelect={(p) => {this.handleQuizPageSelect(p)}}
           />
-          <UserQuizzes quizzes={subQuizzes} />
+          <UserQuizzes quizzes={subQuizzes} name={this.props.data.user.name}/>
         </div>
       );
     }
