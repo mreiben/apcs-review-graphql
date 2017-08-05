@@ -32,7 +32,7 @@ class Question extends Component {
     let up = upVoters.length;
     let down = downVoters.length;
     let rating = ((up + 5)/(up + down + 5)*5).toFixed(1);
-    return `Current Rating: ${rating}/5.0`;
+    return `${rating}/5.0`;
   }
 
   shuffle(array){
@@ -67,11 +67,11 @@ class Question extends Component {
       return(
         <div className="question-info">
           <div className="section">
-            <p>Topics: {topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
-            <p>Explanation: </p>
+            <p><span className="resultCat">Topics: </span>{topics.map((topic)=>{return <span className="topic-box" key={topic}>{topic}</span>})}</p>
+            <p><span className="resultCat">Explanation: </span></p>
             <ReactMarkdown source={explanation} />
-            <p>rating: {this.renderRating(upVoters, downVoters)}</p>
-            <p>Created by: {userName}</p>
+            <p><span className="resultCat">Current Rating: </span>{this.renderRating(upVoters, downVoters)}</p>
+            <p><span className="resultCat">Created by: </span>{userName}</p>
           </div>
         </div>
       );

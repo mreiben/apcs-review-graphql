@@ -18,9 +18,20 @@ class QuizHolder extends Component {
       return <Preloader size='big' />
     }
     else{
+      //remove questions with low ratings
+      let questions = this.props.data.questionsWithTopics.map((question) =>{
+        let up = question.upVoters.length;
+        let down = question.upVoters.length;
+        let rating = (up + 5)/(up + down + 5) * 5;
+        if(rating >= 3){
+          return question;
+        }
+      });
+
+
       return(
         <QuizView
-          questions={this.props.data.questionsWithTopics}
+          questions={questions}
           number={this.props.params.number}
           strict={this.props.params.strict}
           style={this.props.params.style}

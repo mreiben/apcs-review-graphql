@@ -80,9 +80,7 @@ class QuestionInfo extends Component {
     renderInfo(){
       if(this.props.data.loading){
         return(
-          <div className="progress">
-            <div className="indeterminate"></div>
-          </div>
+          <div className="collection-item"><Preloader size='small' flashing /></div>
         )
       }
       else{
