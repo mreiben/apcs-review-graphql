@@ -249,3 +249,14 @@ textarea:focus, input:focus{
 .green-icon{
   color: #26A69A;
 }
+
+.pagination li.active{
+  background-color: #1e88e5;
+}
+
+.quiz-info-box{
+  width: 400px;
+  display: inline-block;
+  margin-right: 20px;
+  vertical-align: top;
+}

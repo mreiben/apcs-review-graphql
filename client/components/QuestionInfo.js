@@ -22,9 +22,9 @@ class QuestionInfo extends Component {
 
   componentWillMount(){
     this.state = {
-      showModat: false
+      showModal: false
     }
-    this.forceUpdate();
+    //this.forceUpdate();
   }
 
   handleOpenModal() {

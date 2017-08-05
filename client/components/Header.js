@@ -31,7 +31,7 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper #1e88e5 blue darken-1">
-          <Link to="/dashboard" className="brand-logo center">APCS Multiple-Choice Review</Link>
+          <Link to="/dashboard" className="brand-logo center">APCS Multiple Choice Review</Link>
           <ul className="right">
             {this.renderButtons()}
           </ul>
