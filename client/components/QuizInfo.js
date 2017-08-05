@@ -39,12 +39,22 @@ class QuizInfo extends Component {
       let quiz = this.props.data.quizById;
       let qId = quiz.id;
       let date = quiz.date;
+      let score = Math.ceil((quiz.correct / quiz.correctAnswers.length)* 100);
+      let heading = `${quiz.correctAnswers.length} questions, score: ${score}`;
+      let headingColor;
+      if(score < 60){
+        headingColor = "heading-red";
+      } else if(score < 80){
+        headingColor = "heading-orange";
+      } else {
+        headingColor = "heading-green";
+      }
 
       return(
-        <div className="">
-          {/* quiz info here */}
-          <p className="collection-item">Date: {date}</p>
+        <div className={headingColor}>
+          <p className="collection-item">{heading}</p>
           <p className="collection-item">Topics: {this.getTopics()}</p>
+          <p className="collection-item">Date: {date}</p>
         </div>
       )
     }

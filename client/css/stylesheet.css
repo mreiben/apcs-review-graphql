@@ -260,3 +260,21 @@ textarea:focus, input:focus{
   margin-right: 20px;
   vertical-align: top;
 }
+
+.heading-red p:first-of-type{
+  background-color: #f44336;
+  color: white;
+  font-weight: bold;
+}
+
+.heading-orange p:first-of-type{
+  background-color: #ff8016;
+  color: white;
+  font-weight: bold;
+}
+
+.heading-green p:first-of-type{
+  background-color: #26A69A;
+  color: white;
+  font-weight: bold;
+}
