@@ -79,7 +79,7 @@ textarea:focus, input:focus{
   background-color: #005cb2;
 }
 
-.btn-special:hover{
+.btn-special:hover, .btn-special-light, .btn-special-light:hover{
   background-color: #1e88e5;
 }
 
@@ -255,7 +255,7 @@ textarea:focus, input:focus{
 }
 
 .quiz-info-box{
-  width: 400px;
+  width: 350px;
   display: inline-block;
   margin-right: 20px;
   vertical-align: top;
@@ -286,4 +286,24 @@ textarea:focus, input:focus{
 
 .icon-right:hover{
   color: #005cb2;
+}
+
+.footer{
+  color: #005cb2;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  bottom: 0;
+}
+
+.trademark{
+  font-style: italic;
+}
+
+.topics-list li{
+  display: block;
+  width: 50%;
+  float: left;
+  padding-left: 20px;
+  font-style: italic;
 }

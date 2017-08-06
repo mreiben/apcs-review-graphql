@@ -17,6 +17,7 @@ import QuizHolder from './components/QuizHolder';
 import QuizResults from './components/QuizResults';
 import NotFound from './components/NotFound';
 import UserProfile from './components/UserProfile';
+import AboutTest from './components/AboutTest';
 import './css/stylesheet.css';
 import 'react-select/dist/react-select.css';
 
@@ -47,6 +48,7 @@ const Root = () => {
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignupForm} />
           <Route path="/dashboard" component={requireAuth(Dashboard)} />
+          <Route path="/about-test" component={AboutTest} />
           <Route path="/create" component={requireAuth(QuestionForm)} />
           <Route path="/practice" component={requireAuth(QuizSetup)} />
           <Route path="/profile" component={requireAuth(UserProfile)} />

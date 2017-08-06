@@ -42,7 +42,11 @@ class UserProfile extends Component {
       return(
         <div>
           <div className="section">
-            <Link to="/dashboard" className="btn btn-special">Back</Link>
+            <Link to="/dashboard" className="btn dashboard-btn  btn-special">Dashboard</Link>
+            <Link to="/create" className="btn dashboard-btn  btn-special">Create Question</Link>
+            <Link to="/practice" className="btn dashboard-btn  btn-special">Practice</Link>
+            <Link to="/profile" className="btn dashboard-btn  btn-special-light">Profile</Link>
+            <Link to="/about-test" className="btn dashboard-btn  btn-special">Test Info</Link>
           </div>
           <h3>User Profile: {this.props.data.user.name}</h3>
           <h5>Email: {this.props.data.user.email}</h5>

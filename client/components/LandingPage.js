@@ -11,7 +11,7 @@ class LandingPage extends Component {
     if(!user){
       return(
         <div>
-          <h3>AP Computer Science is hard...</h3>
+          <h3>AP® Computer Science is hard...</h3>
           <h5>Even worse, it's hard to find multiple-choice questions to practice on.</h5>
           <p>This app aims to solve that problem by allowing users to create,
           review, and practice with test-level questions.</p>
