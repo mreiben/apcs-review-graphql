@@ -31,7 +31,7 @@ class Dashboard extends Component {
 
       return(
         <div>
-          <div className="section">
+          <div className="section nav-holder">
             <Link to="/dashboard" className="btn dashboard-btn  btn-special-light">Dashboard</Link>
             <Link to="/create" className="btn dashboard-btn  btn-special">Create Question</Link>
             <Link to="/practice" className="btn dashboard-btn  btn-special">Practice</Link>
@@ -51,7 +51,10 @@ class Dashboard extends Component {
               <h5 className="collection-item">App facts</h5>
               <p className="collection-item">some stats here</p>
               </div>
-
+            </div>
+            <div className="footer">
+              <p>Copyright © 2017 Jason Eiben</p>
+              {/* <p className="trademark">AP® is a trademark owned by the College Board, which is not affiliated with, and does not endorse, this site.</p> */}
             </div>
           </div>
         );

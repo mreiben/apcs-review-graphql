@@ -41,7 +41,7 @@ class UserProfile extends Component {
 
       return(
         <div>
-          <div className="section">
+          <div className="section nav-holder">
             <Link to="/dashboard" className="btn dashboard-btn  btn-special">Dashboard</Link>
             <Link to="/create" className="btn dashboard-btn  btn-special">Create Question</Link>
             <Link to="/practice" className="btn dashboard-btn  btn-special">Practice</Link>
