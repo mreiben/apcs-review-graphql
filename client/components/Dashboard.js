@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import query from '../queries/CurrentUser';
+import { graphql, compose } from 'react-apollo';
+import getQuestions from '../queries/GetQuestions';
+import getQuizzes from '../queries/GetQuizzes';
 import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
 
@@ -9,14 +10,12 @@ import Countdown from 'react-countdown-now';
 class Dashboard extends Component {
 
   render(){
-    const { loading, user } = this.props.data;
-    if(loading){ return <div />; }
+    const { loading } = this.props.data;
+    const quizzes = this.props.Quizzes;
+    const questions = this.props.Questions;
 
-    if(!user){
-      return(
-        <p>Sign up or sign in to get started!</p>
-      );
-    }
+    if(loading || !quizzes || !questions){ return <div />; }
+
     else {
 
       const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -55,7 +54,8 @@ class Dashboard extends Component {
               evaluate, and practice with test-level questions - so please write one today!</p>
             <div className="collection">
               <h5 className="collection-item">App facts</h5>
-              <p className="collection-item">some stats here</p>
+              <p className="collection-item">Available Questions: {questions.questions.length}</p>
+              <p className="collection-item">Quizzes Taken: {quizzes.quizzes.length}</p>
             </div>
           </div>
           <div className="footer">
@@ -67,5 +67,12 @@ class Dashboard extends Component {
     }
   }
 }
+//
+// export default graphql(getQuizzes)(
+//   graphql(getQuestions)(Dashboard)
+// );
 
-export default graphql(query)(Dashboard);
+export default compose(
+  graphql(getQuizzes, {name: "Quizzes"}),
+  graphql(getQuestions, {name: "Questions"})
+)(Dashboard);

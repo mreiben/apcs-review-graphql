@@ -47,17 +47,17 @@ const RootQueryType = new GraphQLObjectType({
         }
       }
     },
+    quizzes: {
+      type: new GraphQLList(QuizType),
+      resolve(parentValue, args){
+        return Quiz.find({});
+      }
+    },
     quizById: {
       type: QuizType,
       args: { id: { type: GraphQLID } },
       resolve(parentValue, { id }){
         return Quiz.findById(id);
-      }
-    },
-    quizzes: {
-      type: new GraphQLList(QuizType),
-      resolve(parentValue, args){
-        return Quiz.find({});
       }
     }
   })
