@@ -27,6 +27,24 @@ class QuestionEditForm extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.state.prompt == '' && this.state.explanation == ''){
+      let question = nextProps.data.question;
+      this.setState({
+        prompt: question.prompt,
+        code: question.code,
+        answer1: question.answer1,
+        answer2: question.answer2,
+        answer3: question.answer3,
+        answer4: question.answer4,
+        answer5: question.answer5,
+        correct: question.correct,
+        explanation: question.explanation,
+        topics: question.topics
+      })
+    }
+  }
+
   onSubmit(event){
     event.preventDefault();
     const { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, topics, explanation } = this.state;
@@ -183,6 +201,7 @@ class QuestionEditForm extends Component {
             options={questionTopics}
             allowCreate={true}
             onChange={this.updateTopics.bind(this)}
+            className="section"
           />
           <label>Old explanation: {this.props.data.question.explanation}</label>
           <div className="input-field">
