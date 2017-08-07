@@ -143,7 +143,7 @@ class QuizView extends Component {
     let { userAnswers, correctAnswers } = this.state;
     userAnswers.push(this.state.currentAnswer);
     correctAnswers.push(this.state.questions[i].correct);
-    if(this.state.currentQuestionIndex == this.props.number -1){
+    if(this.state.currentQuestionIndex == this.props.questions.length -1){
       this.setState({
         userAnswers: userAnswers,
         correctAnswers: correctAnswers,

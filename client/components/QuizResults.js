@@ -121,6 +121,10 @@ class QuizResults extends Component {
         <div>
           <div className="section">
             <Link to="/dashboard" className="btn dashboard-btn  btn-special z-depth-0">Dashboard</Link>
+            <Link to="/create" className="btn dashboard-btn  btn-special">Create Question</Link>
+            <Link to="/practice" className="btn dashboard-btn  btn-special">Practice</Link>
+            <Link to="/profile" className="btn dashboard-btn  btn-special">Profile</Link>
+            <Link to="/about-test" className="btn dashboard-btn  btn-special">Test Info</Link>
           </div>
           <h3>Quiz Results: {this.renderPercentage()}%</h3>
           <BarChart width={700} height={500} data={data}
