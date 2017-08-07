@@ -29,15 +29,23 @@ class UserProfile extends Component {
     else{
 
       let questions = this.props.data.user.questions;
+      let reversedQuestions = [];
+      questions.forEach((q) =>{
+        reversedQuestions.unshift(q);
+      });
       let qCount = questions.length;
       let pages = Math.ceil(qCount / 5);
       let p = (this.state.questionPage - 1) * 5;
-      let subQuestions = questions.slice(p, p + 5);
+      let subQuestions = reversedQuestions.slice(p, p + 5);
 
       let quizzes = this.props.data.user.quizzes;
+      let reversedQuizzes = [];
+      quizzes.forEach((q) =>{
+        reversedQuizzes.unshift(q);
+      });
       let quizPages = Math.ceil(this.props.data.user.quizzes.length / 2);
       let q = (this.state.quizPage -1) * 2;
-      let subQuizzes = quizzes.slice(q, q + 2);
+      let subQuizzes = reversedQuizzes.slice(q, q + 2);
 
       return(
         <div>
