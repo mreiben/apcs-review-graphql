@@ -4,6 +4,7 @@ import getQuestions from '../queries/GetQuestions';
 import getQuizzes from '../queries/GetQuizzes';
 import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
+import FontAwesome from 'react-fontawesome';
 
 //wrapped by requireAuth in index.js routes
 
@@ -11,8 +12,8 @@ class Dashboard extends Component {
 
   render(){
     const { loading } = this.props.data;
-    const quizzes = this.props.Quizzes;
-    const questions = this.props.Questions;
+    const quizzes = this.props.Quizzes.quizzes;
+    const questions = this.props.Questions.questions;
 
     if(loading || !quizzes || !questions){ return <div />; }
 
@@ -48,18 +49,18 @@ class Dashboard extends Component {
           </div>
           <div>
             <p>Welcome back! This site was designed to allow students and teachers to create, share,
-              and practice on multiple choice questions for the APCS exam.  While it is easy to find
+              and practice on multiple choice questions for the APCS exam.  While it's easy to find
               more than a decade's worth of Free Response questions, very few multiple choice questions
               are released by the College Board. This free resource is only useful if users actually create
               evaluate, and practice with test-level questions - so please write one today!</p>
             <div className="collection">
               <h5 className="collection-item">App facts</h5>
-              <p className="collection-item">Available Questions: {questions.questions.length}</p>
-              <p className="collection-item">Quizzes Taken: {quizzes.quizzes.length}</p>
+              <p className="collection-item">Available Questions: {questions.length}</p>
+              <p className="collection-item">Quizzes Taken: {quizzes.length}</p>
             </div>
           </div>
           <div className="footer">
-            <p>Copyright © 2017 Jason Eiben</p>
+            <p>Copyright © 2017 Jason Eiben <a href="https://github.com/mreiben/apcs-review-graphql"><FontAwesome name='github' /></a></p>
             {/* <p className="trademark">AP® is a trademark owned by the College Board, which is not affiliated with, and does not endorse, this site.</p> */}
           </div>
         </div>

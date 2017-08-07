@@ -53,7 +53,6 @@ class QuestionInfo extends Component {
   }
 
   handleCommentDelete(message){
-    console.log("deleting comment with message: ", message);
     let qId = this.props.id;
     this.props.removeComment({
       variables: { qId: qId, message: message },

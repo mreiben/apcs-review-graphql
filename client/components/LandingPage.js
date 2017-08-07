@@ -3,6 +3,7 @@ import Header from './Header';
 import { graphql } from 'react-apollo';
 import query from '../queries/CurrentUser';
 import { Link, hashHistory } from 'react-router';
+import FontAwesome from 'react-fontawesome';
 
 class LandingPage extends Component {
 
@@ -33,7 +34,7 @@ class LandingPage extends Component {
       <div>
         {this.renderLanding(loading, user)}
         <div className="footer">
-          <p>Copyright © 2017 Jason Eiben</p>
+          <p>Copyright © 2017 Jason Eiben <a href="https://github.com/mreiben/apcs-review-graphql"><FontAwesome name='github' /></a></p>
           {/* <p className="trademark">AP® is a trademark owned by the College Board, which is not affiliated with, and does not endorse, this site.</p> */}
         </div>
       </div>

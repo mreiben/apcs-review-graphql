@@ -306,6 +306,13 @@ textarea:focus, input:focus{
   height: 50px;
 }
 
+.footer a{
+  font-size: 30px;
+  margin-left: 20px;
+  color: #005cb2;
+  vertical-align:middle;
+}
+
 .trademark{
   font-style: italic;
 }
