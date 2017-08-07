@@ -140,7 +140,7 @@ class QuizSetup extends Component {
                   onClick={this.onStrictClick.bind(this)}
                 />
                 <label className="active strict-button" htmlFor="strict-input">strict mode</label>
-                <div className="strict-info">Strict mode requires questions to include all selected topics!</div>
+                <div className="strict-info">Strict mode requires questions to only include selected topics!</div>
                 <div className="style-info"><div>Feedback mode explains answers as you take the quiz.</div><div>Test mode explains them when the quiz is done.</div></div>
               </div>
             </Row>

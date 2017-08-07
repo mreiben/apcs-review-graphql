@@ -37,10 +37,22 @@ const RootQueryType = new GraphQLObjectType({
         topics: { type: new GraphQLList(GraphQLString) },
         strict: { type: GraphQLBoolean }
       },
+
       resolve(parentValue, {topics, strict}){
         topics = topics.sort();
         if(strict){
-          return Question.find({ topics: topics });
+
+          badTopics = [
+            "arithmetic", "data types", "boolean logic", "nested boolean logic", "memory allocation",
+            "arrays", "2D arrays", "ArrayLists", "loops", "nested loops", "functions", "string methods",
+            "classes", "inheritance", "interfaces", "recursive functions"
+          ];
+
+          topics.forEach((topic) =>{
+            topicIndex = badTopics.indexOf(topic);
+            badTopics.splice(topicIndex, 1);
+          });
+          return Question.find({ topics: { $nin: badTopics }})
         }
         else{
           return Question.find({ topics: { $in: topics }});
