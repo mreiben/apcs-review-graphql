@@ -208,6 +208,11 @@ textarea:focus, input:focus{
   color: white;
 }
 
+.dashboard-data-holder h5:first-of-type{
+  background-color: #1e88e5;
+  color: white;
+}
+
 .chart-holder{
   width: 60%;
   height: 400px;

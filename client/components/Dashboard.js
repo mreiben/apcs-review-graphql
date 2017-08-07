@@ -91,29 +91,31 @@ class Dashboard extends Component {
               more than a decade's worth of Free Response questions, very few multiple choice questions
               are released by the College Board. This free resource is only useful if users actually create
               evaluate, and practice with test-level questions - so please write one today!</p>
-            <div className="collection">
-              <h5 className="collection-item">App Stats</h5>
-              <p className="collection-item">Quizzes Taken: {quizzes.length}</p>
-              <div className="collection-item">
-                <p>Available Questions: {questions.length}</p>
-                <PieChart width={800} height={425}>
-                  <Pie
-                    data={countedTopics}
-                    dataKey='value'
-                    nameKey='topic'
-                    valueKey='value'
-                    cx={200}
-                    cy={200}
-                    innerRadius={75}
-                    outerRadius={175}
-                  >
-                  {
-                    countedTopics.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
-                  }
-                  </Pie>
-                  <Legend align='right' verticalAlign='middle' width={300} layout='vertical'/>
-                  <Tooltip />
-                </PieChart>
+            <div className="dashboard-data-holder">
+              <div className="collection">
+                <h5 className="collection-item">App Stats</h5>
+                <div className="collection-item">Quizzes Taken: {quizzes.length}</div>
+                <div className="collection-item">
+                  Available Questions: {questions.length}
+                  <PieChart width={800} height={400}>
+                    <Pie
+                      data={countedTopics}
+                      dataKey='value'
+                      nameKey='topic'
+                      valueKey='value'
+                      cx={200}
+                      cy={200}
+                      innerRadius={75}
+                      outerRadius={175}
+                    >
+                    {
+                      countedTopics.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]}/>)
+                    }
+                    </Pie>
+                    <Legend align='right' verticalAlign='middle' width={300} layout='vertical'/>
+                    <Tooltip />
+                  </PieChart>
+                </div>
               </div>
             </div>
           </div>
