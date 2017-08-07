@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import query from '../queries/GetQuestionById';
+import { graphql, compose } from 'react-apollo';
+import getQuestionById from '../queries/GetQuestionById';
 import currentUser from '../queries/CurrentUser';
 import { CollapsibleItem, Icon, Modal, Preloader } from 'react-materialize';
 import ReactMarkdown from 'react-markdown';
 import questionDelete from '../mutations/QuestionDelete';
+import removeComment from '../mutations/RemoveCommentFromQuestion';
 import ReactModal from 'react-modal';
 import { hashHistory } from 'react-router';
 
@@ -41,7 +42,7 @@ class QuestionInfo extends Component {
 
   deleteQuestion(){
     const id = this.props.id;
-    this.props.mutate({
+    this.props.questionDelete({
       variables: { id: id },
       refetchQueries: [
         {
@@ -51,8 +52,16 @@ class QuestionInfo extends Component {
     }).then(this.handleCloseModal())
   }
 
-  handleCommentDelete(){
-    console.log("deleting comment...");
+  handleCommentDelete(message){
+    console.log("deleting comment with message: ", message);
+    let qId = this.props.id;
+    this.props.removeComment({
+      variables: { qId: qId, message: message },
+      refetchQueries: [{
+        query: getQuestionById,
+        variables: { id: qId }
+      }]
+    })
   }
 
   renderComments(comments){
@@ -64,7 +73,7 @@ class QuestionInfo extends Component {
         let userName = comment.substring(0, comment.indexOf(":"));
         let message = comment.substring(comment.indexOf(":")+ 1);
         return (
-          <div key={comment} className="comment" key={comment}>
+          <div key={comment} className="comment">
             <i
               className="material-icons danger-icon"
               onClick={()=>{this.handleCommentDelete(comment)}}
@@ -83,7 +92,7 @@ class QuestionInfo extends Component {
           <div className="collection-item"><Preloader size='small' flashing /></div>
         )
       }
-      else{
+      else {
         let question = this.props.data.question;
         let up = question.upVoters.length;
         let down = question.downVoters.length;
@@ -142,32 +151,42 @@ class QuestionInfo extends Component {
                 contentLabel="Delete Warning"
                 style={modalStyle}
                 >
-                  <h5>Are you sure you want to delete this question?</h5>
-                  <p>This action can't be undone!</p>
-                  <div className="btn btn-special" onClick={this.handleCloseModal}>Cancel</div>
-                  <div className="btn btn-danger" onClick={this.deleteQuestion}>I'm sure, delete!</div>
-                </ReactModal>
-              </div>
-            </CollapsibleItem>
-          )
-        }
-      }
-
-      render(){
-        return(
-          <div className="collection-item">
-            {this.renderInfo()}
+              <h5>Are you sure you want to delete this question?</h5>
+              <p>This action can't be undone!</p>
+              <div className="btn btn-special" onClick={this.handleCloseModal}>Cancel</div>
+              <div className="btn btn-danger" onClick={this.deleteQuestion}>I'm sure, delete!</div>
+            </ReactModal>
           </div>
-        )
-      }
-    }
-
-    export default graphql(currentUser)(
-      graphql(questionDelete, {
-        options: (props) => ({ variables: { id: props.id } } )
-      })(
-        graphql(query, {
-          options: (props) => ({ variables: { id: props.id } } )
-        })(QuestionInfo)
+        </CollapsibleItem>
       )
-    );
+    }
+  }
+
+  render(){
+    return(
+      <div className="collection-item">
+        {this.renderInfo()}
+      </div>
+    )
+  }
+}
+
+// export default graphql(currentUser)(
+//   graphql(questionDelete, {
+//     options: (props) => ({ variables: { id: props.id } } )
+//   })(
+//     graphql(getQuestionById, {
+//       options: (props) => ({ variables: { id: props.id } } )
+//     })(QuestionInfo)
+//   )
+// );
+
+//BROKEN!
+export default compose(
+  // graphql(currentUser, { name: 'currentUser' }),
+  graphql(questionDelete, { name: 'questionDelete' }),
+  graphql(removeComment, { name: 'removeComment' }),
+  graphql(getQuestionById, {
+    options: (props) => ({ variables: { id: props.id } } )
+  })
+)(QuestionInfo);

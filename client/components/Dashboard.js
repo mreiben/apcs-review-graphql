@@ -47,7 +47,7 @@ class Dashboard extends Component {
             </h5>
           </div>
           <div>
-            <p>Welcome back! This page is designed to allow students and teachers to create, share,
+            <p>Welcome back! This site was designed to allow students and teachers to create, share,
               and practice on multiple choice questions for the APCS exam.  While it is easy to find
               more than a decade's worth of Free Response questions, very few multiple choice questions
               are released by the College Board. This free resource is only useful if users actually create

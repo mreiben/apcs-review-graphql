@@ -98,7 +98,7 @@ QuestionSchema.statics.removeCommentFromQuestion = function(qId, comment){
       this.update(
         {_id: qId},
         {
-          comments: comments
+          comments: newComments
         }
       ).then(
         (status) => { return this.find({_id: qId }); }
