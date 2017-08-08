@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js --ignore client",
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
