@@ -82,6 +82,7 @@ textarea:focus, input:focus{
 
 .btn-special:hover, .btn-special-light, .btn-special-light:hover{
   background-color: #1e88e5;
+  padding: 0 1rem;
 }
 
 .btn-danger{
