@@ -45,6 +45,13 @@ class Dashboard extends Component {
     return topicsArr;
   }
 
+  renderMessage(user){
+    if (!user){
+      console.log(user);
+      return <p>Please <a href="/#/login">log in</a> or <a href="/#/signup">create an account</a> if you want to create a question or complete a practice quiz!</p>;
+    }
+  }
+
   render() {
 
     const quizzes = this.props.Quizzes.quizzes;
@@ -91,7 +98,7 @@ class Dashboard extends Component {
               more than a decade's worth of Free Response questions, very few multiple choice questions
               are released by the College Board. This free resource is only useful if users actually create,
               evaluate, and practice with test-level questions - so please write one today!</p>
-            <p>Please <a href="/#/login">log in</a> or <a href="/#/signup">create an account</a> if you want to create a question or complete a practice quiz!</p>
+            {this.renderMessage(this.props.CurrentUser.user)}
             <div className="dashboard-data-holder">
               <div className="collection">
                 <h5 className="collection-item">App Stats</h5>
