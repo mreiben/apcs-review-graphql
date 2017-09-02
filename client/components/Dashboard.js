@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
-import getQuestions from '../queries/GetQuestions';
-import getQuizzes from '../queries/GetQuizzes';
 import { Link } from 'react-router';
 import Countdown from 'react-countdown-now';
 import FontAwesome from 'react-fontawesome';
 import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
+import getQuestions from '../queries/GetQuestions';
+import getQuizzes from '../queries/GetQuizzes';
 
 //wrapped by requireAuth in index.js routes
 
 class Dashboard extends Component {
 
-  renderQuestionStats(questions){
+  renderQuestionStats(questions) {
     let topics = {
       "arithmetic": 0,
       "data types": 0,
@@ -34,25 +34,24 @@ class Dashboard extends Component {
     //count questions by topic
     questions.forEach((question) => {
       question.topics.forEach((topic) => {
-        topics[topic] = topics[topic] + 1;
-      })
+        topics[topic] += 1;
+      });
     });
     let topicsArr = [];
     Object.keys(topics).forEach((entry) => {
-      topicsArr.push({topic: entry, value: topics[entry]});
+      topicsArr.push({ topic: entry, value: topics[entry] });
     });
     return topicsArr;
   }
 
-  render(){
+  render() {
     const { loading } = this.props.data;
     const quizzes = this.props.Quizzes.quizzes;
     const questions = this.props.Questions.questions;
 
-    if(loading || !quizzes || !questions){ return <div />; }
-
-    else {
-
+    if (loading || !quizzes || !questions) {
+      return <div />;
+    } else {
       const renderer = ({ days, hours, minutes, seconds, completed }) => {
         if (completed) {
           return <span>The 2019 test date has not been announced yet...</span>;

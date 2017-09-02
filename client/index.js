@@ -47,7 +47,7 @@ const Root = () => {
           <IndexRoute component={LandingPage} />
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignupForm} />
-          <Route path="/dashboard" component={requireAuth(Dashboard)} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/about-test" component={AboutTest} />
           <Route path="/create" component={requireAuth(QuestionForm)} />
           <Route path="/practice" component={requireAuth(QuizSetup)} />
