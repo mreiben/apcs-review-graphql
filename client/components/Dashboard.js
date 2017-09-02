@@ -6,6 +6,7 @@ import FontAwesome from 'react-fontawesome';
 import { PieChart, Pie, Legend, Tooltip, Cell } from 'recharts';
 import getQuestions from '../queries/GetQuestions';
 import getQuizzes from '../queries/GetQuizzes';
+import currentUser from '../queries/CurrentUser';
 
 //wrapped by requireAuth in index.js routes
 
@@ -45,11 +46,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { loading } = this.props.data;
+
     const quizzes = this.props.Quizzes.quizzes;
     const questions = this.props.Questions.questions;
 
-    if (loading || !quizzes || !questions) {
+    if (!quizzes || !questions) {
       return <div />;
     } else {
       const renderer = ({ days, hours, minutes, seconds, completed }) => {
@@ -88,8 +89,9 @@ class Dashboard extends Component {
             <p>Welcome back! This site was designed to allow students and teachers to create, share,
               and practice on multiple choice questions for the APCS exam.  While it's easy to find
               more than a decade's worth of Free Response questions, very few multiple choice questions
-              are released by the College Board. This free resource is only useful if users actually create
+              are released by the College Board. This free resource is only useful if users actually create,
               evaluate, and practice with test-level questions - so please write one today!</p>
+            <p>Please <a href="/#/login">log in</a> or <a href="/#/signup">create an account</a> if you want to create a question or complete a practice quiz!</p>
             <div className="dashboard-data-holder">
               <div className="collection">
                 <h5 className="collection-item">App Stats</h5>
@@ -129,5 +131,6 @@ class Dashboard extends Component {
 
 export default compose(
   graphql(getQuizzes, {name: "Quizzes"}),
-  graphql(getQuestions, {name: "Questions"})
+  graphql(getQuestions, {name: "Questions"}),
+  graphql(currentUser, {name: "CurrentUser"})
 )(Dashboard);

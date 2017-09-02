@@ -44,10 +44,10 @@ const Root = () => {
     <ApolloProvider client={client}>
       <Router history={hashHistory}>
         <Route path="/" component={App}>
-          <IndexRoute component={LandingPage} />
+          <IndexRoute component={Dashboard} />
           <Route path="/login" component={LoginForm} />
           <Route path="/signup" component={SignupForm} />
-          <Route path="/dashboard" component={requireAuth(Dashboard)} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/about-test" component={AboutTest} />
           <Route path="/create" component={requireAuth(QuestionForm)} />
           <Route path="/practice" component={requireAuth(QuizSetup)} />
