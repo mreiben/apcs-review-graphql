@@ -62,7 +62,8 @@ const mutation = new GraphQLObjectType({
         correct: { type: GraphQLInt }
       },
       resolve(parentValue, { prompts, codes, questionIds, userAnswers, correctAnswers, explanations, questionTopics, correct }, req){
-        const userId = req.user.id;
+        //if user not logged in, assign quiz results to default account
+        const userId = req.user ? req.user.id : '5984e3237f65c27e08ba8a0f';
         const date = new Date().toString();
         return( new Quiz( { prompts, codes, questionIds, userAnswers, correctAnswers, explanations, questionTopics, correct, userId, date }) ).save()
         .then((q) =>{
@@ -139,7 +140,7 @@ const mutation = new GraphQLObjectType({
         comment: { type: GraphQLString }
       },
       resolve(parentValue, { qId, comment }, req ){
-        let commentWithName = req.user.name + ": " + comment;
+        let commentWithName = req.user ? req.user.name + ": " + comment : "anonymous user: " + comment;
         return Question.addCommentToQuestion( qId, commentWithName )
       }
     },

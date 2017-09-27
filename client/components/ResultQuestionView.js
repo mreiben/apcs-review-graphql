@@ -47,19 +47,34 @@ class ResultQuestionView extends Component {
   }
 
   renderVoteButton(upDown){
-    let upClass = this.state.upVote ? "btn btn-pressed" : "btn";
-    let downClass = this.state.downVote ? "btn btn-red btn-pressed" : "btn btn-red";
-    let finalClass = upDown == "up" ? upClass : downClass;
-    let icon = upDown == "up" ? 'thumb_up' : 'thumb_down';
-    return(
-      <div
-        className={finalClass}
-        onClick={() => {this.handleVote(upDown)}}
-        >
-          <i className="material-icons">{icon}</i>
-        </div>
-      )
+    if(this.props.userName == 'anonymous-user'){
+      let upClass = this.state.upVote ? "btn btn-pressed disabled" : "btn disabled";
+      let downClass = this.state.downVote ? "btn btn-red btn-pressed disabled" : "btn btn-red disabled";
+      let finalClass = upDown == "up" ? upClass : downClass;
+      let icon = upDown == "up" ? 'thumb_up' : 'thumb_down';
+      return(
+        <div
+          className={finalClass}
+          >
+            <i className="material-icons">{icon}</i>
+          </div>
+        )
     }
+    else{
+      let upClass = this.state.upVote ? "btn btn-pressed" : "btn";
+      let downClass = this.state.downVote ? "btn btn-red btn-pressed" : "btn btn-red";
+      let finalClass = upDown == "up" ? upClass : downClass;
+      let icon = upDown == "up" ? 'thumb_up' : 'thumb_down';
+      return(
+        <div
+          className={finalClass}
+          onClick={() => {this.handleVote(upDown)}}
+          >
+            <i className="material-icons">{icon}</i>
+          </div>
+        )
+    }
+  }
 
     handleCommentSubmit(comment){
       let qId = this.props.qId;
@@ -142,6 +157,7 @@ class ResultQuestionView extends Component {
                   <QuestionComment
                     lastUpdate={lastUpdate}
                     handleCommentSubmit={this.handleCommentSubmit}
+                    currentUserName={this.props.userName}
                   />
                 </CollapsibleItem>
               </Collapsible>

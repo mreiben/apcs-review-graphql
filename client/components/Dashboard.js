@@ -48,7 +48,11 @@ class Dashboard extends Component {
   renderMessage(user){
     if (!user){
       console.log(user);
-      return <p>Please <a href="/#/login">log in</a> or <a href="/#/signup">create an account</a> if you want to create a question or complete a practice quiz!</p>;
+      return <p>Please <a href="/#/login">log in</a> or <a href="/#/signup">create
+      an account</a> to get started! You can take practices quizzes without an account,
+      but you can't create questions, track your progress, or leave feeback if you
+      aren't logged in.
+      </p>;
     }
   }
 

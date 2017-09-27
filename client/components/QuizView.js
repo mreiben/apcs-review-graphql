@@ -104,7 +104,7 @@ class QuizView extends Component {
     }
     else{
       let question = this.state.questions[this.state.currentQuestionIndex];
-      let userName = this.props.data.user.name;
+      let userName = this.props.data.user ? this.props.data.user.name : 'anonymous-user';
       let { prompt, code, answer1, answer2, answer3, answer4, answer5, correct, explanation, topics, upVoters, downVoters, lastUpdate } = question;
       let style = this.props.style;
       let number = this.state.currentQuestionIndex + 1;
@@ -138,12 +138,12 @@ class QuizView extends Component {
   }
 
   onAnswerSubmit(){
-    let userName = this.props.data.user.name;
+    let userName = this.props.data.user ? this.props.data.user.name : 'anonymous-user';
     let i = this.state.currentQuestionIndex;
     let { userAnswers, correctAnswers } = this.state;
     userAnswers.push(this.state.currentAnswer);
     correctAnswers.push(this.state.questions[i].correct);
-    if(this.state.currentQuestionIndex == this.props.questions.length -1){
+    if(this.state.currentQuestionIndex == this.props.number - 1){
       this.setState({
         userAnswers: userAnswers,
         correctAnswers: correctAnswers,

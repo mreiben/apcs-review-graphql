@@ -17,13 +17,32 @@ class QuestionComment extends Component {
     this.setState({comment: ""});
   }
 
-  render(){
-    if(this.props.data.loading){
-      return <Preloader size="big" />
+  renderButton(){
+    if(this.props.currentUserName === 'anonymous-user'){
+      <div
+        className="btn btn-special disabled"
+        >Comment</div>
+    }
+    else{
+      return (
+        <div
+          className="btn btn-special"
+          onClick={() => {this.onHandleCommentSubmit()}}
+          >Comment
+        </div>
+      )
+    }
+  }
+
+  renderTextArea(){
+    if(this.props.currentUserName === 'anonymous-user'){
+      return (
+        <div className="errors">Only registered and logged-in users can leave comments or vote for question!</div>
+      )
     }
     else {
-      return(
-        <div className="row collection-item">
+      return (
+        <div>
           <label htmlFor="comment">Add a comment about this question - markdown compatible!</label>
           <textarea
             id="comment"
@@ -32,11 +51,21 @@ class QuestionComment extends Component {
             className="materialize-textarea"
             onChange={(e) => {this.setState({comment: e.target.value})}}
           />
+      </div>
+      )
+    }
+  }
+
+  render(){
+    if(this.props.data.loading){
+      return <Preloader size="big" />
+    }
+    else {
+      return(
+        <div className="row collection-item">
+          {this.renderTextArea()}
           <div className="comment-submit-box">
-            <div
-              className="btn btn-special"
-              onClick={() => {this.onHandleCommentSubmit()}}
-              >Comment</div>
+            {this.renderButton()}
           </div>
         </div>
       )
